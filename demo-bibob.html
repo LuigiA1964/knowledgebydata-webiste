@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIBOB Analyst Pro - Mini Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --accent: #e67e22;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #c0392b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .demo-card h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .step-indicator:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+        .step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .step.active .step-circle {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        .step.completed .step-circle {
+            background: var(--success);
+            color: white;
+        }
+        .step-label {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #e8f4fd;
+        }
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .btn {
+            background: linear-gradient(135deg, var(--accent), #d35400);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+        }
+        .results {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 3px solid var(--primary);
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 3px;
+        }
+        .red-flag {
+            background: #fff3e6;
+            border-left: 3px solid var(--warning);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        .red-flag h4 {
+            color: var(--warning);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        .red-flag p {
+            color: #666;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .badge-warning {
+            background: #fff3e6;
+            color: var(--warning);
+        }
+        .badge-danger {
+            background: #ffebee;
+            color: var(--danger);
+        }
+        .info-footer {
+            text-align: center;
+            background: linear-gradient(135deg, #1e3a5f, #2c5aa0);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .info-footer h3 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .info-footer p {
+            opacity: 0.9;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-shield-alt"></i> BIBOB Analyst Pro Mini-Demo</h1>
+        <p class="subtitle">Ervaar de kernfunctionaliteit in 3 stappen</p>
+        
+        <div class="demo-card">
+            <div class="step-indicator">
+                <div class="step active" id="step1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Upload</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Analyse</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Resultaten</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-card" id="uploadSection">
+            <h2><i class="fas fa-upload"></i> Stap 1: Document Uploaden</h2>
+            <div class="upload-area" onclick="triggerDemo()">
+                <div class="upload-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3>Klik om demo-document te laden</h3>
+                <p style="color: #666; margin-top: 8px; font-size: 0.85rem;">In de echte versie upload je hier Graydon of KvK PDF's</p>
+            </div>
+        </div>
+        
+        <div class="demo-card" id="analyzingSection" style="display: none;">
+            <h2><i class="fas fa-cog fa-spin"></i> Stap 2: Analyse Loopt...</h2>
+            <div style="text-align: center; padding: 30px 15px;">
+                <div style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 style="color: var(--primary); font-size: 1rem;">Intelligente Analyse</h3>
+                <p style="color: #666; margin: 10px 0; font-size: 0.85rem;">Bedrijfsstructuur wordt geanalyseerd...</p>
+                <div style="background: #e0e0e0; height: 6px; border-radius: 3px; margin: 15px auto; max-width: 300px; overflow: hidden;">
+                    <div id="progressBar" style="background: linear-gradient(90deg, var(--primary), var(--accent)); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-card results" id="resultsSection">
+            <h2><i class="fas fa-check-circle" style="color: var(--success);"></i> Stap 3: Analyse Compleet</h2>
+            
+            <div class="result-grid">
+                <div class="stat-box">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Bedrijven</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Personen</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Relaties</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: var(--warning);">6</div>
+                    <div class="stat-label">Red Flags</div>
+                </div>
+            </div>
+            
+            <h3 style="color: var(--primary); margin: 15px 0 10px 0; font-size: 0.95rem;">
+                <i class="fas fa-flag" style="color: var(--warning);"></i> Gedetecteerde Verwonderpunten
+            </h3>
+            
+            <div class="red-flag">
+                <h4><i class="fas fa-exclamation-triangle"></i> CV Rechtsvorm Gedetecteerd</h4>
+                <p>Commanditaire Vennootschap aangetroffen. Commanditaire vennoten kunnen anoniem blijven.</p>
+                <div style="margin-top: 6px;"><span class="badge badge-warning">Hoog Risico</span></div>
+            </div>
+            
+            <div class="red-flag">
+                <h4><i class="fas fa-user-secret"></i> Geen UBO Informatie</h4>
+                <p>Ultimate Beneficial Owner is niet duidelijk. Mogelijk verhulling van eigendomsstructuren.</p>
+                <div style="margin-top: 6px;"><span class="badge badge-danger">Kritiek</span></div>
+            </div>
+            
+            <div class="red-flag">
+                <h4><i class="fas fa-globe"></i> Internationale Verbanden</h4>
+                <p>Relaties met 3 buitenlandse entiteiten (Malta, Cyprus). Verhoogd witwasrisico.</p>
+                <div style="margin-top: 6px;"><span class="badge badge-warning">Hoog Risico</span></div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn" onclick="downloadReport()">
+                    <i class="fas fa-download"></i> Download Demo Rapport
+                </button>
+                <button class="btn" style="background: linear-gradient(135deg, var(--primary), #1565c0);" onclick="resetDemo()">
+                    <i class="fas fa-redo"></i> Opnieuw
+                </button>
+            </div>
+        </div>
+        
+        <div class="demo-card info-footer">
+            <h3><i class="fas fa-star"></i> Dit is een Mini-Demo</h3>
+            <p>De volledige BIBOB Analyst Pro bevat 24+ red flag detecties, PDF parsing, tijdlijn analyse en meer.</p>
+            <p><i class="fas fa-phone"></i> <strong>06-84 82 07 08</strong> • <i class="fas fa-envelope"></i> <strong>info@knowledgebydata.nl</strong></p>
+        </div>
+    </div>
+    
+    <script>
+        function triggerDemo() {
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('analyzingSection').style.display = 'block';
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step1').classList.add('completed');
+            document.getElementById('step2').classList.add('active');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                document.getElementById('progressBar').style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(showResults, 500);
+                }
+            }, 80);
+        }
+        
+        function showResults() {
+            document.getElementById('analyzingSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step2').classList.add('completed');
+            document.getElementById('step3').classList.add('active');
+        }
+        
+        function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Header
+            doc.setFillColor(30, 58, 95);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.text('BIBOB Analyst Pro', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('Demo Analyserapport', 105, 30, { align: 'center' });
+            
+            // Reset text color
+            doc.setTextColor(0, 0, 0);
+            
+            // Company info
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Bedrijfsgegevens', 20, 55);
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(11);
+            doc.text('Bedrijfsnaam: Demo Holding B.V.', 20, 65);
+            doc.text('KvK-nummer: 12345678', 20, 72);
+            doc.text('Rechtsvorm: Besloten Vennootschap', 20, 79);
+            doc.text('Oprichtingsdatum: 01-03-2023', 20, 86);
+            
+            // Statistics
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Analyse Statistieken', 20, 102);
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(11);
+            doc.text('Geanalyseerde bedrijven: 5', 20, 112);
+            doc.text('Geidentificeerde personen: 8', 20, 119);
+            doc.text('Gevonden relaties: 12', 20, 126);
+            doc.text('Gedetecteerde red flags: 6', 20, 133);
+            
+            // Red flags
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(192, 57, 43);
+            doc.text('Gedetecteerde Verwonderpunten', 20, 149);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(10);
+            
+            const flags = [
+                '1. CV Rechtsvorm Gedetecteerd - Hoog Risico',
+                '   Commanditaire vennoten kunnen anoniem blijven in het handelsregister.',
+                '',
+                '2. Geen UBO Informatie - Kritiek',
+                '   Ultimate Beneficial Owner is niet duidelijk.',
+                '',
+                '3. Internationale Verbanden - Hoog Risico',
+                '   Relaties met buitenlandse entiteiten (Malta, Cyprus).',
+                '',
+                '4. Veel Bestuurders (7) - Medium Risico',
+                '   Opvallend veel bestuurders voor deze bedrijfsomvang.',
+                '',
+                '5. Hoge Rekening Courant DGA - Hoog Risico',
+                '   R/C saldo van EUR 287.000 is 78% van de omzet.',
+                '',
+                '6. Jong Bedrijf met Complexe Structuur - Medium Risico',
+                '   Bedrijf is 14 maanden oud met 4 lagen eigendomsstructuur.'
+            ];
+            
+            let y = 159;
+            flags.forEach(line => {
+                doc.text(line, 20, y);
+                y += 6;
+            });
+            
+            // Footer
+            doc.setFillColor(240, 240, 240);
+            doc.rect(0, 270, 210, 27, 'F');
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Dit is een demo-rapport gegenereerd door BIBOB Analyst Pro', 105, 280, { align: 'center' });
+            doc.text('© 2025 Knowledge by Data B.V. - www.knowledgebydata.nl', 105, 287, { align: 'center' });
+            
+            // Download
+            doc.save('BIBOB_Demo_Rapport.pdf');
+        }
+        
+        function resetDemo() {
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('analyzingSection').style.display = 'none';
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('step1').classList.remove('completed');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step2').classList.remove('completed');
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('progressBar').style.width = '0%';
+        }
+    </script>
+</body>
+</html>
