@@ -327,7 +327,7 @@
         
         <div class="demo-card info-footer">
             <h3><i class="fas fa-star"></i> Dit is een Mini-Demo</h3>
-            <p>De volledige BIBOB Analyst Pro bevat 24+ red flag detecties, PDF parsing, tijdlijn analyse en meer.</p>
+            <p>De volledige BIBOB Analyst Pro bevat 60+ red flag detecties, PDF parsing, tijdlijn analyse en meer.</p>
             <p><i class="fas fa-phone"></i> <strong>06-84 82 07 08</strong> • <i class="fas fa-envelope"></i> <strong>info@knowledgebydata.nl</strong></p>
         </div>
     </div>
@@ -340,8 +340,8 @@
             document.getElementById('step1').classList.add('completed');
             document.getElementById('step2').classList.add('active');
             
-            let progress = 0;
-            const interval = setInterval(() => {
+            var progress = 0;
+            var interval = setInterval(function() {
                 progress += 5;
                 document.getElementById('progressBar').style.width = progress + '%';
                 if (progress >= 100) {
@@ -360,10 +360,9 @@
         }
         
         function downloadReport() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            var jsPDF = window.jspdf.jsPDF;
+            var doc = new jsPDF();
             
-            // Header
             doc.setFillColor(30, 58, 95);
             doc.rect(0, 0, 210, 40, 'F');
             doc.setTextColor(255, 255, 255);
@@ -372,10 +371,8 @@
             doc.setFontSize(12);
             doc.text('Demo Analyserapport', 105, 30, { align: 'center' });
             
-            // Reset text color
             doc.setTextColor(0, 0, 0);
             
-            // Company info
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.text('Bedrijfsgegevens', 20, 55);
@@ -386,7 +383,6 @@
             doc.text('Rechtsvorm: Besloten Vennootschap', 20, 79);
             doc.text('Oprichtingsdatum: 01-03-2023', 20, 86);
             
-            // Statistics
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.text('Analyse Statistieken', 20, 102);
@@ -397,7 +393,6 @@
             doc.text('Gevonden relaties: 12', 20, 126);
             doc.text('Gedetecteerde red flags: 6', 20, 133);
             
-            // Red flags
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(192, 57, 43);
@@ -406,7 +401,7 @@
             doc.setFont(undefined, 'normal');
             doc.setFontSize(10);
             
-            const flags = [
+            var flags = [
                 '1. CV Rechtsvorm Gedetecteerd - Hoog Risico',
                 '   Commanditaire vennoten kunnen anoniem blijven in het handelsregister.',
                 '',
@@ -426,13 +421,12 @@
                 '   Bedrijf is 14 maanden oud met 4 lagen eigendomsstructuur.'
             ];
             
-            let y = 159;
-            flags.forEach(line => {
-                doc.text(line, 20, y);
+            var y = 159;
+            for (var i = 0; i < flags.length; i++) {
+                doc.text(flags[i], 20, y);
                 y += 6;
-            });
+            }
             
-            // Footer
             doc.setFillColor(240, 240, 240);
             doc.rect(0, 270, 210, 27, 'F');
             doc.setFontSize(9);
@@ -440,7 +434,6 @@
             doc.text('Dit is een demo-rapport gegenereerd door BIBOB Analyst Pro', 105, 280, { align: 'center' });
             doc.text('© 2025 Knowledge by Data B.V. - www.knowledgebydata.nl', 105, 287, { align: 'center' });
             
-            // Download
             doc.save('BIBOB_Demo_Rapport.pdf');
         }
         
