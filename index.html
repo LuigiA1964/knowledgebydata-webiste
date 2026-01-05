@@ -845,7 +845,7 @@
                     </div>
                     <form class="contact-form" id="contactForm" action="https://formspree.io/f/mkogaojo" method="POST">
                         <input type="hidden" name="_subject" value="Demo aanvraag via website">
-                        <input type="hidden" name="_next" value="https://www.knowledgebydata.info/#contact">
+                        <input type="hidden" name="_next" value="https://www.knowledgebydata.info/?verzonden=true#contact">
                         <div class="form-group">
                             <label for="naam">Naam *</label>
                             <input type="text" id="naam" name="naam" required>
@@ -905,6 +905,24 @@
     </footer>
 
     <script>
+        // Check of we terugkomen van Formspree
+        if (window.location.search.includes('verzonden=true')) {
+            // Verwijder parameter en refresh pagina
+            window.location.replace(window.location.pathname + '#contact-success');
+        }
+        
+        // Toon bedankmelding als we van reload komen
+        if (window.location.hash === '#contact-success') {
+            window.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('contactForm').style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+                // Scroll naar contact sectie
+                setTimeout(function() {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            });
+        }
+
         function showDemo(demo) {
             document.querySelectorAll('.demo-tab').forEach(function(tab) { tab.classList.remove('active'); });
             event.target.closest('.demo-tab').classList.add('active');
