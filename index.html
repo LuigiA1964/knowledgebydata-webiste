@@ -580,7 +580,7 @@
                             <span>Founder</span>
                         </div>
                     </div>
-                    <p>33 jaar ervaring in opsporing en recherche, met specialisatie in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen.</p>
+                    <p>39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen.</p>
                     <p>Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben.</p>
                     <div class="credentials">
                         <span class="credential"><i class="fas fa-certificate"></i> Functionaris Gegevensbescherming</span>
@@ -845,7 +845,7 @@
                     </div>
                     <form class="contact-form" id="contactForm" action="https://formspree.io/f/mkogaojo" method="POST">
                         <input type="hidden" name="_subject" value="Demo aanvraag via website">
-                        <input type="hidden" name="_next" value="https://www.knowledgebydata.info/?verzonden=true#contact">
+                        <input type="hidden" name="_next" value="https://www.knowledgebydata.info/bedankt.html">
                         <div class="form-group">
                             <label for="naam">Naam *</label>
                             <input type="text" id="naam" name="naam" required>
@@ -905,24 +905,6 @@
     </footer>
 
     <script>
-        // Check of we terugkomen van Formspree
-        if (window.location.search.includes('verzonden=true')) {
-            // Verwijder parameter en refresh pagina
-            window.location.replace(window.location.pathname + '#contact-success');
-        }
-        
-        // Toon bedankmelding als we van reload komen
-        if (window.location.hash === '#contact-success') {
-            window.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('contactForm').style.display = 'none';
-                document.getElementById('formSuccess').style.display = 'block';
-                // Scroll naar contact sectie
-                setTimeout(function() {
-                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-            });
-        }
-
         function showDemo(demo) {
             document.querySelectorAll('.demo-tab').forEach(function(tab) { tab.classList.remove('active'); });
             event.target.closest('.demo-tab').classList.add('active');
