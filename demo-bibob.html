@@ -224,6 +224,9 @@
             font-size: 0.85rem;
             margin-bottom: 10px;
         }
+        .info-footer a {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -250,7 +253,7 @@
         
         <div class="demo-card" id="uploadSection">
             <h2><i class="fas fa-upload"></i> Stap 1: Document Uploaden</h2>
-            <div class="upload-area" onclick="triggerDemo()">
+            <div class="upload-area" id="uploadArea">
                 <div class="upload-icon"><i class="fas fa-file-pdf"></i></div>
                 <h3>Klik om demo-document te laden</h3>
                 <p style="color: #666; margin-top: 8px; font-size: 0.85rem;">In de echte versie upload je hier Graydon of KvK PDF's</p>
@@ -316,10 +319,10 @@
             </div>
             
             <div style="text-align: center; margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn" onclick="downloadReport()">
+                <button class="btn" id="downloadBtn">
                     <i class="fas fa-download"></i> Download Demo Rapport
                 </button>
-                <button class="btn" style="background: linear-gradient(135deg, var(--primary), #1565c0);" onclick="resetDemo()">
+                <button class="btn" style="background: linear-gradient(135deg, var(--primary), #1565c0);" id="resetBtn">
                     <i class="fas fa-redo"></i> Opnieuw
                 </button>
             </div>
@@ -327,12 +330,31 @@
         
         <div class="demo-card info-footer">
             <h3><i class="fas fa-star"></i> Dit is een Mini-Demo</h3>
-            <p>De volledige BIBOB Analyst Pro bevat 60+ red flag detecties, PDF parsing, tijdlijn analyse en meer.</p>
-            <p><i class="fas fa-phone"></i> <strong>06-84 82 07 08</strong></p>
+            <p>De volledige BIBOB Analyst Pro bevat 24+ red flag detecties, PDF parsing, tijdlijn analyse en meer.</p>
+            <p><i class="fas fa-phone"></i> <strong>06-84 82 07 08</strong> • <i class="fas fa-envelope"></i> <strong>info@knowledgebydata.info</strong></p>
         </div>
     </div>
     
     <script>
+        // Initialize when DOM is ready
+        (function() {
+            // Get elements
+            var uploadArea = document.getElementById('uploadArea');
+            var downloadBtn = document.getElementById('downloadBtn');
+            var resetBtn = document.getElementById('resetBtn');
+            
+            // Add event listeners
+            if (uploadArea) {
+                uploadArea.addEventListener('click', triggerDemo);
+            }
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', downloadReport);
+            }
+            if (resetBtn) {
+                resetBtn.addEventListener('click', resetDemo);
+            }
+        })();
+        
         function triggerDemo() {
             document.getElementById('uploadSection').style.display = 'none';
             document.getElementById('analyzingSection').style.display = 'block';
@@ -363,6 +385,7 @@
             var jsPDF = window.jspdf.jsPDF;
             var doc = new jsPDF();
             
+            // Header
             doc.setFillColor(30, 58, 95);
             doc.rect(0, 0, 210, 40, 'F');
             doc.setTextColor(255, 255, 255);
@@ -371,8 +394,10 @@
             doc.setFontSize(12);
             doc.text('Demo Analyserapport', 105, 30, { align: 'center' });
             
+            // Reset text color
             doc.setTextColor(0, 0, 0);
             
+            // Company info
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.text('Bedrijfsgegevens', 20, 55);
@@ -383,6 +408,7 @@
             doc.text('Rechtsvorm: Besloten Vennootschap', 20, 79);
             doc.text('Oprichtingsdatum: 01-03-2023', 20, 86);
             
+            // Statistics
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.text('Analyse Statistieken', 20, 102);
@@ -393,6 +419,7 @@
             doc.text('Gevonden relaties: 12', 20, 126);
             doc.text('Gedetecteerde red flags: 6', 20, 133);
             
+            // Red flags
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(192, 57, 43);
@@ -427,13 +454,15 @@
                 y += 6;
             }
             
+            // Footer
             doc.setFillColor(240, 240, 240);
             doc.rect(0, 270, 210, 27, 'F');
             doc.setFontSize(9);
             doc.setTextColor(100, 100, 100);
             doc.text('Dit is een demo-rapport gegenereerd door BIBOB Analyst Pro', 105, 280, { align: 'center' });
-            doc.text('© 2025 Knowledge by Data B.V. - www.knowledgebydata.nl', 105, 287, { align: 'center' });
+            doc.text('© 2025 Knowledge by Data B.V. - www.knowledgebydata.info', 105, 287, { align: 'center' });
             
+            // Download
             doc.save('BIBOB_Demo_Rapport.pdf');
         }
         
@@ -441,12 +470,13 @@
             document.getElementById('resultsSection').style.display = 'none';
             document.getElementById('analyzingSection').style.display = 'none';
             document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('progressBar').style.width = '0%';
             document.getElementById('step1').classList.add('active');
             document.getElementById('step1').classList.remove('completed');
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step2').classList.remove('completed');
             document.getElementById('step3').classList.remove('active');
-            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('step3').classList.remove('completed');
         }
     </script>
 </body>

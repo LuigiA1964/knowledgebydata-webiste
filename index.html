@@ -28,10 +28,70 @@
             color: var(--text-dark);
             line-height: 1.6;
         }
-        
+
+        /* Language Switcher Styles */
+        .language-bar {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 8px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-switcher:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .lang-btn.active {
+            background: rgba(255,255,255,0.3);
+        }
+        .lang-divider {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+        }
+
         .navbar {
             position: fixed;
-            top: 0; left: 0; right: 0;
+            top: 40px;
+            left: 0; right: 0;
             background: var(--bg-white);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
@@ -71,7 +131,7 @@
         .nav-contact a { color: var(--primary); text-decoration: none; }
 
         .hero {
-            padding: 170px 20px 80px;
+            padding: 210px 20px 80px;
             background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
         }
         .hero-container {
@@ -502,20 +562,57 @@
             .comparison-header, .comparison-row { font-size: 0.85rem; }
             .logo { height: 60px; }
             .demo-iframe-container { height: 500px; }
+            .language-bar { justify-content: center; }
+            .lang-btn { padding: 4px 6px; font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Language Switcher Bar -->
+    <div class="language-bar">
+        <div class="language-switcher">
+            <button class="lang-btn active" id="btn-nl" onclick="switchLanguage('nl')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="5.33" fill="#AE1C28"/>
+                    <rect y="5.33" width="24" height="5.33" fill="#FFFFFF"/>
+                    <rect y="10.66" width="24" height="5.34" fill="#21468B"/>
+                </svg>
+                NL
+            </button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" id="btn-en" onclick="switchLanguage('en')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="16" fill="#012169"/>
+                    <path d="M0,0 L24,16 M24,0 L0,16" stroke="#FFFFFF" stroke-width="2.5"/>
+                    <path d="M0,0 L24,16 M24,0 L0,16" stroke="#C8102E" stroke-width="1.5"/>
+                    <path d="M12,0 V16 M0,8 H24" stroke="#FFFFFF" stroke-width="4"/>
+                    <path d="M12,0 V16 M0,8 H24" stroke="#C8102E" stroke-width="2.5"/>
+                </svg>
+                EN
+            </button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" id="btn-pap" onclick="switchLanguage('pap')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="8" fill="#002B7F"/>
+                    <rect y="8" width="24" height="8" fill="#FCD116"/>
+                    <polygon points="0,0 10,8 0,16" fill="#CE1126"/>
+                    <circle cx="16" cy="8" r="2.5" fill="#FFFFFF"/>
+                </svg>
+                PAP
+            </button>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="nav-container">
             <img src="logo.svg" alt="Knowledge by Data" class="logo">
             <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#beveiliging">Beveiliging</a></li>
-                <li><a href="#producten">Producten</a></li>
-                <li><a href="#demo">Demo</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="active" data-nl="Home" data-en="Home" data-pap="Kas">Home</a></li>
+                <li><a href="#beveiliging" data-nl="Beveiliging" data-en="Security" data-pap="Seguridat">Beveiliging</a></li>
+                <li><a href="#producten" data-nl="Producten" data-en="Products" data-pap="Produktonan">Producten</a></li>
+                <li><a href="#demo" data-nl="Demo" data-en="Demo" data-pap="Demo">Demo</a></li>
+                <li><a href="#faq" data-nl="FAQ" data-en="FAQ" data-pap="FAQ">FAQ</a></li>
+                <li><a href="#contact" data-nl="Contact" data-en="Contact" data-pap="Kontakto">Contact</a></li>
             </ul>
             <div class="nav-contact">
                 <span><i class="fas fa-phone"></i> <a href="tel:0684820708">06 84 82 07 08</a></span>
@@ -525,32 +622,32 @@
 
     <section class="hero" id="home">
         <div class="hero-container">
-            <h1>Versterk uw <span>informatiepositie</span></h1>
-            <p class="hero-subtitle">Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk.</p>
+            <h1 data-nl="Versterk uw <span>informatiepositie</span>" data-en="Strengthen your <span>information position</span>" data-pap="Fortalesé bo <span>posishon di informashon</span>">Versterk uw <span>informatiepositie</span></h1>
+            <p class="hero-subtitle" data-nl="Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk." data-en="Affordable analysis software that does what it needs to do. Developed by practitioners, for practitioners." data-pap="Software di análisis ku ta hasi loke e mester hasi. Desaroyá pa profeshonalnan for di práktika, pa profeshonalnan for di práktika.">Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk.</p>
             <div class="hero-cta">
-                <a href="#demo" class="btn btn-primary"><i class="fas fa-play-circle"></i> Bekijk demo</a>
-                <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Neem contact op</a>
+                <a href="#demo" class="btn btn-primary"><i class="fas fa-play-circle"></i> <span data-nl="Bekijk demo" data-en="View demo" data-pap="Mira demo">Bekijk demo</span></a>
+                <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> <span data-nl="Neem contact op" data-en="Get in touch" data-pap="Tuma kontakto">Neem contact op</span></a>
             </div>
             <div class="pillars">
                 <div class="pillar">
                     <div class="pillar-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Veilig</h3>
-                    <p>Geen aanvalsoppervlak, lokale verwerking, BIO-normering</p>
+                    <h3 data-nl="Veilig" data-en="Secure" data-pap="Sigur">Veilig</h3>
+                    <p data-nl="Geen aanvalsoppervlak, lokale verwerking, BIO-normering" data-en="No attack surface, local processing, BIO-certified" data-pap="Ningun superfisie di atake, prosesamentu lokal, normalisashon BIO">Geen aanvalsoppervlak, lokale verwerking, BIO-normering</p>
                 </div>
                 <div class="pillar">
                     <div class="pillar-icon"><i class="fas fa-unlock-alt"></i></div>
-                    <h3>Onafhankelijk</h3>
-                    <p>Geen vendor lock-in, geen cloud, geen abonnement</p>
+                    <h3 data-nl="Onafhankelijk" data-en="Independent" data-pap="Independiente">Onafhankelijk</h3>
+                    <p data-nl="Geen vendor lock-in, geen cloud, geen abonnement" data-en="No vendor lock-in, no cloud, no subscription" data-pap="Sin dependensia di vendedó, sin cloud, sin abonamentu">Geen vendor lock-in, geen cloud, geen abonnement</p>
                 </div>
                 <div class="pillar">
                     <div class="pillar-icon"><i class="fas fa-feather"></i></div>
-                    <h3>Minimale impact</h3>
-                    <p>Geen belasting voor ICT en informatiemanagement</p>
+                    <h3 data-nl="Minimale impact" data-en="Minimal impact" data-pap="Impakto mínimo">Minimale impact</h3>
+                    <p data-nl="Geen belasting voor ICT en informatiemanagement" data-en="No burden on IT and information management" data-pap="Sin karga pa ICT i maneho di informashon">Geen belasting voor ICT en informatiemanagement</p>
                 </div>
                 <div class="pillar">
                     <div class="pillar-icon"><i class="fas fa-user-tie"></i></div>
-                    <h3>Uit de praktijk</h3>
-                    <p>Gebouwd door onderzoekers, voor onderzoekers</p>
+                    <h3 data-nl="Uit de praktijk" data-en="From the field" data-pap="For di práktika">Uit de praktijk</h3>
+                    <p data-nl="Gebouwd door onderzoekers, voor onderzoekers" data-en="Built by investigators, for investigators" data-pap="Konstruí pa investigadónan, pa investigadónan">Gebouwd door onderzoekers, voor onderzoekers</p>
                 </div>
             </div>
         </div>
@@ -560,15 +657,15 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-content">
-                    <h3>Over Knowledge by Data</h3>
-                    <p>Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is.</p>
-                    <p>Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak.</p>
-                    <p>Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar.</p>
+                    <h3 data-nl="Over Knowledge by Data" data-en="About Knowledge by Data" data-pap="Tokante Knowledge by Data">Over Knowledge by Data</h3>
+                    <p data-nl="Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is." data-en="Knowledge by Data was founded in 2022 with a clear mission: helping governments strengthen their information position with software that is affordable, secure and functional." data-pap="Knowledge by Data a wordu fundá na 2022 ku un mishon kla: yuda gobièrnunan fortalesé nan posishon di informashon ku software ku ta aksesibel, sigur i funshonal.">Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is.</p>
+                    <p data-nl="Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak." data-en="We believe that smaller municipalities — without a dedicated analyst and without large budgets — should also have access to professional analysis tools for integrity investigations and organized crime prevention." data-pap="Nos ta kere ku tambe munisipalitanan mas chikitu — sin analist dedikä i sin presupuesto grandi — mester tin akseso na instrumentonan di análisis profesional pa investigashon di integridat i kombate di kriminalidad organisá.">Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak.</p>
+                    <p data-nl="Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar." data-en="Our unique architecture sets us apart from the market: all data is processed locally, there are no servers, no cloud, and therefore no attack surface. Secure, functional, reliable and affordable." data-pap="Nos arkitektura speshal ta distinguí nos di e merkado: tur data ta wordu prosesá lokalmente, no tin server, no tin cloud, i pa esei no tin superfisie di atake. Sigur, funshonal, konfiabel i aksesibel.">Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar.</p>
                     <div class="protected-notice">
                         <i class="fas fa-registered"></i>
                         <div>
-                            <strong>Beschermde architectuur</strong>
-                            <span>De unieke software-architectuur van Knowledge by Data is gedeponeerd en intellectueel eigendom beschermd.</span>
+                            <strong data-nl="Beschermde architectuur" data-en="Protected architecture" data-pap="Arkitektura protehá">Beschermde architectuur</strong>
+                            <span data-nl="De unieke software-architectuur van Knowledge by Data is gedeponeerd en intellectueel eigendom beschermd." data-en="The unique software architecture of Knowledge by Data is registered and protected as intellectual property." data-pap="E arkitektura úniko di software di Knowledge by Data ta depositá i ta protehá komo propiedat intelektual.">De unieke software-architectuur van Knowledge by Data is gedeponeerd en intellectueel eigendom beschermd.</span>
                         </div>
                     </div>
                 </div>
@@ -577,13 +674,13 @@
                         <img src="founder.jpg" alt="Loek Antenbrink" class="founder-avatar">
                         <div class="founder-info">
                             <h4>Loek Antenbrink</h4>
-                            <span>Founder</span>
+                            <span data-nl="Founder" data-en="Founder" data-pap="Fundadó">Founder</span>
                         </div>
                     </div>
-                    <p>39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen.</p>
-                    <p>Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben.</p>
+                    <p data-nl="39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen." data-en="39 years of experience in investigation and administrative enforcement: 33 years in criminal investigation, followed by 6 years in combating organized crime. Specialized in complex financial-economic crime: money laundering, fraud, human trafficking and fraudulent bankruptcy. Worked in various positions where data analysis was central — from the first criminal investigation information systems to advanced big data environments." data-pap="39 aña di eksperensia den investigashon i enkargo administrativo: 33 aña den rechèrs i investigashon, siguí pa 6 aña den kombate di kriminalidad organisá. Spesialisá den kriminalidad finansiero-ekonómiko kompleks: laba plaka, frode, tráfiko di hende i bankarota fraudulento. A traha den diferente funshon kaminda análisis di data tabata sentral — for di e promé sistemanan di informashon di rechèrs te na ambientenan avansá di big data.">39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen.</p>
+                    <p data-nl="Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben." data-en="This combination of operational experience and formal qualifications forms the foundation of Knowledge by Data: software that is secure because the creator understands what data security really means, and functional because the creator knows what investigators need in practice." data-pap="E kombinashon aki di eksperensia operashonal i kualifikashonnan formal ta forma e base di Knowledge by Data: software ku ta sigur pasobra e kreador ta komprondé kiko seguridat di data ta nifiká realmente, i ta funshonal pasobra e kreador sa kiko investigadónan mester den práktika.">Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben.</p>
                     <div class="credentials">
-                        <span class="credential"><i class="fas fa-certificate"></i> Functionaris Gegevensbescherming</span>
+                        <span class="credential"><i class="fas fa-certificate"></i> <span data-nl="Functionaris Gegevensbescherming" data-en="Data Protection Officer" data-pap="Ofisial di Protekshon di Data">Functionaris Gegevensbescherming</span></span>
                         <span class="credential"><i class="fas fa-chart-bar"></i> Data Professional</span>
                         <span class="credential"><i class="fas fa-search"></i> Data Analyst</span>
                         <span class="credential"><i class="fas fa-graduation-cap"></i> Chief Data Officer</span>
@@ -596,61 +693,61 @@
     <section class="section-light" id="beveiliging">
         <div class="container">
             <div class="section-header">
-                <h2>Beveiliging zonder compromis</h2>
-                <p>Wij hebben bewust gekozen voor een andere architectuur. Het resultaat: maximale veiligheid met minimale complexiteit.</p>
+                <h2 data-nl="Beveiliging zonder compromis" data-en="Security without compromise" data-pap="Seguridat sin kompromiso">Beveiliging zonder compromis</h2>
+                <p data-nl="Wij hebben bewust gekozen voor een andere architectuur. Het resultaat: maximale veiligheid met minimale complexiteit." data-en="We deliberately chose a different architecture. The result: maximum security with minimal complexity." data-pap="Nos a skohe konsientemente pa un arkitektura diferente. E resultado: seguridat máksimo ku komplejidad mínimo.">Wij hebben bewust gekozen voor een andere architectuur. Het resultaat: maximale veiligheid met minimale complexiteit.</p>
             </div>
             <div class="comparison-table">
                 <div class="comparison-header">
-                    <div>Kenmerk</div>
-                    <div>Traditionele SaaS</div>
+                    <div data-nl="Kenmerk" data-en="Feature" data-pap="Karakterístika">Kenmerk</div>
+                    <div data-nl="Traditionele SaaS" data-en="Traditional SaaS" data-pap="SaaS tradishonal">Traditionele SaaS</div>
                     <div>Knowledge by Data</div>
                 </div>
                 <div class="comparison-row">
-                    <div>Dataverwerking</div>
-                    <div>Cloud servers</div>
-                    <div><i class="fas fa-check check"></i> Volledig lokaal</div>
+                    <div data-nl="Dataverwerking" data-en="Data processing" data-pap="Prosesamentu di data">Dataverwerking</div>
+                    <div data-nl="Cloud servers" data-en="Cloud servers" data-pap="Servernan di cloud">Cloud servers</div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Volledig lokaal" data-en="Fully local" data-pap="Kompletamente lokal">Volledig lokaal</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>Aanvalsoppervlak</div>
-                    <div>Servers, API's, databases</div>
-                    <div><i class="fas fa-check check"></i> Geen</div>
+                    <div data-nl="Aanvalsoppervlak" data-en="Attack surface" data-pap="Superfisie di atake">Aanvalsoppervlak</div>
+                    <div data-nl="Servers, API's, databases" data-en="Servers, APIs, databases" data-pap="Servernan, API'nan, database">Servers, API's, databases</div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Geen" data-en="None" data-pap="Ningun">Geen</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>Verwerkersovereenkomst nodig</div>
-                    <div><i class="fas fa-times cross"></i> Ja</div>
-                    <div><i class="fas fa-check check"></i> Niet nodig</div>
+                    <div data-nl="Verwerkersovereenkomst nodig" data-en="Data processing agreement required" data-pap="Akuerdo di prosesadó nesesario">Verwerkersovereenkomst nodig</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Niet nodig" data-en="Not required" data-pap="No ta nesesario">Niet nodig</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>DPIA vereist</div>
-                    <div><i class="fas fa-times cross"></i> Uitgebreid</div>
-                    <div><i class="fas fa-check check"></i> Minimaal</div>
+                    <div data-nl="DPIA vereist" data-en="DPIA required" data-pap="DPIA rekurí">DPIA vereist</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Uitgebreid" data-en="Extensive" data-pap="Ekstensivo">Uitgebreid</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Minimaal" data-en="Minimal" data-pap="Mínimo">Minimaal</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>Serveronderhoud</div>
-                    <div><i class="fas fa-times cross"></i> Ja</div>
-                    <div><i class="fas fa-check check"></i> Niet nodig</div>
+                    <div data-nl="Serveronderhoud" data-en="Server maintenance" data-pap="Mantenshon di server">Serveronderhoud</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Niet nodig" data-en="Not required" data-pap="No ta nesesario">Niet nodig</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>Netwerkpoorten openzetten</div>
-                    <div><i class="fas fa-times cross"></i> Ja</div>
-                    <div><i class="fas fa-check check"></i> Niet nodig</div>
+                    <div data-nl="Netwerkpoorten openzetten" data-en="Opening network ports" data-pap="Habrí portanan di ret">Netwerkpoorten openzetten</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Niet nodig" data-en="Not required" data-pap="No ta nesesario">Niet nodig</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>Vendor lock-in</div>
-                    <div><i class="fas fa-times cross"></i> Ja</div>
-                    <div><i class="fas fa-check check"></i> Nee</div>
+                    <div data-nl="Vendor lock-in" data-en="Vendor lock-in" data-pap="Dependensia di vendedó">Vendor lock-in</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Nee" data-en="No" data-pap="Nò">Nee</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div>Doorlopende kosten</div>
-                    <div><i class="fas fa-times cross"></i> Abonnement</div>
-                    <div><i class="fas fa-check check"></i> Lage jaarlijkse licentie</div>
+                    <div data-nl="Doorlopende kosten" data-en="Ongoing costs" data-pap="Gastunan kontinuo">Doorlopende kosten</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Abonnement" data-en="Subscription" data-pap="Abonamentu">Abonnement</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Lage jaarlijkse licentie" data-en="Low annual license" data-pap="Lisensia anual abou">Lage jaarlijkse licentie</span></div>
                 </div>
             </div>
             <div class="security-badges">
-                <div class="security-badge"><i class="fas fa-shield-alt"></i><span>BIO-normering</span></div>
-                <div class="security-badge"><i class="fas fa-user-shield"></i><span>AVG-compliant</span></div>
-                <div class="security-badge"><i class="fas fa-lock"></i><span>Geen aanvalsoppervlak</span></div>
-                <div class="security-badge"><i class="fas fa-hdd"></i><span>100% lokaal</span></div>
+                <div class="security-badge"><i class="fas fa-shield-alt"></i><span data-nl="BIO-normering" data-en="BIO-certified" data-pap="Normalisashon BIO">BIO-normering</span></div>
+                <div class="security-badge"><i class="fas fa-user-shield"></i><span data-nl="AVG-compliant" data-en="GDPR-compliant" data-pap="Konforme ku AVG">AVG-compliant</span></div>
+                <div class="security-badge"><i class="fas fa-lock"></i><span data-nl="Geen aanvalsoppervlak" data-en="No attack surface" data-pap="Sin superfisie di atake">Geen aanvalsoppervlak</span></div>
+                <div class="security-badge"><i class="fas fa-hdd"></i><span data-nl="100% lokaal" data-en="100% local" data-pap="100% lokal">100% lokaal</span></div>
             </div>
         </div>
     </section>
@@ -658,44 +755,44 @@
     <section id="producten">
         <div class="container">
             <div class="section-header">
-                <h2>Onze producten</h2>
-                <p>Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk.</p>
+                <h2 data-nl="Onze producten" data-en="Our products" data-pap="Nos produktonan">Onze producten</h2>
+                <p data-nl="Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk." data-en="Professional analysis tools for government agencies, developed from practical experience." data-pap="Instrumentonan di análisis profesional pa instansianan gubernamental, desaroyá for di práktika.">Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk.</p>
             </div>
             <div class="products-grid">
                 <div class="product-card">
                     <div class="product-icon"><i class="fas fa-balance-scale"></i></div>
                     <h3>BIBOB Analyst Pro</h3>
-                    <p>Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
+                    <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> 60+ indicatoren uit erkende bronnen</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="60+ indicatoren uit erkende bronnen" data-en="60+ indicators from recognized sources" data-pap="60+ indikadó for di fuentenan rekonosí">60+ indicatoren uit erkende bronnen</span></li>
                         <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
-                        <li><i class="fas fa-check"></i> AMLC, IKZ en Zorgfraude Signalen</li>
-                        <li><i class="fas fa-check"></i> PDF parsing en netwerkvisualisatie</li>
-                        <li><i class="fas fa-check"></i> Interview generator en rapportage</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Interview generator en rapportage" data-en="Interview generator and reporting" data-pap="Generadó di entrevista i rapòrt">Interview generator en rapportage</span></li>
                     </ul>
                 </div>
                 <div class="product-card">
                     <div class="product-icon"><i class="fas fa-search-dollar"></i></div>
                     <h3>VAT Analyst Pro</h3>
-                    <p>Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
+                    <p data-nl="Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant)." data-en="Analysis tool for supervisors detecting exploitation in the sex industry. Pure analysis, no data storage (GDPR-compliant)." data-pap="Instrumento di análisis pa supervisónan pa detektá eksplotashon den industria di sekso. Solamente análisis, sin almasenahementu di data (konforme ku AVG).">Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> Signaalherkenning</li>
-                        <li><i class="fas fa-check"></i> Risico-indicatoren</li>
-                        <li><i class="fas fa-check"></i> Ondersteuning bij toezicht</li>
-                        <li><i class="fas fa-check"></i> Geen dataopslag (AVG)</li>
-                        <li><i class="fas fa-check"></i> Direct inzetbaar</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Signaalherkenning" data-en="Signal recognition" data-pap="Rekonosementu di señal">Signaalherkenning</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Risico-indicatoren" data-en="Risk indicators" data-pap="Indikadónan di riesgo">Risico-indicatoren</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Ondersteuning bij toezicht" data-en="Supervision support" data-pap="Sosten pa supervishon">Ondersteuning bij toezicht</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Geen dataopslag (AVG)" data-en="No data storage (GDPR)" data-pap="Sin almasenahementu di data (AVG)">Geen dataopslag (AVG)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Direct inzetbaar" data-en="Ready to use" data-pap="Pronto pa usa">Direct inzetbaar</span></li>
                     </ul>
                 </div>
                 <div class="product-card">
                     <div class="product-icon"><i class="fas fa-city"></i></div>
                     <h3>Analyst Pro</h3>
-                    <p>Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten.</p>
+                    <p data-nl="Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten." data-en="All-in-one solution for combating organized crime. For larger and smaller municipalities." data-pap="Solushon tur-den-un pa kombate di kriminalidad organisá. Pa munisipalitanan grandi i chikitu.">Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten.</p>
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> Cross-reference analyse</li>
-                        <li><i class="fas fa-check"></i> Graph visualisatie</li>
-                        <li><i class="fas fa-check"></i> Analist & medewerker module</li>
-                        <li><i class="fas fa-check"></i> Export naar Analyst Notebook</li>
-                        <li><i class="fas fa-check"></i> Flexibele workflows</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Cross-reference analyse" data-en="Cross-reference analysis" data-pap="Análisis di referensia krusá">Cross-reference analyse</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Graph visualisatie" data-en="Graph visualization" data-pap="Visualisashon di gráfiko">Graph visualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Analist & medewerker module" data-en="Analyst & staff module" data-pap="Módulo di analist i kolaboradó">Analist & medewerker module</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Export naar Analyst Notebook" data-en="Export to Analyst Notebook" data-pap="Eksportá pa Analyst Notebook">Export naar Analyst Notebook</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
                     </ul>
                 </div>
             </div>
@@ -703,13 +800,13 @@
             <div class="documentation-banner">
                 <div class="doc-icon"><i class="fas fa-book"></i></div>
                 <div class="doc-content">
-                    <h3>Complete documentatie bij elke levering</h3>
+                    <h3 data-nl="Complete documentatie bij elke levering" data-en="Complete documentation with every delivery" data-pap="Dokumentashon kompleto ku kada entrega">Complete documentatie bij elke levering</h3>
                     <div class="doc-items">
-                        <span><i class="fas fa-check-circle"></i> Installatie-instructies</span>
-                        <span><i class="fas fa-check-circle"></i> Gebruikershandleiding</span>
-                        <span><i class="fas fa-check-circle"></i> Technische documentatie voor CISO</span>
-                        <span><i class="fas fa-check-circle"></i> AVG Compliance verklaring</span>
-                        <span><i class="fas fa-check-circle"></i> Uitgebreide FAQ (PDF &amp; HTML)</span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Installatie-instructies" data-en="Installation instructions" data-pap="Instrukshonnan di instalashon">Installatie-instructies</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Gebruikershandleiding" data-en="User manual" data-pap="Manual di usuario">Gebruikershandleiding</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Technische documentatie voor CISO" data-en="Technical documentation for CISO" data-pap="Dokumentashon tékniko pa CISO">Technische documentatie voor CISO</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="AVG Compliance verklaring" data-en="GDPR Compliance statement" data-pap="Deklarashon di kumplimentu AVG">AVG Compliance verklaring</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Uitgebreide FAQ (PDF & HTML)" data-en="Extensive FAQ (PDF & HTML)" data-pap="FAQ ekstensivo (PDF & HTML)">Uitgebreide FAQ (PDF &amp; HTML)</span></span>
                     </div>
                 </div>
             </div>
@@ -719,14 +816,14 @@
     <section class="section-light" id="demo">
         <div class="container">
             <div class="section-header">
-                <h2>Bekijk het in actie</h2>
-                <p>Ervaar de werking van onze software in deze interactieve demo's.</p>
+                <h2 data-nl="Bekijk het in actie" data-en="See it in action" data-pap="Mira e den akshon">Bekijk het in actie</h2>
+                <p data-nl="Ervaar de werking van onze software in deze interactieve demo's." data-en="Experience how our software works in these interactive demos." data-pap="Eksperimentá e funshonamentu di nos software den e demo'nan interaktivo aki.">Ervaar de werking van onze software in deze interactieve demo's.</p>
             </div>
             <div class="demo-container">
                 <div class="demo-tabs">
-                    <button class="demo-tab active" onclick="showDemo('security')"><i class="fas fa-shield-alt"></i> Beveiliging</button>
-                    <button class="demo-tab" onclick="showDemo('bibob')"><i class="fas fa-balance-scale"></i> BIBOB Analyse</button>
-                    <button class="demo-tab" onclick="showDemo('analyst')"><i class="fas fa-project-diagram"></i> Analyst Pro</button>
+                    <button class="demo-tab active" data-demo="security"><i class="fas fa-shield-alt"></i> <span data-nl="Beveiliging" data-en="Security" data-pap="Seguridat">Beveiliging</span></button>
+                    <button class="demo-tab" data-demo="bibob"><i class="fas fa-balance-scale"></i> <span data-nl="BIBOB Analyse" data-en="BIBOB Analysis" data-pap="Análisis BIBOB">BIBOB Analyse</span></button>
+                    <button class="demo-tab" data-demo="analyst"><i class="fas fa-project-diagram"></i> Analyst Pro</button>
                 </div>
                 <div class="demo-content">
                     <div class="demo-panel active" id="demo-security">
@@ -752,61 +849,61 @@
     <section id="faq">
         <div class="container">
             <div class="section-header">
-                <h2>Veelgestelde vragen</h2>
-                <p>Antwoorden op de belangrijkste vragen over onze software en dienstverlening.</p>
+                <h2 data-nl="Veelgestelde vragen" data-en="Frequently asked questions" data-pap="Preguntanan frekuente">Veelgestelde vragen</h2>
+                <p data-nl="Antwoorden op de belangrijkste vragen over onze software en dienstverlening." data-en="Answers to the most important questions about our software and services." data-pap="Kontestanan na e preguntanan mas importante tokante nos software i servisionan.">Antwoorden op de belangrijkste vragen over onze software en dienstverlening.</p>
             </div>
             <div class="faq-grid">
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        Hoe veilig is de software?
+                    <div class="faq-question">
+                        <span data-nl="Hoe veilig is de software?" data-en="How secure is the software?" data-pap="Kon sigur ta e software?">Hoe veilig is de software?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
+                        <div class="faq-answer-content" data-nl="Onze software draait volledig lokaal op uw werkstation. Er is geen internetverbinding nodig, er worden geen gegevens naar externe servers verstuurd, en er is geen aanvalsoppervlak. De beveiliging voldoet aan de BIO-normering en is AVG-compliant." data-en="Our software runs entirely locally on your workstation. No internet connection is required, no data is sent to external servers, and there is no attack surface. Security complies with BIO standards and is GDPR-compliant." data-pap="Nos software ta kore kompletamente lokal riba bo estashon di trabou. No tin mester di konekshon di internet, no ta manda data na servernan eksterno, i no tin superfisie di atake. E seguridat ta kumpli ku normalisashon BIO i ta konforme ku AVG.">
                             Onze software draait volledig lokaal op uw werkstation. Er is geen internetverbinding nodig, er worden geen gegevens naar externe servers verstuurd, en er is geen aanvalsoppervlak. De beveiliging voldoet aan de BIO-normering en is AVG-compliant.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        Heb ik IT-ondersteuning nodig voor de installatie?
+                    <div class="faq-question">
+                        <span data-nl="Heb ik IT-ondersteuning nodig voor de installatie?" data-en="Do I need IT support for installation?" data-pap="Mi mester sosten di IT pa e instalashon?">Heb ik IT-ondersteuning nodig voor de installatie?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
+                        <div class="faq-answer-content" data-nl="Nee. De software is ontworpen voor directe inzet zonder complexe implementatietrajecten. De afdeling ICT ontvangt een installatiebestand (MSI) waarmee de applicatie eenvoudig wordt geïnstalleerd. Na installatie verschijnt de software in het Windows-menu en heeft de afdeling ICT er geen omkijken meer naar. Bij levering ontvangt u duidelijke installatie-instructies en technische documentatie voor uw CISO." data-en="No. The software is designed for immediate deployment without complex implementation trajectories. The IT department receives an installation file (MSI) with which the application is easily installed. After installation, the software appears in the Windows menu and the IT department no longer needs to worry about it. Upon delivery, you receive clear installation instructions and technical documentation for your CISO." data-pap="Nò. E software ta diseñá pa usa direktamente sin trayektonan di implementashon kompleks. E departamentu di ICT ta risibí un archivo di instalashon (MSI) ku e aplikashon ta wordu instalá fásil. Despues di instalashon e software ta aparesé den e menú di Windows i e departamentu di ICT no tin mas preokupashon. Na momento di entrega bo ta risibí instrukshonnan kla di instalashon i dokumentashon tékniko pa bo CISO.">
                             Nee. De software is ontworpen voor directe inzet zonder complexe implementatietrajecten. De afdeling ICT ontvangt een installatiebestand (MSI) waarmee de applicatie eenvoudig wordt geïnstalleerd. Na installatie verschijnt de software in het Windows-menu en heeft de afdeling ICT er geen omkijken meer naar. Bij levering ontvangt u duidelijke installatie-instructies en technische documentatie voor uw CISO.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        Welke ondersteuning krijg ik na aanschaf?
+                    <div class="faq-question">
+                        <span data-nl="Welke ondersteuning krijg ik na aanschaf?" data-en="What support do I get after purchase?" data-pap="Ki sosten mi ta haña despues di kompra?">Welke ondersteuning krijg ik na aanschaf?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
+                        <div class="faq-answer-content" data-nl="Bij elke licentie ontvangt u persoonlijke ondersteuning via e-mail en telefoon. Updates en verbeteringen worden gedurende de licentieperiode kosteloos geleverd. Daarnaast ontvangt u uitgebreide documentatie inclusief gebruikershandleiding en FAQ." data-en="With each license, you receive personal support via email and phone. Updates and improvements are delivered free of charge during the license period. You also receive extensive documentation including user manual and FAQ." data-pap="Ku kada lisensia bo ta risibí sosten personal via e-mail i telefòn. Aktualidatnan i mehorashonnan ta wordu entregá grátis durante e período di lisensia. Ademas bo ta risibí dokumentashon ekstensivo inkluyendo manual di usuario i FAQ.">
                             Bij elke licentie ontvangt u persoonlijke ondersteuning via e-mail en telefoon. Updates en verbeteringen worden gedurende de licentieperiode kosteloos geleverd. Daarnaast ontvangt u uitgebreide documentatie inclusief gebruikershandleiding en FAQ.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        Voor welke organisaties is de software geschikt?
+                    <div class="faq-question">
+                        <span data-nl="Voor welke organisaties is de software geschikt?" data-en="Which organizations is the software suitable for?" data-pap="Pa ki organisashonnan e software ta adekuá?">Voor welke organisaties is de software geschikt?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
+                        <div class="faq-answer-content" data-nl="Onze software is ontwikkeld voor Nederlandse overheidsorganisaties: gemeenten, RIEC's, provincies en andere bestuursorganen die werken met BIBOB-onderzoeken of ondermijningsaanpak. De tools zijn gebaseerd op 33 jaar praktijkervaring in de opsporing." data-en="Our software is developed for Dutch government organizations: municipalities, RIECs, provinces and other administrative bodies working with BIBOB investigations or organized crime prevention. The tools are based on 33 years of practical experience in investigation." data-pap="Nos software a wordu desaroyá pa organisashonnan gubernamental Hulandes: munisipalitanan, RIEC'nan, provínsianan i otro órganonan di gobièrnu ku ta traha ku investigashonnan BIBOB of kombate di kriminalidad organisá. E instrumentonan ta basá riba 33 aña di eksperensia prákitko den investigashon.">
                             Onze software is ontwikkeld voor Nederlandse overheidsorganisaties: gemeenten, RIEC's, provincies en andere bestuursorganen die werken met BIBOB-onderzoeken of ondermijningsaanpak. De tools zijn gebaseerd op 33 jaar praktijkervaring in de opsporing.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        Kan ik de software eerst uitproberen?
+                    <div class="faq-question">
+                        <span data-nl="Kan ik de software eerst uitproberen?" data-en="Can I try the software first?" data-pap="Mi por purba e software promé?">Kan ik de software eerst uitproberen?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <div class="faq-answer-content">
+                        <div class="faq-answer-content" data-nl="Ja. Wij bieden gratis online demo's aan waarin u de volledige functionaliteit kunt ervaren. Tijdens de demo lichten wij toe hoe de software uw werkprocessen kan ondersteunen en beantwoorden wij al uw vragen." data-en="Yes. We offer free online demos where you can experience the full functionality. During the demo, we explain how the software can support your work processes and answer all your questions." data-pap="Sí. Nos ta ofresé demo'nan online grátis kaminda bo por eksperimentá e funshonalidat kompleto. Durante e demo nos ta splika kon e software por apoyá bo procesonan di trabou i nos ta kontestá tur bo preguntanan.">
                             Ja. Wij bieden gratis online demo's aan waarin u de volledige functionaliteit kunt ervaren. Tijdens de demo lichten wij toe hoe de software uw werkprocessen kan ondersteunen en beantwoorden wij al uw vragen.
                         </div>
                     </div>
@@ -818,75 +915,75 @@
     <section id="contact">
         <div class="container">
             <div class="section-header">
-                <h2>Neem contact op</h2>
-                <p>Interesse in onze oplossingen? Wij lichten graag toe hoe onze software uw organisatie kan ondersteunen.</p>
+                <h2 data-nl="Neem contact op" data-en="Get in touch" data-pap="Tuma kontakto">Neem contact op</h2>
+                <p data-nl="Interesse in onze oplossingen? Wij lichten graag toe hoe onze software uw organisatie kan ondersteunen." data-en="Interested in our solutions? We are happy to explain how our software can support your organization." data-pap="Interesá den nos solushonnan? Nos ta splika ku gustu kon nos software por apoyá bo organisashon.">Interesse in onze oplossingen? Wij lichten graag toe hoe onze software uw organisatie kan ondersteunen.</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-info">
-                    <h3>Contactgegevens</h3>
+                    <h3 data-nl="Contactgegevens" data-en="Contact information" data-pap="Informashon di kontakto">Contactgegevens</h3>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div><a href="tel:0684820708">06 84 82 07 08</a></div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-building"></i>
-                        <div>Knowledge by Data B.V.<br><span style="color: var(--text-muted); font-size: 0.9rem;">KvK: 99430169</span><br><span style="color: var(--text-muted); font-size: 0.85rem;">Algemene voorwaarden gedeponeerd bij de KvK</span></div>
+                        <div>Knowledge by Data B.V.<br><span style="color: var(--text-muted); font-size: 0.9rem;">KvK: 99430169</span><br><span style="color: var(--text-muted); font-size: 0.85rem;" data-nl="Algemene voorwaarden gedeponeerd bij de KvK" data-en="General terms and conditions filed with the Chamber of Commerce" data-pap="Kondishonnan general depositá na KvK">Algemene voorwaarden gedeponeerd bij de KvK</span></div>
                     </div>
                 </div>
                 <div class="contact-form-container">
-                    <h3>Demo aanvragen</h3>
+                    <h3 data-nl="Demo aanvragen" data-en="Request a demo" data-pap="Pidi demo">Demo aanvragen</h3>
                     <div class="account-notice">
                         <i class="fas fa-info-circle"></i>
-                        <p><strong>Let op:</strong> Inschrijving is alleen mogelijk met het zakelijke e-mailadres van uw overheidsorganisatie. Privé e-mailadressen worden niet geaccepteerd.</p>
+                        <p data-nl="<strong>Let op:</strong> Inschrijving is alleen mogelijk met het zakelijke e-mailadres van uw overheidsorganisatie. Privé e-mailadressen worden niet geaccepteerd." data-en="<strong>Note:</strong> Registration is only possible with the business email address of your government organization. Private email addresses are not accepted." data-pap="<strong>Tene kuenta:</strong> Inskripshon ta posibel solamente ku e adrès di e-mail di negoshi di bo organisashon gubernamental. Adrèsnan di e-mail privá no ta wordu akseptá."><strong>Let op:</strong> Inschrijving is alleen mogelijk met het zakelijke e-mailadres van uw overheidsorganisatie. Privé e-mailadressen worden niet geaccepteerd.</p>
                     </div>
                     <form class="contact-form" id="contactForm" action="https://formspree.io/f/mkogaojo" method="POST">
                         <input type="hidden" name="_subject" value="Demo aanvraag via website">
                         <input type="hidden" name="_next" value="https://www.knowledgebydata.info/bedankt.html">
                         <div class="form-group">
-                            <label for="naam">Naam *</label>
+                            <label for="naam" data-nl="Naam *" data-en="Name *" data-pap="Nòmber *">Naam *</label>
                             <input type="text" id="naam" name="naam" required>
                         </div>
                         <div class="form-group">
-                            <label for="organisatie">Organisatie *</label>
+                            <label for="organisatie" data-nl="Organisatie *" data-en="Organization *" data-pap="Organisashon *">Organisatie *</label>
                             <input type="text" id="organisatie" name="organisatie" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Zakelijk e-mailadres *</label>
-                            <input type="email" id="email" name="email" required placeholder="naam@gemeente.nl">
+                            <label for="email" data-nl="Zakelijk e-mailadres *" data-en="Business email address *" data-pap="Adrès di e-mail di negoshi *">Zakelijk e-mailadres *</label>
+                            <input type="email" id="email" name="email" required data-nl-placeholder="naam@gemeente.nl" data-en-placeholder="name@municipality.gov" data-pap-placeholder="nòmber@munisipio.nl" placeholder="naam@gemeente.nl">
                         </div>
                         <div class="form-group">
-                            <label for="telefoon">Telefoonnummer</label>
+                            <label for="telefoon" data-nl="Telefoonnummer" data-en="Phone number" data-pap="Number di telefòn">Telefoonnummer</label>
                             <input type="tel" id="telefoon" name="telefoon">
                         </div>
                         <div class="form-group">
-                            <label for="interesse">Interesse in *</label>
+                            <label for="interesse" data-nl="Interesse in *" data-en="Interest in *" data-pap="Interesá den *">Interesse in *</label>
                             <select id="interesse" name="interesse" required>
-                                <option value="">Selecteer een product...</option>
+                                <option value="" data-nl="Selecteer een product..." data-en="Select a product..." data-pap="Selekta un produkto...">Selecteer een product...</option>
                                 <option value="BIBOB Analyst Pro">BIBOB Analyst Pro</option>
                                 <option value="VAT Analyst Pro">VAT Analyst Pro</option>
                                 <option value="Analyst Pro">Analyst Pro</option>
-                                <option value="Meerdere producten">Meerdere producten</option>
+                                <option value="Meerdere producten" data-nl="Meerdere producten" data-en="Multiple products" data-pap="Varios produkto">Meerdere producten</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="demodatum">Voorkeursdatum demo (woensdag) *</label>
+                            <label for="demodatum" data-nl="Voorkeursdatum demo (woensdag) *" data-en="Preferred demo date (Wednesday) *" data-pap="Fecha preferá pa demo (djárason) *">Voorkeursdatum demo (woensdag) *</label>
                             <div class="date-picker-wrapper">
-                                <input type="text" id="demodatum" name="demodatum" class="date-picker-input" readonly required placeholder="Selecteer een woensdag...">
+                                <input type="text" id="demodatum" name="demodatum" class="date-picker-input" readonly required data-nl-placeholder="Selecteer een woensdag..." data-en-placeholder="Select a Wednesday..." data-pap-placeholder="Selekta un djárason..." placeholder="Selecteer een woensdag...">
                                 <div class="date-picker-dropdown" id="dateDropdown"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="bericht">Bericht</label>
-                            <textarea id="bericht" name="bericht" rows="4" placeholder="Optioneel: stel direct uw vragen of geef aan wat uw situatie is."></textarea>
+                            <label for="bericht" data-nl="Bericht" data-en="Message" data-pap="Mensahe">Bericht</label>
+                            <textarea id="bericht" name="bericht" rows="4" data-nl-placeholder="Optioneel: stel direct uw vragen of geef aan wat uw situatie is." data-en-placeholder="Optional: ask your questions directly or describe your situation." data-pap-placeholder="Opshonal: hasi bo preguntanan direktamente of indiká ki ta bo situashon." placeholder="Optioneel: stel direct uw vragen of geef aan wat uw situatie is."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i> Verstuur aanvraag
+                            <i class="fas fa-paper-plane"></i> <span data-nl="Verstuur aanvraag" data-en="Submit request" data-pap="Manda petishon">Verstuur aanvraag</span>
                         </button>
                     </form>
                     <div id="formSuccess" class="form-success" style="display:none;">
                         <i class="fas fa-check-circle"></i>
-                        <h4>Bedankt voor uw aanvraag!</h4>
-                        <p>Wij nemen zo spoedig mogelijk contact met u op.</p>
+                        <h4 data-nl="Bedankt voor uw aanvraag!" data-en="Thank you for your request!" data-pap="Danki pa bo petishon!">Bedankt voor uw aanvraag!</h4>
+                        <p data-nl="Wij nemen zo spoedig mogelijk contact met u op." data-en="We will contact you as soon as possible." data-pap="Nos lo tuma kontakto ku bo mas lihé posibel.">Wij nemen zo spoedig mogelijk contact met u op.</p>
                     </div>
                 </div>
             </div>
@@ -896,17 +993,62 @@
     <footer class="footer">
         <div class="footer-container">
             <img src="logo.svg" alt="Knowledge by Data" class="footer-logo">
-            <p>© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
+            <p data-nl="© 2025 Knowledge by Data B.V. Alle rechten voorbehouden." data-en="© 2025 Knowledge by Data B.V. All rights reserved." data-pap="© 2025 Knowledge by Data B.V. Tur derecho reservá.">© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
         </div>
     </footer>
 
     <script>
-        function showDemo(demo) {
-            document.querySelectorAll('.demo-tab').forEach(function(tab) { tab.classList.remove('active'); });
-            event.target.closest('.demo-tab').classList.add('active');
-            document.querySelectorAll('.demo-panel').forEach(function(panel) { panel.classList.remove('active'); });
-            document.getElementById('demo-' + demo).classList.add('active');
+        // Language switching functionality
+        var currentLang = 'nl';
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-pap').classList.toggle('active', lang === 'pap');
+            
+            // Update all elements with data attributes for the selected language
+            document.querySelectorAll('[data-' + lang + ']').forEach(function(el) {
+                var text = el.getAttribute('data-' + lang);
+                if (text) {
+                    el.innerHTML = text;
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-' + lang + '-placeholder]').forEach(function(el) {
+                var placeholder = el.getAttribute('data-' + lang + '-placeholder');
+                if (placeholder) {
+                    el.placeholder = placeholder;
+                }
+            });
+            
+            // Update HTML lang attribute
+            if (lang === 'pap') {
+                document.documentElement.lang = 'pap';
+            } else if (lang === 'en') {
+                document.documentElement.lang = 'en';
+            } else {
+                document.documentElement.lang = 'nl';
+            }
+            
+            // Regenerate date picker with correct language
+            regenerateDatePicker();
         }
+
+        // Demo tab click handlers
+        document.querySelectorAll('.demo-tab').forEach(function(tab) {
+            tab.addEventListener('click', function(e) {
+                var demo = this.getAttribute('data-demo');
+                document.querySelectorAll('.demo-tab').forEach(function(t) { t.classList.remove('active'); });
+                this.classList.add('active');
+                document.querySelectorAll('.demo-panel').forEach(function(panel) { panel.classList.remove('active'); });
+                document.getElementById('demo-' + demo).classList.add('active');
+            });
+        });
+        
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -915,12 +1057,15 @@
             });
         });
 
-        function toggleFaq(element) {
-            var faqItem = element.parentElement;
-            var wasActive = faqItem.classList.contains('active');
-            document.querySelectorAll('.faq-item').forEach(function(item) { item.classList.remove('active'); });
-            if (!wasActive) { faqItem.classList.add('active'); }
-        }
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(function(question) {
+            question.addEventListener('click', function() {
+                var faqItem = this.parentElement;
+                var wasActive = faqItem.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(function(item) { item.classList.remove('active'); });
+                if (!wasActive) { faqItem.classList.add('active'); }
+            });
+        });
 
         function generateWednesdays() {
             var wednesdays = [];
@@ -934,14 +1079,33 @@
         }
 
         function formatDate(date) {
-            var days = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
-            var months = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+            var daysNL = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+            var monthsNL = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+            var daysEN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var monthsEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var daysPAP = ['diadomingo', 'dialuna', 'diamars', 'djárason', 'diahuebs', 'diabièrne', 'diasabra'];
+            var monthsPAP = ['yanüari', 'febrüari', 'mart', 'aprel', 'mei', 'yüni', 'yüli', 'ougùstùs', 'sèptèmber', 'òktober', 'novèmber', 'desèmber'];
+            
+            var days, months;
+            if (currentLang === 'en') {
+                days = daysEN;
+                months = monthsEN;
+            } else if (currentLang === 'pap') {
+                days = daysPAP;
+                months = monthsPAP;
+            } else {
+                days = daysNL;
+                months = monthsNL;
+            }
+            
             return days[date.getDay()] + ' ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
         }
 
-        function initDatePicker() {
-            var input = document.getElementById('demodatum');
+        function regenerateDatePicker() {
             var dropdown = document.getElementById('dateDropdown');
+            var input = document.getElementById('demodatum');
+            dropdown.innerHTML = '';
+            
             var wednesdays = generateWednesdays();
             
             for (var i = 0; i < wednesdays.length; i++) {
@@ -949,20 +1113,27 @@
                 option.className = 'date-option';
                 option.textContent = formatDate(wednesdays[i]);
                 option.setAttribute('data-value', formatDate(wednesdays[i]));
-                option.onclick = function() {
+                option.addEventListener('click', function() {
                     input.value = this.getAttribute('data-value');
                     dropdown.classList.remove('show');
                     var allOptions = dropdown.querySelectorAll('.date-option');
                     for (var j = 0; j < allOptions.length; j++) { allOptions[j].classList.remove('selected'); }
                     this.classList.add('selected');
-                };
+                });
                 dropdown.appendChild(option);
             }
+        }
+
+        function initDatePicker() {
+            var input = document.getElementById('demodatum');
+            var dropdown = document.getElementById('dateDropdown');
             
-            input.onclick = function(e) {
+            regenerateDatePicker();
+            
+            input.addEventListener('click', function(e) {
                 e.stopPropagation();
                 dropdown.classList.toggle('show');
-            };
+            });
             
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.date-picker-wrapper')) { dropdown.classList.remove('show'); }
