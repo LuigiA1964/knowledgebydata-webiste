@@ -322,8 +322,8 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
         }
         .product-card {
             background: var(--bg-white);
@@ -552,7 +552,7 @@
 
         @media (max-width: 992px) {
             .pillars { grid-template-columns: repeat(2, 1fr); }
-            .products-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
@@ -795,6 +795,18 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
                     </ul>
                 </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-database"></i></div>
+                    <h3>Data Handler Pro</h3>
+                    <p data-nl="Geautomatiseerde data-aggregatie uit overheidsbronnen. Eén zoekopdracht, alle relevante registers, direct bruikbare PDF-rapportages." data-en="Automated data aggregation from government sources. One query, all relevant registers, instantly usable PDF reports." data-pap="Agregashon outomátiko di data for di fuentenan gubernamental. Un solo búskeda, tur registro relevante, rapòrt PDF listo pa usa.">Geautomatiseerde data-aggregatie uit overheidsbronnen. Eén zoekopdracht, alle relevante registers, direct bruikbare PDF-rapportages.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="15+ bronnen: KVK, Kadaster, BRP, RDW, UBO" data-en="15+ sources: Chamber of Commerce, Land Registry, BRP, RDW, UBO" data-pap="15+ fuente: KVK, Kadaster, BRP, RDW, UBO">15+ bronnen: KVK, Kadaster, BRP, RDW, UBO</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Eigen API-keys, eigen beheer" data-en="Your own API keys, your own control" data-pap="Bo mes API-keys, bo mes kontrol">Eigen API-keys, eigen beheer</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Per-bron PDF met volledige resultaten" data-en="Per-source PDF with complete results" data-pap="PDF pa kada fuente ku resultado kompleto">Per-bron PDF met volledige resultaten</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Rolgebaseerde toegang (BIBOB/Ondermijning)" data-en="Role-based access (BIBOB/Organized crime)" data-pap="Akseso basá riba rol (BIBOB/Ondermijning)">Rolgebaseerde toegang (BIBOB/Ondermijning)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Sessiegebonden: geen data na afsluiten" data-en="Session-based: no data after closing" data-pap="Basá riba seshon: sin data despues di sera">Sessiegebonden: geen data na afsluiten</span></li>
+                    </ul>
+                </div>
             </div>
             
             <div class="documentation-banner">
@@ -962,6 +974,7 @@
                                 <option value="BIBOB Analyst Pro">BIBOB Analyst Pro</option>
                                 <option value="VAT Analyst Pro">VAT Analyst Pro</option>
                                 <option value="Analyst Pro">Analyst Pro</option>
+                                <option value="Data Handler Pro">Data Handler Pro</option>
                                 <option value="Meerdere producten" data-nl="Meerdere producten" data-en="Multiple products" data-pap="Varios produkto">Meerdere producten</option>
                             </select>
                         </div>
@@ -1142,8 +1155,5 @@
 
         initDatePicker();
     </script>
-
-    <!-- GoatCounter Analytics - Privacy-friendly, no cookies -->
-    <script data-goatcounter="https://knowledgebydata.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
