@@ -324,13 +324,16 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
+            align-items: stretch;
         }
         .product-card {
             background: var(--bg-white);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 35px;
+            padding: 30px;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
         .product-card:hover {
             border-color: var(--primary);
@@ -346,19 +349,29 @@
             justify-content: center;
             font-size: 1.3rem;
             margin-bottom: 20px;
+            flex-shrink: 0;
         }
-        .product-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text-dark); }
-        .product-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6; }
-        .product-features { list-style: none; }
+        .product-card h3 { font-size: 1.15rem; margin-bottom: 12px; color: var(--text-dark); flex-shrink: 0; }
+        .product-card > p { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            margin-bottom: 20px; 
+            line-height: 1.6; 
+            height: 85px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .product-features { list-style: none; flex-shrink: 0; }
         .product-features li {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
-            padding: 8px 0;
+            padding: 6px 0;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
-        .product-features li i { color: var(--success); }
+        .product-features li i { color: var(--success); flex-shrink: 0; margin-top: 3px; }
 
         .documentation-banner {
             margin-top: 50px;
@@ -661,6 +674,7 @@
                     <p data-nl="Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is." data-en="Knowledge by Data was founded in 2022 with a clear mission: helping governments strengthen their information position with software that is affordable, secure and functional." data-pap="Knowledge by Data a wordu fundá na 2022 ku un mishon kla: yuda gobièrnunan fortalesé nan posishon di informashon ku software ku ta aksesibel, sigur i funshonal.">Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is.</p>
                     <p data-nl="Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak." data-en="We believe that smaller municipalities — without a dedicated analyst and without large budgets — should also have access to professional analysis tools for integrity investigations and organized crime prevention." data-pap="Nos ta kere ku tambe munisipalitanan mas chikitu — sin analist dedikä i sin presupuesto grandi — mester tin akseso na instrumentonan di análisis profesional pa investigashon di integridat i kombate di kriminalidad organisá.">Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak.</p>
                     <p data-nl="Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar." data-en="Our unique architecture sets us apart from the market: all data is processed locally, there are no servers, no cloud, and therefore no attack surface. Secure, functional, reliable and affordable." data-pap="Nos arkitektura speshal ta distinguí nos di e merkado: tur data ta wordu prosesá lokalmente, no tin server, no tin cloud, i pa esei no tin superfisie di atake. Sigur, funshonal, konfiabel i aksesibel.">Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar.</p>
+                    <p data-nl="Knowledge by Data is in geen geval verwerker van uw data en heeft hier ook nooit toegang toe. Al onze applicaties — met uitzondering van Data Handler Pro — werken volledig offline. Data Handler Pro is een optioneel product dat complementair is aan BIBOB Analyst Pro en Analyst Pro; beide applicaties zijn ook zonder Data Handler Pro 100% functioneel. Het beheer van Data Handler Pro ligt volledig bij de afdeling ICT van uw organisatie." data-en="Knowledge by Data is never a processor of your data and never has access to it. All our applications — except Data Handler Pro — work completely offline. Data Handler Pro is an optional product that complements BIBOB Analyst Pro and Analyst Pro; both applications are 100% functional without Data Handler Pro. Management of Data Handler Pro lies entirely with your organization's IT department." data-pap="Knowledge by Data nunka no ta un prosesadó di bo data i nunka no tin akseso na dje. Tur nos aplikashonnan — ekseptando Data Handler Pro — ta traha kompletamente offline. Data Handler Pro ta un produkto opshonal ku ta komplementá BIBOB Analyst Pro i Analyst Pro; tur dos aplikashon ta 100% funshonal sin Data Handler Pro. E maneho di Data Handler Pro ta kompletamente serka e departamentu di ICT di bo organisashon.">Knowledge by Data is in geen geval verwerker van uw data en heeft hier ook nooit toegang toe. Al onze applicaties — met uitzondering van Data Handler Pro — werken volledig offline. Data Handler Pro is een optioneel product dat complementair is aan BIBOB Analyst Pro en Analyst Pro; beide applicaties zijn ook zonder Data Handler Pro 100% functioneel. Het beheer van Data Handler Pro ligt volledig bij de afdeling ICT van uw organisatie.</p>
                     <div class="protected-notice">
                         <i class="fas fa-registered"></i>
                         <div>
