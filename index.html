@@ -243,8 +243,18 @@
             object-fit: cover;
             border: 3px solid var(--primary-light);
         }
-        .founder-info h4 { font-size: 1.25rem; color: var(--text-dark); }
+        .founder-info h4 { font-size: 1.25rem; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
         .founder-info span { color: var(--text-muted); font-size: 0.95rem; }
+        .linkedin-link {
+            color: #0A66C2;
+            font-size: 1.4rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .linkedin-link:hover {
+            color: #004182;
+            transform: scale(1.1);
+        }
         .founder-card p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
         .credentials { display: flex; flex-wrap: wrap; gap: 10px; }
         .credential {
@@ -322,8 +332,8 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
         .product-card {
             background: var(--bg-white);
@@ -348,8 +358,8 @@
             margin-bottom: 20px;
         }
         .product-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text-dark); }
-        .product-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; line-height: 1.6; height: 150px; }
-        .product-features { list-style: none; margin-bottom: 0; }
+        .product-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6; }
+        .product-features { list-style: none; }
         .product-features li {
             display: flex;
             align-items: center;
@@ -552,7 +562,7 @@
 
         @media (max-width: 992px) {
             .pillars { grid-template-columns: repeat(2, 1fr); }
-            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: 1fr; }
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
@@ -661,7 +671,6 @@
                     <p data-nl="Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is." data-en="Knowledge by Data was founded in 2022 with a clear mission: helping governments strengthen their information position with software that is affordable, secure and functional." data-pap="Knowledge by Data a wordu fundá na 2022 ku un mishon kla: yuda gobièrnunan fortalesé nan posishon di informashon ku software ku ta aksesibel, sigur i funshonal.">Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is.</p>
                     <p data-nl="Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak." data-en="We believe that smaller municipalities — without a dedicated analyst and without large budgets — should also have access to professional analysis tools for integrity investigations and organized crime prevention." data-pap="Nos ta kere ku tambe munisipalitanan mas chikitu — sin analist dedikä i sin presupuesto grandi — mester tin akseso na instrumentonan di análisis profesional pa investigashon di integridat i kombate di kriminalidad organisá.">Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak.</p>
                     <p data-nl="Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar." data-en="Our unique architecture sets us apart from the market: all data is processed locally, there are no servers, no cloud, and therefore no attack surface. Secure, functional, reliable and affordable." data-pap="Nos arkitektura speshal ta distinguí nos di e merkado: tur data ta wordu prosesá lokalmente, no tin server, no tin cloud, i pa esei no tin superfisie di atake. Sigur, funshonal, konfiabel i aksesibel.">Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar.</p>
-                    <p data-nl="Knowledge by Data is in geen geval verwerker van uw data en heeft hier ook nooit toegang toe. Al onze applicaties — met uitzondering van Data Handler Pro — werken volledig offline. Data Handler Pro is een optioneel product dat complementair is aan BIBOB Analyst Pro en Analyst Pro; beide applicaties zijn ook zonder Data Handler Pro 100% functioneel. Het beheer van Data Handler Pro ligt volledig bij de afdeling ICT van uw organisatie." data-en="Knowledge by Data is never a processor of your data and never has access to it. All our applications — except Data Handler Pro — work completely offline. Data Handler Pro is an optional product that complements BIBOB Analyst Pro and Analyst Pro; both applications are 100% functional without Data Handler Pro. Management of Data Handler Pro lies entirely with your organization's IT department." data-pap="Knowledge by Data nunka no ta un prosesadó di bo data i nunka no tin akseso na dje. Tur nos aplikashonnan — ekseptando Data Handler Pro — ta traha kompletamente offline. Data Handler Pro ta un produkto opshonal ku ta komplementá BIBOB Analyst Pro i Analyst Pro; tur dos aplikashon ta 100% funshonal sin Data Handler Pro. E maneho di Data Handler Pro ta kompletamente serka e departamentu di ICT di bo organisashon.">Knowledge by Data is in geen geval verwerker van uw data en heeft hier ook nooit toegang toe. Al onze applicaties — met uitzondering van Data Handler Pro — werken volledig offline. Data Handler Pro is een optioneel product dat complementair is aan BIBOB Analyst Pro en Analyst Pro; beide applicaties zijn ook zonder Data Handler Pro 100% functioneel. Het beheer van Data Handler Pro ligt volledig bij de afdeling ICT van uw organisatie.</p>
                     <div class="protected-notice">
                         <i class="fas fa-registered"></i>
                         <div>
@@ -674,7 +683,7 @@
                     <div class="founder-header">
                         <img src="founder.jpg" alt="Loek Antenbrink" class="founder-avatar">
                         <div class="founder-info">
-                            <h4>Loek Antenbrink</h4>
+                            <h4>Loek Antenbrink <a href="https://www.linkedin.com/in/loek-antenbrink-3a286515b" target="_blank" rel="noopener noreferrer" class="linkedin-link" title="LinkedIn profiel"><i class="fab fa-linkedin"></i></a></h4>
                             <span data-nl="Founder" data-en="Founder" data-pap="Fundadó">Founder</span>
                         </div>
                     </div>
@@ -773,7 +782,7 @@
                     </ul>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="product-icon"><i class="fas fa-search-dollar"></i></div>
                     <h3>VAT Analyst Pro</h3>
                     <p data-nl="Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant)." data-en="Analysis tool for supervisors detecting exploitation in the sex industry. Pure analysis, no data storage (GDPR-compliant)." data-pap="Instrumento di análisis pa supervisónan pa detektá eksplotashon den industria di sekso. Solamente análisis, sin almasenahementu di data (konforme ku AVG).">Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
                     <ul class="product-features">
@@ -794,18 +803,6 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Analist & medewerker module" data-en="Analyst & staff module" data-pap="Módulo di analist i kolaboradó">Analist & medewerker module</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Export naar Analyst Notebook" data-en="Export to Analyst Notebook" data-pap="Eksportá pa Analyst Notebook">Export naar Analyst Notebook</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
-                    </ul>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon"><i class="fas fa-database"></i></div>
-                    <h3>Data Handler Pro</h3>
-                    <p data-nl="Geautomatiseerde data-aggregatie uit overheidsbronnen. Alle relevante registers met één zoekopdracht, direct bruikbare PDF-rapporten." data-en="Automated data aggregation from government sources. All relevant registers with one query, instantly usable PDF reports." data-pap="Agregashon outomátiko di data for di fuentenan gubernamental. Tur registro relevante ku un solo búskeda, rapòrt PDF listo pa usa.">Geautomatiseerde data-aggregatie uit overheidsbronnen. Alle relevante registers met één zoekopdracht, direct bruikbare PDF-rapporten.</p>
-                    <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="15+ bronnen: KVK, Kadaster, BRP, RDW, UBO" data-en="15+ sources: Chamber of Commerce, Land Registry, BRP, RDW, UBO" data-pap="15+ fuente: KVK, Kadaster, BRP, RDW, UBO">15+ bronnen: KVK, Kadaster, BRP, RDW, UBO</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Eigen API-keys, eigen beheer" data-en="Your own API keys, your own control" data-pap="Bo mes API-keys, bo mes kontrol">Eigen API-keys, eigen beheer</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Per-bron PDF met volledige resultaten" data-en="Per-source PDF with complete results" data-pap="PDF pa kada fuente ku resultado kompleto">Per-bron PDF met volledige resultaten</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Rolgebaseerde toegang (BIBOB/Ondermijning)" data-en="Role-based access (BIBOB/Organized crime)" data-pap="Akseso basá riba rol (BIBOB/Ondermijning)">Rolgebaseerde toegang (BIBOB/Ondermijning)</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Sessiegebonden: geen data na afsluiten" data-en="Session-based: no data after closing" data-pap="Basá riba seshon: sin data despues di sera">Sessiegebonden: geen data na afsluiten</span></li>
                     </ul>
                 </div>
             </div>
@@ -975,7 +972,6 @@
                                 <option value="BIBOB Analyst Pro">BIBOB Analyst Pro</option>
                                 <option value="VAT Analyst Pro">VAT Analyst Pro</option>
                                 <option value="Analyst Pro">Analyst Pro</option>
-                                <option value="Data Handler Pro">Data Handler Pro</option>
                                 <option value="Meerdere producten" data-nl="Meerdere producten" data-en="Multiple products" data-pap="Varios produkto">Meerdere producten</option>
                             </select>
                         </div>
