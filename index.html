@@ -370,6 +370,44 @@
         }
         .product-features li i { color: var(--success); }
 
+        .time-savings-banner {
+            margin-top: 50px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
+            border: 1px solid var(--primary);
+            border-radius: 16px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .time-savings-icon {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .time-savings-content h3 { color: var(--text-dark); margin-bottom: 8px; font-size: 1rem; }
+        .time-savings-stats {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .time-savings-stats strong {
+            color: var(--primary);
+        }
+        .time-savings-stats i {
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
         .documentation-banner {
             margin-top: 50px;
             background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
@@ -817,6 +855,20 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Rolgebaseerde toegang (BIBOB/Ondermijning)" data-en="Role-based access (BIBOB/Organized crime)" data-pap="Akseso basá riba rol (BIBOB/Ondermijning)">Rolgebaseerde toegang (BIBOB/Ondermijning)</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Sessiegebonden: geen data na afsluiten" data-en="Session-based: no data after closing" data-pap="Basá riba seshon: sin data despues di sera">Sessiegebonden: geen data na afsluiten</span></li>
                     </ul>
+                </div>
+            </div>
+            
+            <div class="time-savings-banner">
+                <div class="time-savings-icon"><i class="fas fa-clock"></i></div>
+                <div class="time-savings-content">
+                    <h3 data-nl="Tijdsbesparing per BIBOB-dossier" data-en="Time savings per BIBOB case" data-pap="Ahorro di tempu pa kada dossier BIBOB">Tijdsbesparing per BIBOB-dossier</h3>
+                    <div class="time-savings-stats">
+                        <span data-nl="Handmatig: <strong>9-13 uur</strong>" data-en="Manual: <strong>9-13 hours</strong>" data-pap="Manual: <strong>9-13 ora</strong>">Handmatig: <strong>9-13 uur</strong></span>
+                        <i class="fas fa-arrow-right"></i>
+                        <span data-nl="Met onze software: <strong>1,5-2,5 uur</strong>" data-en="With our software: <strong>1.5-2.5 hours</strong>" data-pap="Ku nos software: <strong>1,5-2,5 ora</strong>">Met onze software: <strong>1,5-2,5 uur</strong></span>
+                        <i class="fas fa-arrow-right"></i>
+                        <span data-nl="<strong>±10 werkweken</strong> besparing per medewerker per jaar" data-en="<strong>±10 work weeks</strong> savings per employee per year" data-pap="<strong>±10 siman di trabou</strong> ahorro pa empleado pa aña"><strong>±10 werkweken</strong> besparing per medewerker per jaar</span>
+                    </div>
                 </div>
             </div>
             
