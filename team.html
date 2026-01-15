@@ -169,12 +169,13 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(6, 1fr);
             gap: 30px;
             margin-top: 40px;
         }
 
         .team-card {
+            grid-column: span 2;
             background: var(--bg-white);
             border: 1px solid var(--border);
             border-radius: 16px;
@@ -233,6 +234,26 @@
             color: var(--text-muted);
             font-size: 0.9rem;
             line-height: 1.6;
+        }
+
+        /* Centreer de laatste twee kaarten */
+        .team-card:nth-child(4) {
+            grid-column: 2 / span 2;
+        }
+        .team-card:nth-child(5) {
+            grid-column: 4 / span 2;
+        }
+
+        /* Responsive: op kleinere schermen terug naar 1 kolom */
+        @media (max-width: 900px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .team-card,
+            .team-card:nth-child(4),
+            .team-card:nth-child(5) {
+                grid-column: 1;
+            }
         }
 
         .privacy-notice {
