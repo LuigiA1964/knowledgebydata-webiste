@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ons Team - Knowledge by Data</title>
+    <meta name="description" content="Het team van Knowledge by Data: ervaren professionals uit de praktijk, gespecialiseerd in BIBOB-onderzoeken en ondermijningsaanpak.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #137dbe;
+            --primary-dark: #0e5a8a;
+            --primary-light: #e8f4fc;
+            --text-dark: #2d3748;
+            --text-muted: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Language Switcher Styles */
+        .language-bar {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 8px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-switcher:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .lang-btn.active {
+            background: rgba(255,255,255,0.3);
+        }
+        .lang-divider {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 40px;
+            left: 0; right: 0;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 20px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        .logo { height: 60px; }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        .nav-contact {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .nav-contact a { color: var(--primary); text-decoration: none; }
+
+        .hero {
+            padding: 180px 20px 60px;
+            background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
+        }
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        section { padding: 60px 20px; }
+        .section-light { background: var(--bg-light); }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .team-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(19, 125, 190, 0.1);
+            transform: translateY(-3px);
+        }
+        .team-card.founder {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
+        }
+
+        .team-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+        .team-card.founder .team-icon {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        .team-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        .team-role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .team-count {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .privacy-notice {
+            max-width: 700px;
+            margin: 50px auto 0;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 25px 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .privacy-notice i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+        .privacy-notice div {
+            flex: 1;
+        }
+        .privacy-notice strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .privacy-notice span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .back-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .back-link a:hover {
+            color: var(--primary-dark);
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 20px 25px;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-logo { height: 50px; filter: brightness(0) invert(1); }
+        .footer p { font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-contact { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 160px 20px 40px; }
+            .language-bar { justify-content: center; }
+            .team-grid { grid-template-columns: 1fr; }
+            .privacy-notice { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher Bar -->
+    <div class="language-bar">
+        <div class="language-switcher">
+            <button class="lang-btn active" id="btn-nl" onclick="switchLanguage('nl')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="5.33" fill="#AE1C28"/>
+                    <rect y="5.33" width="24" height="5.33" fill="#FFFFFF"/>
+                    <rect y="10.66" width="24" height="5.34" fill="#21468B"/>
+                </svg>
+                NL
+            </button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" id="btn-en" onclick="switchLanguage('en')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="16" fill="#012169"/>
+                    <path d="M0,0 L24,16 M24,0 L0,16" stroke="#FFFFFF" stroke-width="2.5"/>
+                    <path d="M0,0 L24,16 M24,0 L0,16" stroke="#C8102E" stroke-width="1.5"/>
+                    <path d="M12,0 V16 M0,8 H24" stroke="#FFFFFF" stroke-width="4"/>
+                    <path d="M12,0 V16 M0,8 H24" stroke="#C8102E" stroke-width="2.5"/>
+                </svg>
+                EN
+            </button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" id="btn-pap" onclick="switchLanguage('pap')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="8" fill="#002B7F"/>
+                    <rect y="8" width="24" height="8" fill="#FCD116"/>
+                    <polygon points="0,0 10,8 0,16" fill="#CE1126"/>
+                    <circle cx="16" cy="8" r="2.5" fill="#FFFFFF"/>
+                </svg>
+                PAP
+            </button>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.svg" alt="Knowledge by Data" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-nl="Home" data-en="Home" data-pap="Kas">Home</a></li>
+                <li><a href="index.html#beveiliging" data-nl="Beveiliging" data-en="Security" data-pap="Seguridat">Beveiliging</a></li>
+                <li><a href="index.html#producten" data-nl="Producten" data-en="Products" data-pap="Produktonan">Producten</a></li>
+                <li><a href="team.html" class="active" data-nl="Team" data-en="Team" data-pap="Ekipo">Team</a></li>
+                <li><a href="index.html#contact" data-nl="Contact" data-en="Contact" data-pap="Kontakto">Contact</a></li>
+            </ul>
+            <div class="nav-contact">
+                <span><i class="fas fa-phone"></i> <a href="tel:0684820708">06 84 82 07 08</a></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-container">
+            <h1 data-nl="Ons <span>Team</span>" data-en="Our <span>Team</span>" data-pap="Nos <span>Ekipo</span>">Ons <span>Team</span></h1>
+            <p class="hero-subtitle" data-nl="Ervaren professionals uit de praktijk, verenigd door een gezamenlijke missie: overheden ondersteunen met veilige en effectieve analyse-oplossingen." data-en="Experienced professionals from the field, united by a common mission: supporting governments with secure and effective analysis solutions." data-pap="Profeshonalnan eksperimentá for di práktika, uní pa un mishon komun: apoyá gobièrnunan ku solushonnan di análisis sigur i efektivo.">Ervaren professionals uit de praktijk, verenigd door een gezamenlijke missie: overheden ondersteunen met veilige en effectieve analyse-oplossingen.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <p class="intro-text" data-nl="Het team van Knowledge by Data bestaat uit professionals met jarenlange ervaring in opsporing, recherche, data-analyse, ICT en bestuurlijke handhaving. Onze achtergrond in de praktijk zorgt ervoor dat we precies begrijpen wat onderzoekers nodig hebben — en wat niet." data-en="The Knowledge by Data team consists of professionals with years of experience in investigation, criminal investigation, data analysis, ICT and administrative enforcement. Our background in practice ensures that we understand exactly what investigators need — and what they don't." data-pap="E ekipo di Knowledge by Data ta konsistí di profeshonalnan ku añanan di eksperensia den investigashon, rechèrs, análisis di data, ICT i enkargo administrativo. Nos trasfondo den práktika ta garantisá ku nos ta komprondé eksaktamente kiko investigadónan mester — i kiko nan no mester.">Het team van Knowledge by Data bestaat uit professionals met jarenlange ervaring in opsporing, recherche, data-analyse, ICT en bestuurlijke handhaving. Onze achtergrond in de praktijk zorgt ervoor dat we precies begrijpen wat onderzoekers nodig hebben — en wat niet.</p>
+
+            <div class="team-grid">
+                <div class="team-card founder">
+                    <div class="team-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3 data-nl="Founder & Data Expert" data-en="Founder & Data Expert" data-pap="Fundadó & Eksperto di Data">Founder & Data Expert</h3>
+                    <div class="team-role" data-nl="Leiding & Productontwikkeling" data-en="Leadership & Product Development" data-pap="Liderazgo & Desaroyo di Produkto">Leiding & Productontwikkeling</div>
+                    <p data-nl="39 jaar ervaring in opsporing en bestuurlijke handhaving. Gespecialiseerd in financieel-economische criminaliteit. Gecertificeerd als FG, CDO en Data Professional. Verantwoordelijk voor de architectuur en ontwikkeling van alle producten. Maakt deel uit van het team van twee data experts." data-en="39 years of experience in investigation and administrative enforcement. Specialized in financial-economic crime. Certified as DPO, CDO and Data Professional. Responsible for the architecture and development of all products. Part of the team of two data experts." data-pap="39 aña di eksperensia den investigashon i enkargo administrativo. Spesialisá den kriminalidad finansiero-ekonómiko. Sertifiká komo FG, CDO i Data Professional. Responsabel pa e arkitektura i desaroyo di tur produkto. Parti di e ekipo di dos eksperto di data.">39 jaar ervaring in opsporing en bestuurlijke handhaving. Gespecialiseerd in financieel-economische criminaliteit. Gecertificeerd als FG, CDO en Data Professional. Verantwoordelijk voor de architectuur en ontwikkeling van alle producten. Maakt deel uit van het team van twee data experts.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-icon"><i class="fas fa-database"></i></div>
+                    <h3 data-nl="Data Expert" data-en="Data Expert" data-pap="Eksperto di Data">Data Expert</h3>
+                    <div class="team-count" data-nl="1 specialist" data-en="1 specialist" data-pap="1 spesialista">1 specialist</div>
+                    <p data-nl="Expert in data-analyse en -verwerking met jarenlange ervaring in de ICT. Ondersteunt samen met de founder bij complexe vraagstukken, optimalisatie van workflows en doorontwikkeling van de analysemethodieken." data-en="Expert in data analysis and processing with years of experience in IT. Supports together with the founder on complex issues, workflow optimization and further development of analysis methodologies." data-pap="Eksperto den análisis i prosesamentu di data ku añanan di eksperensia den ICT. Ta apoyá huntu ku e fundadó ku asuntunan kompleks, optimalisashon di workflow i desaroyo mas avansá di metodologíanan di análisis.">Expert in data-analyse en -verwerking met jarenlange ervaring in de ICT. Ondersteunt samen met de founder bij complexe vraagstukken, optimalisatie van workflows en doorontwikkeling van de analysemethodieken.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3 data-nl="Demo & Training Consultants" data-en="Demo & Training Consultants" data-pap="Konsultantenan di Demo & Training">Demo & Training Consultants</h3>
+                    <div class="team-count" data-nl="4 consultants" data-en="4 consultants" data-pap="4 konsultante">4 consultants</div>
+                    <p data-nl="Verzorgen productdemonstraties en trainingen bij gemeenten en RIEC's. Allen met ruime ervaring in BIBOB-onderzoeken, vergunningverlening en de aanpak van ondermijning. Spreken de taal van de onderzoeker." data-en="Provide product demonstrations and training at municipalities and RIECs. All with extensive experience in BIBOB investigations, licensing and tackling organized crime. Speak the investigator's language." data-pap="Ta duna demonstrashon di produkto i training na munisipalitanan i RIEC'nan. Tur ku eksperensia amplio den investigashonnan BIBOB, otorgamentu di pèrmit i kombate di kriminalidad organisá. Ta papia e idioma di e investigadó.">Verzorgen productdemonstraties en trainingen bij gemeenten en RIEC's. Allen met ruime ervaring in BIBOB-onderzoeken, vergunningverlening en de aanpak van ondermijning. Spreken de taal van de onderzoeker.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-icon"><i class="fas fa-handshake"></i></div>
+                    <h3 data-nl="Sales & Training Consultant" data-en="Sales & Training Consultant" data-pap="Konsultante di Benta & Training">Sales & Training Consultant</h3>
+                    <div class="team-count" data-nl="1 consultant" data-en="1 consultant" data-pap="1 konsultante">1 consultant</div>
+                    <p data-nl="Verantwoordelijk voor klantcontact, adviesgesprekken en het verzorgen van trainingen. Combineert commerciële ervaring met inhoudelijke kennis van de producten en de doelgroep." data-en="Responsible for customer contact, advisory conversations and providing training. Combines commercial experience with substantive knowledge of the products and target audience." data-pap="Responsabel pa kontakto ku kliente, kombersashonnan di konseho i duna training. Ta kombiná eksperensia komersial ku konosementu sustansial di e produktonan i e públiko meta.">Verantwoordelijk voor klantcontact, adviesgesprekken en het verzorgen van trainingen. Combineert commerciële ervaring met inhoudelijke kennis van de producten en de doelgroep.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3 data-nl="BIBOB Expert / Specialist" data-en="BIBOB Expert / Specialist" data-pap="Eksperto / Spesialista BIBOB">BIBOB Expert / Specialist</h3>
+                    <div class="team-count" data-nl="1 specialist" data-en="1 specialist" data-pap="1 spesialista">1 specialist</div>
+                    <p data-nl="Inhoudelijk specialist op het gebied van BIBOB-onderzoeken met ICT-expertise. Ondersteunt bij complexe casuïstiek, adviseert over toepassing van de wet BIBOB en draagt bij aan de doorontwikkeling van de BIBOB-module. Tevens consultant voor de Nederlandse Antillen." data-en="Subject matter specialist in BIBOB investigations with ICT expertise. Supports with complex cases, advises on application of the BIBOB law and contributes to the further development of the BIBOB module. Also consultant for the Dutch Caribbean." data-pap="Spesialista di kontenido den investigashonnan BIBOB ku ekspertisio di ICT. Ta apoyá ku kasonan kompleks, ta konsehá tokante aplikashon di e lei BIBOB i ta kontribuí na e desaroyo mas avansá di e módulo BIBOB. Tambe konsultante pa Antia Hulandes.">Inhoudelijk specialist op het gebied van BIBOB-onderzoeken met ICT-expertise. Ondersteunt bij complexe casuïstiek, adviseert over toepassing van de wet BIBOB en draagt bij aan de doorontwikkeling van de BIBOB-module. Tevens consultant voor de Nederlandse Antillen.</p>
+                </div>
+            </div>
+
+            <div class="privacy-notice">
+                <i class="fas fa-user-shield"></i>
+                <div>
+                    <strong data-nl="Privacy van ons team" data-en="Privacy of our team" data-pap="Privasidat di nos ekipo">Privacy van ons team</strong>
+                    <span data-nl="Omwille van de privacy tonen wij geen foto's of namen van onze teamleden. Onze professionals hebben allen een achtergrond in gevoelige functies binnen opsporing en handhaving. Wij respecteren hun privacy, net zoals wij de privacy van uw data respecteren." data-en="For privacy reasons, we do not show photos or names of our team members. Our professionals all have backgrounds in sensitive positions within investigation and enforcement. We respect their privacy, just as we respect the privacy of your data." data-pap="Pa motibu di privasidat, nos no ta mustra foto ni nòmber di nos miembronan di ekipo. Nos profeshonalnan tur tin trasfondo den funshonnan sensibel den investigashon i enkargo. Nos ta respetá nan privasidat, mesun manera nos ta respetá e privasidat di bo data.">Omwille van de privacy tonen wij geen foto's of namen van onze teamleden. Onze professionals hebben allen een achtergrond in gevoelige functies binnen opsporing en handhaving. Wij respecteren hun privacy, net zoals wij de privacy van uw data respecteren.</span>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> <span data-nl="Terug naar de website" data-en="Back to the website" data-pap="Bai bèk na e website">Terug naar de website</span></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <img src="logo.svg" alt="Knowledge by Data" class="footer-logo">
+            <p data-nl="© 2025 Knowledge by Data B.V. Alle rechten voorbehouden." data-en="© 2025 Knowledge by Data B.V. All rights reserved." data-pap="© 2025 Knowledge by Data B.V. Tur derecho reservá.">© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <script>
+        var currentLang = 'nl';
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-pap').classList.toggle('active', lang === 'pap');
+            
+            document.querySelectorAll('[data-' + lang + ']').forEach(function(el) {
+                var text = el.getAttribute('data-' + lang);
+                if (text) {
+                    el.innerHTML = text;
+                }
+            });
+            
+            if (lang === 'pap') {
+                document.documentElement.lang = 'pap';
+            } else if (lang === 'en') {
+                document.documentElement.lang = 'en';
+            } else {
+                document.documentElement.lang = 'nl';
+            }
+        }
+    </script>
+</body>
+</html>
