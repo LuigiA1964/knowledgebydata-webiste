@@ -332,8 +332,15 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
+        }
+        .products-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 730px;
+            margin: 25px auto 0;
         }
         .product-card {
             background: var(--bg-white);
@@ -358,7 +365,7 @@
             margin-bottom: 20px;
         }
         .product-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text-dark); }
-        .product-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; line-height: 1.6; height: 150px; }
+        .product-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; line-height: 1.6; min-height: 100px; }
         .product-features { list-style: none; margin-bottom: 0; }
         .product-features li {
             display: flex;
@@ -776,7 +783,7 @@
                     <h3>BIBOB Analyst Pro</h3>
                     <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="60+ indicatoren uit erkende bronnen" data-en="60+ indicators from recognized sources" data-pap="60+ indikadó for di fuentenan rekonosí">60+ indicatoren uit erkende bronnen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="79 indicatoren uit erkende bronnen" data-en="79 indicators from recognized sources" data-pap="79 indikadó for di fuentenan rekonosí">79 indicatoren uit erkende bronnen</span></li>
                         <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
                         <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
@@ -805,6 +812,20 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Analist & medewerker module" data-en="Analyst & staff module" data-pap="Módulo di analist i kolaboradó">Analist & medewerker module</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Export naar Analyst Notebook" data-en="Export to Analyst Notebook" data-pap="Eksportá pa Analyst Notebook">Export naar Analyst Notebook</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="products-grid-bottom">
+                <div class="product-card">
+                    <div class="product-icon" style="background: #1e5f74;"><i class="fas fa-heartbeat"></i></div>
+                    <h3>Zorganalyst Pro</h3>
+                    <p data-nl="Gespecialiseerde analysetool voor detectie van zorgfraude en ondermijning in de zorgsector. Voor gemeenten, zorgkantoren en toezichthouders." data-en="Specialized analysis tool for detecting healthcare fraud and organized crime in the healthcare sector. For municipalities, care offices and supervisors." data-pap="Instrumento di análisis spesialisá pa detektá frode di kuido i kriminalidad organisá den sektor di kuido. Pa munisipalitanan, kantornan di kuido i supervisónan.">Gespecialiseerde analysetool voor detectie van zorgfraude en ondermijning in de zorgsector. Voor gemeenten, zorgkantoren en toezichthouders.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="43 zorg-specifieke indicatoren" data-en="43 healthcare-specific indicators" data-pap="43 indikadó spesífiko di kuido">43 zorg-specifieke indicatoren</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="IKZ, IGJ, NZa en VNG bronnen" data-en="IKZ, IGJ, NZa and VNG sources" data-pap="Fuentenan IKZ, IGJ, NZa i VNG">IKZ, IGJ, NZa en VNG bronnen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="PGB en Wmo-fraude detectie" data-en="PGB and Wmo fraud detection" data-pap="Detekshon di frode PGB i Wmo">PGB en Wmo-fraude detectie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Diploma- en certificaatverificatie" data-en="Diploma and certificate verification" data-pap="Verifikashon di diploma i sertifikado">Diploma- en certificaatverificatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Toezicht- en meldingensignalen" data-en="Supervision and reporting signals" data-pap="Señalnan di supervishon i rapòrt">Toezicht- en meldingensignalen</span></li>
                     </ul>
                 </div>
                 <div class="product-card">
@@ -986,6 +1007,7 @@
                                 <option value="BIBOB Analyst Pro">BIBOB Analyst Pro</option>
                                 <option value="VAT Analyst Pro">VAT Analyst Pro</option>
                                 <option value="Analyst Pro">Analyst Pro</option>
+                                <option value="Zorganalyst Pro">Zorganalyst Pro</option>
                                 <option value="Data Handler Pro">Data Handler Pro</option>
                                 <option value="Meerdere producten" data-nl="Meerdere producten" data-en="Multiple products" data-pap="Varios produkto">Meerdere producten</option>
                             </select>
