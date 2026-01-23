@@ -337,9 +337,8 @@
         }
         .products-grid-bottom {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
-            max-width: 730px;
             margin: 25px auto 0;
         }
         .product-card {
@@ -570,12 +569,15 @@
         @media (max-width: 992px) {
             .pillars { grid-template-columns: repeat(2, 1fr); }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid-bottom { grid-template-columns: repeat(2, 1fr); }
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .nav-links, .nav-contact { display: none; }
             .hero h1 { font-size: 2rem; }
             .pillars { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .products-grid-bottom { grid-template-columns: 1fr; }
             .comparison-header, .comparison-row { font-size: 0.85rem; }
             .logo { height: 60px; }
             .demo-iframe-container { height: 500px; }
@@ -838,6 +840,18 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Per-bron PDF met volledige resultaten" data-en="Per-source PDF with complete results" data-pap="PDF pa kada fuente ku resultado kompleto">Per-bron PDF met volledige resultaten</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Rolgebaseerde toegang (BIBOB/Ondermijning)" data-en="Role-based access (BIBOB/Organized crime)" data-pap="Akseso basá riba rol (BIBOB/Ondermijning)">Rolgebaseerde toegang (BIBOB/Ondermijning)</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Sessiegebonden: geen data na afsluiten" data-en="Session-based: no data after closing" data-pap="Basá riba seshon: sin data despues di sera">Sessiegebonden: geen data na afsluiten</span></li>
+                    </ul>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Progressive Web Apps</h3>
+                    <p data-nl="Mobiele veldapplicaties voor onderweg. Installeerbaar op smartphone, volledig offline bruikbaar, data blijft lokaal op het apparaat. Ideaal voor buitendienst en veldwerk." data-en="Mobile field applications for on the go. Installable on smartphone, fully usable offline, data stays local on the device. Ideal for field work and external services." data-pap="Aplikashonnan móvil pa tereno. Instalabel riba smartphone, kompletamente usabel sin internet, data keda lokal riba e aparato. Ideal pa trabou di kampo.">Mobiele veldapplicaties voor onderweg. Installeerbaar op smartphone, volledig offline bruikbaar, data blijft lokaal op het apparaat. Ideaal voor buitendienst en veldwerk.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="BIBOB Interview Pro – Interviews opnemen met spraakherkenning" data-en="BIBOB Interview Pro – Record interviews with speech recognition" data-pap="BIBOB Interview Pro – Graba entrevista ku rekonosementu di papiamento">BIBOB Interview Pro – Interviews opnemen met spraakherkenning</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="ZorgAnalyst Mobile – Zorgmeldingen bij vermoeden van zorgcriminaliteit" data-en="ZorgAnalyst Mobile – Healthcare reports for suspected healthcare fraud" data-pap="ZorgAnalyst Mobile – Meldingnan di kuido pa sospecha di kriminalidad di kuido">ZorgAnalyst Mobile – Zorgmeldingen bij vermoeden van zorgcriminaliteit</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="AP Straat – Straatobservaties vastleggen voor ondermijningsonderzoek" data-en="AP Straat – Record street observations for organized crime investigation" data-pap="AP Straat – Registrá observashonnan di kaya pa investigashon di ondermijning">AP Straat – Straatobservaties vastleggen voor ondermijningsonderzoek</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Meldpunt – Online formulier voor burgers om anoniem te melden" data-en="Meldpunt – Online form for citizens to report anonymously" data-pap="Meldpunt – Formulario online pa siudadanonan meldá anónimamente">Meldpunt – Online formulier voor burgers om anoniem te melden</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Zero-cloud: geen server, geen datalek, geen verwerkersovereenkomst" data-en="Zero-cloud: no server, no data breach, no processing agreement" data-pap="Zero-cloud: sin server, sin fuga di data, sin akuerdo di prosesamentu">Zero-cloud: geen server, geen datalek, geen verwerkersovereenkomst</span></li>
                     </ul>
                 </div>
             </div>
