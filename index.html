@@ -3,297 +3,1191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyst Pro - Knowledge by Data</title>
-    <meta name="description" content="Offline analyse tools voor ondermijningsaanpak">
-    <meta name="theme-color" content="#1a1a2e">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <title>Knowledge by Data - Professionele Analyse Software voor Overheden</title>
+    <meta name="description" content="Betaalbare, veilige analyse software voor BIBOB-onderzoeken en ondermijningsaanpak. Lokale dataverwerking, geen aanvalsoppervlak, BIO-gecertificeerd.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --dark: #1a1a2e;
-            --accent: #9b59b6;
-            --accent-light: #a855f7;
-            --blue: #1a56db;
-            --green: #20c997;
-            --orange: #e67e22;
-            --gray: #6b7280;
-            --light: #f9fafb;
+            --primary: #137dbe;
+            --primary-dark: #0e5a8a;
+            --primary-light: #e8f4fc;
+            --text-dark: #2d3748;
+            --text-muted: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: #fff;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
+        /* Language Switcher Styles */
+        .language-bar {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 8px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-switcher:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .lang-btn.active {
+            background: rgba(255,255,255,0.3);
+        }
+        .lang-divider {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 40px;
+            left: 0; right: 0;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 20px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+        }
+        .logo { height: 80px; }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        .nav-contact {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .nav-contact a { color: var(--primary); text-decoration: none; }
+
+        .hero {
+            padding: 210px 20px 80px;
+            background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
+        }
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
             text-align: center;
         }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: var(--accent);
-            border-radius: 20px;
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        .hero-cta {
             display: flex;
-            align-items: center;
+            gap: 15px;
             justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 2.5rem;
+            flex-wrap: wrap;
         }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: rgba(255,255,255,0.7);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .apps {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        .app-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 24px;
-            text-decoration: none;
-            color: #fff;
-            display: flex;
+        .btn {
+            display: inline-flex;
             align-items: center;
-            gap: 20px;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
             transition: all 0.2s;
+            cursor: pointer;
+            border: none;
         }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-secondary { background: var(--bg-white); color: var(--primary); border: 2px solid var(--primary); }
+        .btn-secondary:hover { background: var(--primary-light); }
 
-        .app-card:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--accent);
-            transform: translateY(-2px);
+        section { padding: 80px 20px; }
+        .section-light { background: var(--bg-light); }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; color: var(--text-dark); margin-bottom: 15px; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 50px;
         }
-
-        .app-card:hover.green-hover {
-            border-color: var(--green);
+        .pillar {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s;
         }
-
-        .app-card:hover.orange-hover {
-            border-color: var(--orange);
+        .pillar:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(19, 125, 190, 0.1);
+            transform: translateY(-3px);
         }
-
-        .app-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
+        .pillar-icon {
+            width: 60px; height: 60px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            flex-shrink: 0;
+            margin: 0 auto 20px;
         }
+        .pillar h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-dark); }
+        .pillar p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        .app-icon.purple {
-            background: rgba(155, 89, 182, 0.2);
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
         }
-
-        .app-icon.blue {
-            background: rgba(26, 86, 219, 0.2);
+        .about-content h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-dark); }
+        .about-content p { margin-bottom: 15px; color: var(--text-muted); }
+        .founder-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px;
         }
-
-        .app-icon.green {
-            background: rgba(32, 201, 151, 0.2);
+        .founder-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
         }
-
-        .app-icon.orange {
-            background: rgba(230, 126, 34, 0.2);
+        .founder-avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-light);
         }
-
-        .app-info {
-            text-align: left;
-            flex: 1;
+        .founder-info h4 { font-size: 1.25rem; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .founder-info span { color: var(--text-muted); font-size: 0.95rem; }
+        .linkedin-link {
+            color: #0A66C2;
+            font-size: 1.4rem;
+            transition: all 0.2s;
+            text-decoration: none;
         }
-
-        .app-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
+        .linkedin-link:hover {
+            color: #004182;
+            transform: scale(1.1);
         }
-
-        .app-desc {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.6);
+        .founder-card p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+        .credentials { display: flex; flex-wrap: wrap; gap: 10px; }
+        .credential {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
-
-        .app-arrow {
-            color: rgba(255,255,255,0.3);
-            font-size: 1.2rem;
+        
+        .protected-notice {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
+        .protected-notice i { font-size: 2rem; color: var(--primary); }
+        .protected-notice div { flex: 1; }
+        .protected-notice strong { color: var(--text-dark); display: block; margin-bottom: 5px; }
+        .protected-notice span { color: var(--text-muted); font-size: 0.9rem; }
 
-        .app-card:hover .app-arrow {
-            color: var(--accent);
+        .comparison-table {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 40px;
         }
-
-        .app-card.green-hover:hover .app-arrow {
-            color: var(--green);
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
         }
-
-        .app-card.orange-hover:hover .app-arrow {
-            color: var(--orange);
+        .comparison-header div { padding: 20px 25px; font-weight: 600; color: var(--text-dark); }
+        .comparison-header div:last-child { background: var(--primary-light); color: var(--primary); }
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid var(--border);
         }
-
-        .features {
+        .comparison-row:last-child { border-bottom: none; }
+        .comparison-row div { padding: 18px 25px; display: flex; align-items: center; }
+        .comparison-row div:first-child { color: var(--text-dark); }
+        .comparison-row div:nth-child(2) { color: var(--text-muted); justify-content: center; }
+        .comparison-row div:last-child { background: rgba(19, 125, 190, 0.03); justify-content: center; }
+        .check { color: var(--success); font-size: 1.2rem; }
+        .cross { color: var(--danger); font-size: 1.2rem; }
+        .security-badges {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 30px;
             margin-top: 40px;
             flex-wrap: wrap;
         }
-
-        .feature {
+        .security-badge {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
+            gap: 12px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px 25px;
         }
+        .security-badge i { font-size: 1.5rem; color: var(--primary); }
+        .security-badge span { font-weight: 600; color: var(--text-dark); }
 
-        .feature-icon {
-            color: #10b981;
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
         }
+        .products-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 730px;
+            margin: 25px auto 0;
+        }
+        .product-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px;
+            transition: all 0.3s;
+        }
+        .product-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(19, 125, 190, 0.1);
+        }
+        .product-icon {
+            width: 50px; height: 50px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .product-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text-dark); }
+        .product-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; line-height: 1.6; min-height: 100px; }
+        .product-features { list-style: none; margin-bottom: 0; }
+        .product-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .product-features li i { color: var(--success); }
 
-        footer {
+        .documentation-banner {
             margin-top: 50px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f0f9ff 100%);
+            border: 1px solid var(--primary);
+            border-radius: 16px;
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .doc-icon {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+        .doc-content h3 { color: var(--text-dark); margin-bottom: 15px; font-size: 1.25rem; }
+        .doc-items { display: flex; flex-wrap: wrap; gap: 20px; }
+        .doc-items span { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.95rem; }
+        .doc-items span i { color: var(--success); }
+
+        .demo-container {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .demo-tabs { display: flex; border-bottom: 1px solid var(--border); }
+        .demo-tab {
+            flex: 1;
+            padding: 18px;
             text-align: center;
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+        .demo-tab:hover { background: var(--bg-light); }
+        .demo-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--bg-light); }
+        .demo-tab i { margin-right: 8px; }
+        .demo-content { padding: 0; }
+        .demo-panel { display: none; }
+        .demo-panel.active { display: block; }
+        .demo-iframe-container { position: relative; width: 100%; height: 900px; overflow: hidden; }
+        .demo-iframe {
+            width: 100%; height: 100%; border: none;
+            transform: scale(0.65); transform-origin: top left;
+            width: 153.85%; height: 153.85%;
         }
 
-        footer a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 0.85rem;
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .contact-info h3 { font-size: 1.5rem; margin-bottom: 25px; color: var(--text-dark); }
+        .contact-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .contact-item i {
+            width: 45px; height: 45px;
+            border-radius: 10px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
         }
+        .contact-item div { color: var(--text-dark); }
+        .contact-item a { color: var(--primary); text-decoration: none; }
+        .contact-item a:hover { text-decoration: underline; }
 
-        footer a:hover {
-            color: var(--accent);
+        .contact-form-container {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px;
         }
+        .contact-form-container h3 { font-size: 1.5rem; margin-bottom: 25px; color: var(--text-dark); }
+        .contact-form { display: flex; flex-direction: column; gap: 18px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.9rem; font-weight: 500; color: var(--text-dark); }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-success { text-align: center; padding: 40px 20px; }
+        .form-success i { font-size: 3rem; color: var(--success); margin-bottom: 15px; }
+        .form-success h4 { color: var(--text-dark); margin-bottom: 10px; }
+        .form-success p { color: var(--text-muted); }
 
-        @media (min-width: 600px) {
-            .apps {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
+        .footer {
+            background: var(--text-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 50px 20px 30px;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-logo { height: 60px; filter: brightness(0) invert(1); }
+        .footer p { font-size: 0.9rem; }
 
-            .app-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 32px 24px;
-            }
+        .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
+        .faq-item { background: var(--bg-white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .faq-question {
+            padding: 20px 25px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: var(--bg-light); }
+        .faq-question i { color: var(--primary); transition: transform 0.3s; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .faq-item.active .faq-answer { max-height: 500px; }
+        .faq-answer-content { padding: 0 25px 20px; color: var(--text-muted); line-height: 1.7; }
 
-            .app-info {
-                text-align: center;
-            }
+        .date-picker-wrapper { position: relative; }
+        .date-picker-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            background: var(--bg-white);
+        }
+        .date-picker-input:focus { outline: none; border-color: var(--primary); }
+        .date-picker-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+            margin-top: 5px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .date-picker-dropdown.show { display: block; }
+        .date-option {
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid var(--border);
+        }
+        .date-option:last-child { border-bottom: none; }
+        .date-option:hover { background: var(--primary-light); }
+        .date-option.selected { background: var(--primary); color: white; }
 
-            .app-arrow {
-                display: none;
-            }
+        .account-notice {
+            background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
+            border: 1px solid var(--warning);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .account-notice i { color: var(--warning); font-size: 1.1rem; margin-top: 2px; }
+        .account-notice p { font-size: 0.9rem; color: var(--text-dark); margin: 0; }
+
+        @media (max-width: 992px) {
+            .pillars { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links, .nav-contact { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .pillars { grid-template-columns: 1fr; }
+            .comparison-header, .comparison-row { font-size: 0.85rem; }
+            .logo { height: 60px; }
+            .demo-iframe-container { height: 500px; }
+            .language-bar { justify-content: center; }
+            .lang-btn { padding: 4px 6px; font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🛡️</div>
-        <h1>Analyst Pro</h1>
-        <p class="subtitle">Offline analyse tools voor ondermijningsaanpak</p>
-
-        <p class="section-title">Ondermijning</p>
-        <div class="apps">
-            <a href="./ap-straat-pwa/" class="app-card">
-                <div class="app-icon purple">👁️</div>
-                <div class="app-info">
-                    <div class="app-name">AP Straat</div>
-                    <div class="app-desc">Medewerker module voor waarnemingen op straat</div>
-                </div>
-                <div class="app-arrow">→</div>
-            </a>
-
-            <a href="./pwa-meldformulier/" class="app-card">
-                <div class="app-icon blue">📋</div>
-                <div class="app-info">
-                    <div class="app-name">Meldpunt</div>
-                    <div class="app-desc">Burgers melden verdachte situaties</div>
-                </div>
-                <div class="app-arrow">→</div>
-            </a>
-        </div>
-
-        <p class="section-title">Zorg & BIBOB</p>
-        <div class="apps">
-            <a href="./ZorgAnalyst_Pro_Mobile.html" class="app-card green-hover">
-                <div class="app-icon green">🏥</div>
-                <div class="app-info">
-                    <div class="app-name">ZorgAnalyst Pro Mobile</div>
-                    <div class="app-desc">Zorgmeldingen in het veld met GPS-locatie</div>
-                </div>
-                <div class="app-arrow">→</div>
-            </a>
-
-            <a href="./BIBOB_Interview_Pro.html" class="app-card orange-hover">
-                <div class="app-icon orange">🎙️</div>
-                <div class="app-info">
-                    <div class="app-name">BIBOB Interview Pro</div>
-                    <div class="app-desc">Interview transcriptie met spraakherkenning</div>
-                </div>
-                <div class="app-arrow">→</div>
-            </a>
-        </div>
-
-        <div class="features">
-            <div class="feature">
-                <span class="feature-icon">✓</span>
-                <span>Werkt offline</span>
-            </div>
-            <div class="feature">
-                <span class="feature-icon">✓</span>
-                <span>Zero-cloud</span>
-            </div>
-            <div class="feature">
-                <span class="feature-icon">✓</span>
-                <span>Data blijft lokaal</span>
-            </div>
+    <!-- Language Switcher Bar -->
+    <div class="language-bar">
+        <div class="language-switcher">
+            <button class="lang-btn active" id="btn-nl" onclick="switchLanguage('nl')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="5.33" fill="#AE1C28"/>
+                    <rect y="5.33" width="24" height="5.33" fill="#FFFFFF"/>
+                    <rect y="10.66" width="24" height="5.34" fill="#21468B"/>
+                </svg>
+                NL
+            </button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" id="btn-en" onclick="switchLanguage('en')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="16" fill="#012169"/>
+                    <path d="M0,0 L24,16 M24,0 L0,16" stroke="#FFFFFF" stroke-width="2.5"/>
+                    <path d="M0,0 L24,16 M24,0 L0,16" stroke="#C8102E" stroke-width="1.5"/>
+                    <path d="M12,0 V16 M0,8 H24" stroke="#FFFFFF" stroke-width="4"/>
+                    <path d="M12,0 V16 M0,8 H24" stroke="#C8102E" stroke-width="2.5"/>
+                </svg>
+                EN
+            </button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" id="btn-pap" onclick="switchLanguage('pap')">
+                <svg class="flag-icon" viewBox="0 0 24 16">
+                    <rect width="24" height="8" fill="#002B7F"/>
+                    <rect y="8" width="24" height="8" fill="#FCD116"/>
+                    <polygon points="0,0 10,8 0,16" fill="#CE1126"/>
+                    <circle cx="16" cy="8" r="2.5" fill="#FFFFFF"/>
+                </svg>
+                PAP
+            </button>
         </div>
     </div>
 
-    <footer>
-        <a href="https://www.knowledgebydata.nl" target="_blank">© 2025 Knowledge by Data</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <img src="logo.svg" alt="Knowledge by Data" class="logo">
+            <ul class="nav-links">
+                <li><a href="#home" class="active" data-nl="Home" data-en="Home" data-pap="Kas">Home</a></li>
+                <li><a href="#beveiliging" data-nl="Beveiliging" data-en="Security" data-pap="Seguridat">Beveiliging</a></li>
+                <li><a href="#producten" data-nl="Producten" data-en="Products" data-pap="Produktonan">Producten</a></li>
+                <li><a href="#demo" data-nl="Demo" data-en="Demo" data-pap="Demo">Demo</a></li>
+                <li><a href="#faq" data-nl="FAQ" data-en="FAQ" data-pap="FAQ">FAQ</a></li>
+                <li><a href="team.html" data-nl="Team" data-en="Team" data-pap="Ekipo">Team</a></li>
+                <li><a href="#contact" data-nl="Contact" data-en="Contact" data-pap="Kontakto">Contact</a></li>
+            </ul>
+            <div class="nav-contact">
+                <span><i class="fas fa-phone"></i> <a href="tel:0684820708">06 84 82 07 08</a></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <h1 data-nl="Versterk uw <span>informatiepositie</span>" data-en="Strengthen your <span>information position</span>" data-pap="Fortalesé bo <span>posishon di informashon</span>">Versterk uw <span>informatiepositie</span></h1>
+            <p class="hero-subtitle" data-nl="Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk." data-en="Affordable analysis software that does what it needs to do. Developed by practitioners, for practitioners." data-pap="Software di análisis ku ta hasi loke e mester hasi. Desaroyá pa profeshonalnan for di práktika, pa profeshonalnan for di práktika.">Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk.</p>
+            <div class="hero-cta">
+                <a href="#demo" class="btn btn-primary"><i class="fas fa-play-circle"></i> <span data-nl="Bekijk demo" data-en="View demo" data-pap="Mira demo">Bekijk demo</span></a>
+                <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> <span data-nl="Neem contact op" data-en="Get in touch" data-pap="Tuma kontakto">Neem contact op</span></a>
+            </div>
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 data-nl="Veilig" data-en="Secure" data-pap="Sigur">Veilig</h3>
+                    <p data-nl="Geen aanvalsoppervlak, lokale verwerking, BIO-normering" data-en="No attack surface, local processing, BIO-certified" data-pap="Ningun superfisie di atake, prosesamentu lokal, normalisashon BIO">Geen aanvalsoppervlak, lokale verwerking, BIO-normering</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon"><i class="fas fa-unlock-alt"></i></div>
+                    <h3 data-nl="Onafhankelijk" data-en="Independent" data-pap="Independiente">Onafhankelijk</h3>
+                    <p data-nl="Geen vendor lock-in, geen cloud, geen abonnement" data-en="No vendor lock-in, no cloud, no subscription" data-pap="Sin dependensia di vendedó, sin cloud, sin abonamentu">Geen vendor lock-in, geen cloud, geen abonnement</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon"><i class="fas fa-feather"></i></div>
+                    <h3 data-nl="Minimale impact" data-en="Minimal impact" data-pap="Impakto mínimo">Minimale impact</h3>
+                    <p data-nl="Geen belasting voor ICT en informatiemanagement" data-en="No burden on IT and information management" data-pap="Sin karga pa ICT i maneho di informashon">Geen belasting voor ICT en informatiemanagement</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3 data-nl="Uit de praktijk" data-en="From the field" data-pap="For di práktika">Uit de praktijk</h3>
+                    <p data-nl="Gebouwd door onderzoekers, voor onderzoekers" data-en="Built by investigators, for investigators" data-pap="Konstruí pa investigadónan, pa investigadónan">Gebouwd door onderzoekers, voor onderzoekers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="over-ons">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3 data-nl="Over Knowledge by Data" data-en="About Knowledge by Data" data-pap="Tokante Knowledge by Data">Over Knowledge by Data</h3>
+                    <p data-nl="Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is." data-en="Knowledge by Data was founded in 2022 with a clear mission: helping governments strengthen their information position with software that is affordable, secure and functional." data-pap="Knowledge by Data a wordu fundá na 2022 ku un mishon kla: yuda gobièrnunan fortalesé nan posishon di informashon ku software ku ta aksesibel, sigur i funshonal.">Knowledge by Data is in 2022 opgericht met een heldere missie: overheden helpen hun informatiepositie te versterken met software die betaalbaar, veilig en functioneel is.</p>
+                    <p data-nl="Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak." data-en="We believe that smaller municipalities — without a dedicated analyst and without large budgets — should also have access to professional analysis tools for integrity investigations and organized crime prevention." data-pap="Nos ta kere ku tambe munisipalitanan mas chikitu — sin analist dedikä i sin presupuesto grandi — mester tin akseso na instrumentonan di análisis profesional pa investigashon di integridat i kombate di kriminalidad organisá.">Wij geloven dat ook kleinere gemeenten — zonder dedicated analist en zonder grote budgetten — toegang moeten hebben tot professionele analysetools voor integriteitsonderzoeken en ondermijningsaanpak.</p>
+                    <p data-nl="Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar." data-en="Our unique architecture sets us apart from the market: all data is processed locally, there are no servers, no cloud, and therefore no attack surface. Secure, functional, reliable and affordable." data-pap="Nos arkitektura speshal ta distinguí nos di e merkado: tur data ta wordu prosesá lokalmente, no tin server, no tin cloud, i pa esei no tin superfisie di atake. Sigur, funshonal, konfiabel i aksesibel.">Onze bijzondere architectuur onderscheidt ons van de markt: alle data wordt lokaal verwerkt, er zijn geen servers, geen cloud, en daarmee geen aanvalsoppervlak. Veilig, functioneel, betrouwbaar én betaalbaar.</p>
+                    <p data-nl="Knowledge by Data is in geen geval verwerker van uw data en heeft hier ook nooit toegang toe. Al onze applicaties — met uitzondering van Data Handler Pro — werken volledig offline. Data Handler Pro is een optioneel product dat complementair is aan BIBOB Analyst Pro en Analyst Pro; beide applicaties zijn ook zonder Data Handler Pro 100% functioneel. Het beheer van Data Handler Pro ligt volledig bij de afdeling ICT van uw organisatie." data-en="Knowledge by Data is never a processor of your data and never has access to it. All our applications — except Data Handler Pro — work completely offline. Data Handler Pro is an optional product that complements BIBOB Analyst Pro and Analyst Pro; both applications are 100% functional without Data Handler Pro. Management of Data Handler Pro lies entirely with your organization's IT department." data-pap="Knowledge by Data nunka no ta un prosesadó di bo data i nunka no tin akseso na dje. Tur nos aplikashonnan — ekseptando Data Handler Pro — ta traha kompletamente offline. Data Handler Pro ta un produkto opshonal ku ta komplementá BIBOB Analyst Pro i Analyst Pro; tur dos aplikashon ta 100% funshonal sin Data Handler Pro. E maneho di Data Handler Pro ta kompletamente serka e departamentu di ICT di bo organisashon.">Knowledge by Data is in geen geval verwerker van uw data en heeft hier ook nooit toegang toe. Al onze applicaties — met uitzondering van Data Handler Pro — werken volledig offline. Data Handler Pro is een optioneel product dat complementair is aan BIBOB Analyst Pro en Analyst Pro; beide applicaties zijn ook zonder Data Handler Pro 100% functioneel. Het beheer van Data Handler Pro ligt volledig bij de afdeling ICT van uw organisatie.</p>
+                    <div class="protected-notice">
+                        <i class="fas fa-registered"></i>
+                        <div>
+                            <strong data-nl="Beschermde architectuur" data-en="Protected architecture" data-pap="Arkitektura protehá">Beschermde architectuur</strong>
+                            <span data-nl="De unieke software-architectuur van Knowledge by Data is gedeponeerd en intellectueel eigendom beschermd." data-en="The unique software architecture of Knowledge by Data is registered and protected as intellectual property." data-pap="E arkitektura úniko di software di Knowledge by Data ta depositá i ta protehá komo propiedat intelektual.">De unieke software-architectuur van Knowledge by Data is gedeponeerd en intellectueel eigendom beschermd.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <img src="founder.jpg" alt="Loek Antenbrink" class="founder-avatar">
+                        <div class="founder-info">
+                            <h4>Loek Antenbrink <a href="https://www.linkedin.com/in/loek-antenbrink-3a286515b" target="_blank" rel="noopener noreferrer" class="linkedin-link" title="LinkedIn profiel"><i class="fab fa-linkedin"></i></a></h4>
+                            <span data-nl="Founder" data-en="Founder" data-pap="Fundadó">Founder</span>
+                        </div>
+                    </div>
+                    <p data-nl="39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen." data-en="39 years of experience in investigation and administrative enforcement: 33 years in criminal investigation, followed by 6 years in combating organized crime. Specialized in complex financial-economic crime: money laundering, fraud, human trafficking and fraudulent bankruptcy. Worked in various positions where data analysis was central — from the first criminal investigation information systems to advanced big data environments." data-pap="39 aña di eksperensia den investigashon i enkargo administrativo: 33 aña den rechèrs i investigashon, siguí pa 6 aña den kombate di kriminalidad organisá. Spesialisá den kriminalidad finansiero-ekonómiko kompleks: laba plaka, frode, tráfiko di hende i bankarota fraudulento. A traha den diferente funshon kaminda análisis di data tabata sentral — for di e promé sistemanan di informashon di rechèrs te na ambientenan avansá di big data.">39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen.</p>
+                    <p data-nl="Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben." data-en="This combination of operational experience and formal qualifications forms the foundation of Knowledge by Data: software that is secure because the creator understands what data security really means, and functional because the creator knows what investigators need in practice." data-pap="E kombinashon aki di eksperensia operashonal i kualifikashonnan formal ta forma e base di Knowledge by Data: software ku ta sigur pasobra e kreador ta komprondé kiko seguridat di data ta nifiká realmente, i ta funshonal pasobra e kreador sa kiko investigadónan mester den práktika.">Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben.</p>
+                    <div class="credentials">
+                        <span class="credential"><i class="fas fa-certificate"></i> <span data-nl="Functionaris Gegevensbescherming" data-en="Data Protection Officer" data-pap="Ofisial di Protekshon di Data">Functionaris Gegevensbescherming</span></span>
+                        <span class="credential"><i class="fas fa-chart-bar"></i> Data Professional</span>
+                        <span class="credential"><i class="fas fa-search"></i> Data Analyst</span>
+                        <span class="credential"><i class="fas fa-graduation-cap"></i> Chief Data Officer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" id="beveiliging">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-nl="Beveiliging zonder compromis" data-en="Security without compromise" data-pap="Seguridat sin kompromiso">Beveiliging zonder compromis</h2>
+                <p data-nl="Wij hebben bewust gekozen voor een andere architectuur. Het resultaat: maximale veiligheid met minimale complexiteit." data-en="We deliberately chose a different architecture. The result: maximum security with minimal complexity." data-pap="Nos a skohe konsientemente pa un arkitektura diferente. E resultado: seguridat máksimo ku komplejidad mínimo.">Wij hebben bewust gekozen voor een andere architectuur. Het resultaat: maximale veiligheid met minimale complexiteit.</p>
+            </div>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div data-nl="Kenmerk" data-en="Feature" data-pap="Karakterístika">Kenmerk</div>
+                    <div data-nl="Traditionele SaaS" data-en="Traditional SaaS" data-pap="SaaS tradishonal">Traditionele SaaS</div>
+                    <div>Knowledge by Data</div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Dataverwerking" data-en="Data processing" data-pap="Prosesamentu di data">Dataverwerking</div>
+                    <div data-nl="Cloud servers" data-en="Cloud servers" data-pap="Servernan di cloud">Cloud servers</div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Volledig lokaal" data-en="Fully local" data-pap="Kompletamente lokal">Volledig lokaal</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Aanvalsoppervlak" data-en="Attack surface" data-pap="Superfisie di atake">Aanvalsoppervlak</div>
+                    <div data-nl="Servers, API's, databases" data-en="Servers, APIs, databases" data-pap="Servernan, API'nan, database">Servers, API's, databases</div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Geen" data-en="None" data-pap="Ningun">Geen</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Verwerkersovereenkomst nodig" data-en="Data processing agreement required" data-pap="Akuerdo di prosesadó nesesario">Verwerkersovereenkomst nodig</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Niet nodig" data-en="Not required" data-pap="No ta nesesario">Niet nodig</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="DPIA vereist" data-en="DPIA required" data-pap="DPIA rekurí">DPIA vereist</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Uitgebreid" data-en="Extensive" data-pap="Ekstensivo">Uitgebreid</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Minimaal" data-en="Minimal" data-pap="Mínimo">Minimaal</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Serveronderhoud" data-en="Server maintenance" data-pap="Mantenshon di server">Serveronderhoud</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Niet nodig" data-en="Not required" data-pap="No ta nesesario">Niet nodig</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Netwerkpoorten openzetten" data-en="Opening network ports" data-pap="Habrí portanan di ret">Netwerkpoorten openzetten</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Niet nodig" data-en="Not required" data-pap="No ta nesesario">Niet nodig</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Vendor lock-in" data-en="Vendor lock-in" data-pap="Dependensia di vendedó">Vendor lock-in</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Ja" data-en="Yes" data-pap="Sí">Ja</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Nee" data-en="No" data-pap="Nò">Nee</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div data-nl="Doorlopende kosten" data-en="Ongoing costs" data-pap="Gastunan kontinuo">Doorlopende kosten</div>
+                    <div><i class="fas fa-times cross"></i> <span data-nl="Abonnement" data-en="Subscription" data-pap="Abonamentu">Abonnement</span></div>
+                    <div><i class="fas fa-check check"></i> <span data-nl="Lage jaarlijkse licentie" data-en="Low annual license" data-pap="Lisensia anual abou">Lage jaarlijkse licentie</span></div>
+                </div>
+            </div>
+            <div class="security-badges">
+                <div class="security-badge"><i class="fas fa-shield-alt"></i><span data-nl="BIO-normering" data-en="BIO-certified" data-pap="Normalisashon BIO">BIO-normering</span></div>
+                <div class="security-badge"><i class="fas fa-user-shield"></i><span data-nl="AVG-compliant" data-en="GDPR-compliant" data-pap="Konforme ku AVG">AVG-compliant</span></div>
+                <div class="security-badge"><i class="fas fa-lock"></i><span data-nl="Geen aanvalsoppervlak" data-en="No attack surface" data-pap="Sin superfisie di atake">Geen aanvalsoppervlak</span></div>
+                <div class="security-badge"><i class="fas fa-hdd"></i><span data-nl="100% lokaal" data-en="100% local" data-pap="100% lokal">100% lokaal</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="producten">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-nl="Onze producten" data-en="Our products" data-pap="Nos produktonan">Onze producten</h2>
+                <p data-nl="Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk." data-en="Professional analysis tools for government agencies, developed from practical experience." data-pap="Instrumentonan di análisis profesional pa instansianan gubernamental, desaroyá for di práktika.">Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk.</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3>BIBOB Analyst Pro</h3>
+                    <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="79 indicatoren uit erkende bronnen" data-en="79 indicators from recognized sources" data-pap="79 indikadó for di fuentenan rekonosí">79 indicatoren uit erkende bronnen</span></li>
+                        <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Interview generator en rapportage" data-en="Interview generator and reporting" data-pap="Generadó di entrevista i rapòrt">Interview generator en rapportage</span></li>
+                    </ul>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>VAT Analyst Pro</h3>
+                    <p data-nl="Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant)." data-en="Analysis tool for supervisors detecting exploitation in the sex industry. Pure analysis, no data storage (GDPR-compliant)." data-pap="Instrumento di análisis pa supervisónan pa detektá eksplotashon den industria di sekso. Solamente análisis, sin almasenahementu di data (konforme ku AVG).">Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="Signaalherkenning" data-en="Signal recognition" data-pap="Rekonosementu di señal">Signaalherkenning</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Risico-indicatoren" data-en="Risk indicators" data-pap="Indikadónan di riesgo">Risico-indicatoren</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Ondersteuning bij toezicht" data-en="Supervision support" data-pap="Sosten pa supervishon">Ondersteuning bij toezicht</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Geen dataopslag (AVG)" data-en="No data storage (GDPR)" data-pap="Sin almasenahementu di data (AVG)">Geen dataopslag (AVG)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Direct inzetbaar" data-en="Ready to use" data-pap="Pronto pa usa">Direct inzetbaar</span></li>
+                    </ul>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-city"></i></div>
+                    <h3>Analyst Pro</h3>
+                    <p data-nl="Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten." data-en="All-in-one solution for combating organized crime. For larger and smaller municipalities." data-pap="Solushon tur-den-un pa kombate di kriminalidad organisá. Pa munisipalitanan grandi i chikitu.">Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="Cross-reference analyse" data-en="Cross-reference analysis" data-pap="Análisis di referensia krusá">Cross-reference analyse</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Graph visualisatie" data-en="Graph visualization" data-pap="Visualisashon di gráfiko">Graph visualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Analist & medewerker module" data-en="Analyst & staff module" data-pap="Módulo di analist i kolaboradó">Analist & medewerker module</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Export naar Analyst Notebook" data-en="Export to Analyst Notebook" data-pap="Eksportá pa Analyst Notebook">Export naar Analyst Notebook</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="products-grid-bottom">
+                <div class="product-card">
+                    <div class="product-icon" style="background: #1e5f74;"><i class="fas fa-heartbeat"></i></div>
+                    <h3>Zorganalyst Pro</h3>
+                    <p data-nl="Gespecialiseerde analysetool voor detectie van zorgfraude en ondermijning in de zorgsector. Voor gemeenten, zorgkantoren en toezichthouders." data-en="Specialized analysis tool for detecting healthcare fraud and organized crime in the healthcare sector. For municipalities, care offices and supervisors." data-pap="Instrumento di análisis spesialisá pa detektá frode di kuido i kriminalidad organisá den sektor di kuido. Pa munisipalitanan, kantornan di kuido i supervisónan.">Gespecialiseerde analysetool voor detectie van zorgfraude en ondermijning in de zorgsector. Voor gemeenten, zorgkantoren en toezichthouders.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="43 zorg-specifieke indicatoren" data-en="43 healthcare-specific indicators" data-pap="43 indikadó spesífiko di kuido">43 zorg-specifieke indicatoren</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="IKZ, IGJ, NZa en VNG bronnen" data-en="IKZ, IGJ, NZa and VNG sources" data-pap="Fuentenan IKZ, IGJ, NZa i VNG">IKZ, IGJ, NZa en VNG bronnen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="PGB en Wmo-fraude detectie" data-en="PGB and Wmo fraud detection" data-pap="Detekshon di frode PGB i Wmo">PGB en Wmo-fraude detectie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Diploma- en certificaatverificatie" data-en="Diploma and certificate verification" data-pap="Verifikashon di diploma i sertifikado">Diploma- en certificaatverificatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Toezicht- en meldingensignalen" data-en="Supervision and reporting signals" data-pap="Señalnan di supervishon i rapòrt">Toezicht- en meldingensignalen</span></li>
+                    </ul>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-database"></i></div>
+                    <h3>Data Handler Pro</h3>
+                    <p data-nl="Geautomatiseerde data-aggregatie uit overheidsbronnen. Alle relevante registers met één zoekopdracht, direct bruikbare PDF-rapporten." data-en="Automated data aggregation from government sources. All relevant registers with one query, instantly usable PDF reports." data-pap="Agregashon outomátiko di data for di fuentenan gubernamental. Tur registro relevante ku un solo búskeda, rapòrt PDF listo pa usa.">Geautomatiseerde data-aggregatie uit overheidsbronnen. Alle relevante registers met één zoekopdracht, direct bruikbare PDF-rapporten.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="15+ bronnen: KVK, Kadaster, BRP, RDW, UBO" data-en="15+ sources: Chamber of Commerce, Land Registry, BRP, RDW, UBO" data-pap="15+ fuente: KVK, Kadaster, BRP, RDW, UBO">15+ bronnen: KVK, Kadaster, BRP, RDW, UBO</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Eigen API-keys, eigen beheer" data-en="Your own API keys, your own control" data-pap="Bo mes API-keys, bo mes kontrol">Eigen API-keys, eigen beheer</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Per-bron PDF met volledige resultaten" data-en="Per-source PDF with complete results" data-pap="PDF pa kada fuente ku resultado kompleto">Per-bron PDF met volledige resultaten</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Rolgebaseerde toegang (BIBOB/Ondermijning)" data-en="Role-based access (BIBOB/Organized crime)" data-pap="Akseso basá riba rol (BIBOB/Ondermijning)">Rolgebaseerde toegang (BIBOB/Ondermijning)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Sessiegebonden: geen data na afsluiten" data-en="Session-based: no data after closing" data-pap="Basá riba seshon: sin data despues di sera">Sessiegebonden: geen data na afsluiten</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="documentation-banner">
+                <div class="doc-icon"><i class="fas fa-book"></i></div>
+                <div class="doc-content">
+                    <h3 data-nl="Complete documentatie bij elke levering" data-en="Complete documentation with every delivery" data-pap="Dokumentashon kompleto ku kada entrega">Complete documentatie bij elke levering</h3>
+                    <div class="doc-items">
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Installatie-instructies" data-en="Installation instructions" data-pap="Instrukshonnan di instalashon">Installatie-instructies</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Gebruikershandleiding" data-en="User manual" data-pap="Manual di usuario">Gebruikershandleiding</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Technische documentatie voor CISO" data-en="Technical documentation for CISO" data-pap="Dokumentashon tékniko pa CISO">Technische documentatie voor CISO</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="AVG Compliance verklaring" data-en="GDPR Compliance statement" data-pap="Deklarashon di kumplimentu AVG">AVG Compliance verklaring</span></span>
+                        <span><i class="fas fa-check-circle"></i> <span data-nl="Uitgebreide FAQ (PDF & HTML)" data-en="Extensive FAQ (PDF & HTML)" data-pap="FAQ ekstensivo (PDF & HTML)">Uitgebreide FAQ (PDF &amp; HTML)</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" id="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-nl="Bekijk het in actie" data-en="See it in action" data-pap="Mira e den akshon">Bekijk het in actie</h2>
+                <p data-nl="Ervaar de werking van onze software in deze interactieve demo's." data-en="Experience how our software works in these interactive demos." data-pap="Eksperimentá e funshonamentu di nos software den e demo'nan interaktivo aki.">Ervaar de werking van onze software in deze interactieve demo's.</p>
+            </div>
+            <div class="demo-container">
+                <div class="demo-tabs">
+                    <button class="demo-tab active" data-demo="security"><i class="fas fa-shield-alt"></i> <span data-nl="Beveiliging" data-en="Security" data-pap="Seguridat">Beveiliging</span></button>
+                    <button class="demo-tab" data-demo="bibob"><i class="fas fa-balance-scale"></i> <span data-nl="BIBOB Analyse" data-en="BIBOB Analysis" data-pap="Análisis BIBOB">BIBOB Analyse</span></button>
+                    <button class="demo-tab" data-demo="analyst"><i class="fas fa-project-diagram"></i> Analyst Pro</button>
+                </div>
+                <div class="demo-content">
+                    <div class="demo-panel active" id="demo-security">
+                        <div class="demo-iframe-container">
+                            <iframe src="demo-security.html" class="demo-iframe"></iframe>
+                        </div>
+                    </div>
+                    <div class="demo-panel" id="demo-bibob">
+                        <div class="demo-iframe-container">
+                            <iframe src="demo-bibob.html" class="demo-iframe"></iframe>
+                        </div>
+                    </div>
+                    <div class="demo-panel" id="demo-analyst">
+                        <div class="demo-iframe-container">
+                            <iframe src="demo-analyst.html" class="demo-iframe"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-nl="Veelgestelde vragen" data-en="Frequently asked questions" data-pap="Preguntanan frekuente">Veelgestelde vragen</h2>
+                <p data-nl="Antwoorden op de belangrijkste vragen over onze software en dienstverlening." data-en="Answers to the most important questions about our software and services." data-pap="Kontestanan na e preguntanan mas importante tokante nos software i servisionan.">Antwoorden op de belangrijkste vragen over onze software en dienstverlening.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-nl="Hoe veilig is de software?" data-en="How secure is the software?" data-pap="Kon sigur ta e software?">Hoe veilig is de software?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content" data-nl="Onze software draait volledig lokaal op uw werkstation. Er is geen internetverbinding nodig, er worden geen gegevens naar externe servers verstuurd, en er is geen aanvalsoppervlak. De beveiliging voldoet aan de BIO-normering en is AVG-compliant." data-en="Our software runs entirely locally on your workstation. No internet connection is required, no data is sent to external servers, and there is no attack surface. Security complies with BIO standards and is GDPR-compliant." data-pap="Nos software ta kore kompletamente lokal riba bo estashon di trabou. No tin mester di konekshon di internet, no ta manda data na servernan eksterno, i no tin superfisie di atake. E seguridat ta kumpli ku normalisashon BIO i ta konforme ku AVG.">
+                            Onze software draait volledig lokaal op uw werkstation. Er is geen internetverbinding nodig, er worden geen gegevens naar externe servers verstuurd, en er is geen aanvalsoppervlak. De beveiliging voldoet aan de BIO-normering en is AVG-compliant.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-nl="Heb ik IT-ondersteuning nodig voor de installatie?" data-en="Do I need IT support for installation?" data-pap="Mi mester sosten di IT pa e instalashon?">Heb ik IT-ondersteuning nodig voor de installatie?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content" data-nl="Nee. De software is ontworpen voor directe inzet zonder complexe implementatietrajecten. De afdeling ICT ontvangt een installatiebestand (MSI) waarmee de applicatie eenvoudig wordt geïnstalleerd. Na installatie verschijnt de software in het Windows-menu en heeft de afdeling ICT er geen omkijken meer naar. Bij levering ontvangt u duidelijke installatie-instructies en technische documentatie voor uw CISO." data-en="No. The software is designed for immediate deployment without complex implementation trajectories. The IT department receives an installation file (MSI) with which the application is easily installed. After installation, the software appears in the Windows menu and the IT department no longer needs to worry about it. Upon delivery, you receive clear installation instructions and technical documentation for your CISO." data-pap="Nò. E software ta diseñá pa usa direktamente sin trayektonan di implementashon kompleks. E departamentu di ICT ta risibí un archivo di instalashon (MSI) ku e aplikashon ta wordu instalá fásil. Despues di instalashon e software ta aparesé den e menú di Windows i e departamentu di ICT no tin mas preokupashon. Na momento di entrega bo ta risibí instrukshonnan kla di instalashon i dokumentashon tékniko pa bo CISO.">
+                            Nee. De software is ontworpen voor directe inzet zonder complexe implementatietrajecten. De afdeling ICT ontvangt een installatiebestand (MSI) waarmee de applicatie eenvoudig wordt geïnstalleerd. Na installatie verschijnt de software in het Windows-menu en heeft de afdeling ICT er geen omkijken meer naar. Bij levering ontvangt u duidelijke installatie-instructies en technische documentatie voor uw CISO.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-nl="Welke ondersteuning krijg ik na aanschaf?" data-en="What support do I get after purchase?" data-pap="Ki sosten mi ta haña despues di kompra?">Welke ondersteuning krijg ik na aanschaf?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content" data-nl="Bij elke licentie ontvangt u persoonlijke ondersteuning via e-mail en telefoon. Updates en verbeteringen worden gedurende de licentieperiode kosteloos geleverd. Daarnaast ontvangt u uitgebreide documentatie inclusief gebruikershandleiding en FAQ." data-en="With each license, you receive personal support via email and phone. Updates and improvements are delivered free of charge during the license period. You also receive extensive documentation including user manual and FAQ." data-pap="Ku kada lisensia bo ta risibí sosten personal via e-mail i telefòn. Aktualidatnan i mehorashonnan ta wordu entregá grátis durante e período di lisensia. Ademas bo ta risibí dokumentashon ekstensivo inkluyendo manual di usuario i FAQ.">
+                            Bij elke licentie ontvangt u persoonlijke ondersteuning via e-mail en telefoon. Updates en verbeteringen worden gedurende de licentieperiode kosteloos geleverd. Daarnaast ontvangt u uitgebreide documentatie inclusief gebruikershandleiding en FAQ.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-nl="Voor welke organisaties is de software geschikt?" data-en="Which organizations is the software suitable for?" data-pap="Pa ki organisashonnan e software ta adekuá?">Voor welke organisaties is de software geschikt?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content" data-nl="Onze software is ontwikkeld voor Nederlandse overheidsorganisaties: gemeenten, RIEC's, provincies en andere bestuursorganen die werken met BIBOB-onderzoeken of ondermijningsaanpak. De tools zijn gebaseerd op 33 jaar praktijkervaring in de opsporing." data-en="Our software is developed for Dutch government organizations: municipalities, RIECs, provinces and other administrative bodies working with BIBOB investigations or organized crime prevention. The tools are based on 33 years of practical experience in investigation." data-pap="Nos software a wordu desaroyá pa organisashonnan gubernamental Hulandes: munisipalitanan, RIEC'nan, provínsianan i otro órganonan di gobièrnu ku ta traha ku investigashonnan BIBOB of kombate di kriminalidad organisá. E instrumentonan ta basá riba 33 aña di eksperensia prákitko den investigashon.">
+                            Onze software is ontwikkeld voor Nederlandse overheidsorganisaties: gemeenten, RIEC's, provincies en andere bestuursorganen die werken met BIBOB-onderzoeken of ondermijningsaanpak. De tools zijn gebaseerd op 33 jaar praktijkervaring in de opsporing.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-nl="Kan ik de software eerst uitproberen?" data-en="Can I try the software first?" data-pap="Mi por purba e software promé?">Kan ik de software eerst uitproberen?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content" data-nl="Ja. Wij bieden gratis online demo's aan waarin u de volledige functionaliteit kunt ervaren. Tijdens de demo lichten wij toe hoe de software uw werkprocessen kan ondersteunen en beantwoorden wij al uw vragen." data-en="Yes. We offer free online demos where you can experience the full functionality. During the demo, we explain how the software can support your work processes and answer all your questions." data-pap="Sí. Nos ta ofresé demo'nan online grátis kaminda bo por eksperimentá e funshonalidat kompleto. Durante e demo nos ta splika kon e software por apoyá bo procesonan di trabou i nos ta kontestá tur bo preguntanan.">
+                            Ja. Wij bieden gratis online demo's aan waarin u de volledige functionaliteit kunt ervaren. Tijdens de demo lichten wij toe hoe de software uw werkprocessen kan ondersteunen en beantwoorden wij al uw vragen.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-nl="Neem contact op" data-en="Get in touch" data-pap="Tuma kontakto">Neem contact op</h2>
+                <p data-nl="Interesse in onze oplossingen? Wij lichten graag toe hoe onze software uw organisatie kan ondersteunen." data-en="Interested in our solutions? We are happy to explain how our software can support your organization." data-pap="Interesá den nos solushonnan? Nos ta splika ku gustu kon nos software por apoyá bo organisashon.">Interesse in onze oplossingen? Wij lichten graag toe hoe onze software uw organisatie kan ondersteunen.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 data-nl="Contactgegevens" data-en="Contact information" data-pap="Informashon di kontakto">Contactgegevens</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div><a href="tel:0684820708">06 84 82 07 08</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-building"></i>
+                        <div>Knowledge by Data B.V.<br><span style="color: var(--text-muted); font-size: 0.9rem;">KvK: 99430169</span><br><span style="color: var(--text-muted); font-size: 0.85rem;" data-nl="Algemene voorwaarden gedeponeerd bij de KvK" data-en="General terms and conditions filed with the Chamber of Commerce" data-pap="Kondishonnan general depositá na KvK">Algemene voorwaarden gedeponeerd bij de KvK</span></div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <h3 data-nl="Demo aanvragen" data-en="Request a demo" data-pap="Pidi demo">Demo aanvragen</h3>
+                    <div class="account-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <p data-nl="<strong>Let op:</strong> Inschrijving is alleen mogelijk met het zakelijke e-mailadres van uw overheidsorganisatie. Privé e-mailadressen worden niet geaccepteerd." data-en="<strong>Note:</strong> Registration is only possible with the business email address of your government organization. Private email addresses are not accepted." data-pap="<strong>Tene kuenta:</strong> Inskripshon ta posibel solamente ku e adrès di e-mail di negoshi di bo organisashon gubernamental. Adrèsnan di e-mail privá no ta wordu akseptá."><strong>Let op:</strong> Inschrijving is alleen mogelijk met het zakelijke e-mailadres van uw overheidsorganisatie. Privé e-mailadressen worden niet geaccepteerd.</p>
+                    </div>
+                    <form class="contact-form" id="contactForm" action="https://formspree.io/f/mkogaojo" method="POST">
+                        <input type="hidden" name="_subject" value="Demo aanvraag via website">
+                        <input type="hidden" name="_next" value="https://www.knowledgebydata.info/bedankt.html">
+                        <div class="form-group">
+                            <label for="naam" data-nl="Naam *" data-en="Name *" data-pap="Nòmber *">Naam *</label>
+                            <input type="text" id="naam" name="naam" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="organisatie" data-nl="Organisatie *" data-en="Organization *" data-pap="Organisashon *">Organisatie *</label>
+                            <input type="text" id="organisatie" name="organisatie" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" data-nl="Zakelijk e-mailadres *" data-en="Business email address *" data-pap="Adrès di e-mail di negoshi *">Zakelijk e-mailadres *</label>
+                            <input type="email" id="email" name="email" required data-nl-placeholder="naam@gemeente.nl" data-en-placeholder="name@municipality.gov" data-pap-placeholder="nòmber@munisipio.nl" placeholder="naam@gemeente.nl">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefoon" data-nl="Telefoonnummer" data-en="Phone number" data-pap="Number di telefòn">Telefoonnummer</label>
+                            <input type="tel" id="telefoon" name="telefoon">
+                        </div>
+                        <div class="form-group">
+                            <label for="interesse" data-nl="Interesse in *" data-en="Interest in *" data-pap="Interesá den *">Interesse in *</label>
+                            <select id="interesse" name="interesse" required>
+                                <option value="" data-nl="Selecteer een product..." data-en="Select a product..." data-pap="Selekta un produkto...">Selecteer een product...</option>
+                                <option value="BIBOB Analyst Pro">BIBOB Analyst Pro</option>
+                                <option value="VAT Analyst Pro">VAT Analyst Pro</option>
+                                <option value="Analyst Pro">Analyst Pro</option>
+                                <option value="Zorganalyst Pro">Zorganalyst Pro</option>
+                                <option value="Data Handler Pro">Data Handler Pro</option>
+                                <option value="Meerdere producten" data-nl="Meerdere producten" data-en="Multiple products" data-pap="Varios produkto">Meerdere producten</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="demodatum" data-nl="Voorkeursdatum demo (woensdag) *" data-en="Preferred demo date (Wednesday) *" data-pap="Fecha preferá pa demo (djárason) *">Voorkeursdatum demo (woensdag) *</label>
+                            <div class="date-picker-wrapper">
+                                <input type="text" id="demodatum" name="demodatum" class="date-picker-input" readonly required data-nl-placeholder="Selecteer een woensdag..." data-en-placeholder="Select a Wednesday..." data-pap-placeholder="Selekta un djárason..." placeholder="Selecteer een woensdag...">
+                                <div class="date-picker-dropdown" id="dateDropdown"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bericht" data-nl="Bericht" data-en="Message" data-pap="Mensahe">Bericht</label>
+                            <textarea id="bericht" name="bericht" rows="4" data-nl-placeholder="Optioneel: stel direct uw vragen of geef aan wat uw situatie is." data-en-placeholder="Optional: ask your questions directly or describe your situation." data-pap-placeholder="Opshonal: hasi bo preguntanan direktamente of indiká ki ta bo situashon." placeholder="Optioneel: stel direct uw vragen of geef aan wat uw situatie is."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i> <span data-nl="Verstuur aanvraag" data-en="Submit request" data-pap="Manda petishon">Verstuur aanvraag</span>
+                        </button>
+                    </form>
+                    <div id="formSuccess" class="form-success" style="display:none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h4 data-nl="Bedankt voor uw aanvraag!" data-en="Thank you for your request!" data-pap="Danki pa bo petishon!">Bedankt voor uw aanvraag!</h4>
+                        <p data-nl="Wij nemen zo spoedig mogelijk contact met u op." data-en="We will contact you as soon as possible." data-pap="Nos lo tuma kontakto ku bo mas lihé posibel.">Wij nemen zo spoedig mogelijk contact met u op.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <img src="logo.svg" alt="Knowledge by Data" class="footer-logo">
+            <p data-nl="© 2025 Knowledge by Data B.V. Alle rechten voorbehouden." data-en="© 2025 Knowledge by Data B.V. All rights reserved." data-pap="© 2025 Knowledge by Data B.V. Tur derecho reservá.">© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
+        </div>
     </footer>
+
+    <script>
+        // Language switching functionality
+        var currentLang = 'nl';
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-pap').classList.toggle('active', lang === 'pap');
+            
+            // Update all elements with data attributes for the selected language
+            document.querySelectorAll('[data-' + lang + ']').forEach(function(el) {
+                var text = el.getAttribute('data-' + lang);
+                if (text) {
+                    el.innerHTML = text;
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-' + lang + '-placeholder]').forEach(function(el) {
+                var placeholder = el.getAttribute('data-' + lang + '-placeholder');
+                if (placeholder) {
+                    el.placeholder = placeholder;
+                }
+            });
+            
+            // Update HTML lang attribute
+            if (lang === 'pap') {
+                document.documentElement.lang = 'pap';
+            } else if (lang === 'en') {
+                document.documentElement.lang = 'en';
+            } else {
+                document.documentElement.lang = 'nl';
+            }
+            
+            // Regenerate date picker with correct language
+            regenerateDatePicker();
+        }
+
+        // Demo tab click handlers
+        document.querySelectorAll('.demo-tab').forEach(function(tab) {
+            tab.addEventListener('click', function(e) {
+                var demo = this.getAttribute('data-demo');
+                document.querySelectorAll('.demo-tab').forEach(function(t) { t.classList.remove('active'); });
+                this.classList.add('active');
+                document.querySelectorAll('.demo-panel').forEach(function(panel) { panel.classList.remove('active'); });
+                document.getElementById('demo-' + demo).classList.add('active');
+            });
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(function(question) {
+            question.addEventListener('click', function() {
+                var faqItem = this.parentElement;
+                var wasActive = faqItem.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(function(item) { item.classList.remove('active'); });
+                if (!wasActive) { faqItem.classList.add('active'); }
+            });
+        });
+
+        function generateWednesdays() {
+            var wednesdays = [];
+            var current = new Date(2026, 0, 28);
+            var endDate = new Date(2026, 5, 30);
+            while (current <= endDate) {
+                wednesdays.push(new Date(current));
+                current.setDate(current.getDate() + 7);
+            }
+            return wednesdays;
+        }
+
+        function formatDate(date) {
+            var daysNL = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+            var monthsNL = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+            var daysEN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var monthsEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var daysPAP = ['diadomingo', 'dialuna', 'diamars', 'djárason', 'diahuebs', 'diabièrne', 'diasabra'];
+            var monthsPAP = ['yanüari', 'febrüari', 'mart', 'aprel', 'mei', 'yüni', 'yüli', 'ougùstùs', 'sèptèmber', 'òktober', 'novèmber', 'desèmber'];
+            
+            var days, months;
+            if (currentLang === 'en') {
+                days = daysEN;
+                months = monthsEN;
+            } else if (currentLang === 'pap') {
+                days = daysPAP;
+                months = monthsPAP;
+            } else {
+                days = daysNL;
+                months = monthsNL;
+            }
+            
+            return days[date.getDay()] + ' ' + date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
+        }
+
+        function regenerateDatePicker() {
+            var dropdown = document.getElementById('dateDropdown');
+            var input = document.getElementById('demodatum');
+            dropdown.innerHTML = '';
+            
+            var wednesdays = generateWednesdays();
+            
+            for (var i = 0; i < wednesdays.length; i++) {
+                var option = document.createElement('div');
+                option.className = 'date-option';
+                option.textContent = formatDate(wednesdays[i]);
+                option.setAttribute('data-value', formatDate(wednesdays[i]));
+                option.addEventListener('click', function() {
+                    input.value = this.getAttribute('data-value');
+                    dropdown.classList.remove('show');
+                    var allOptions = dropdown.querySelectorAll('.date-option');
+                    for (var j = 0; j < allOptions.length; j++) { allOptions[j].classList.remove('selected'); }
+                    this.classList.add('selected');
+                });
+                dropdown.appendChild(option);
+            }
+        }
+
+        function initDatePicker() {
+            var input = document.getElementById('demodatum');
+            var dropdown = document.getElementById('dateDropdown');
+            
+            regenerateDatePicker();
+            
+            input.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.date-picker-wrapper')) { dropdown.classList.remove('show'); }
+            });
+        }
+
+        initDatePicker();
+    </script>
 </body>
 </html>
