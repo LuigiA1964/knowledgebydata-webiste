@@ -777,5 +777,415 @@
                 e.preventDefault();
                 var target = document.querySelector(this.getAttribute('href'));
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
+
+    <!-- ============================================
+         CHATBOT WIDGET - KNOWLEDGE BY DATA
+         ============================================ -->
+    <style>
+        .kbd-chatbot-trigger {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3a5f 0%, #137dbe 100%);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(19, 125, 190, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 9998;
         }
+        .kbd-chatbot-trigger:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 30px rgba(19, 125, 190, 0.5);
+        }
+        .kbd-chatbot-trigger i {
+            color: white;
+            font-size: 1.6rem;
+            transition: transform 0.3s ease;
+        }
+        .kbd-chatbot-trigger i.fa-info {
+            animation: kbdPulseIcon 3s ease-in-out infinite;
+        }
+        .kbd-chatbot-trigger.active i.fa-info { display: none; }
+        .kbd-chatbot-trigger i.fa-times { display: none; }
+        .kbd-chatbot-trigger.active i.fa-times { display: block; }
+        @keyframes kbdPulseIcon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .kbd-chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            width: 400px;
+            height: 560px;
+            max-height: calc(100vh - 140px);
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.18);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+        .kbd-chatbot-window.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        .kbd-chatbot-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #137dbe 100%);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .kbd-chatbot-avatar {
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+        .kbd-chatbot-info h3 { font-size: 1rem; font-weight: 600; margin: 0 0 3px 0; }
+        .kbd-chatbot-info span { font-size: 0.8rem; opacity: 0.9; display: flex; align-items: center; gap: 6px; }
+        .kbd-chatbot-info span::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: kbdPulseStatus 2s infinite;
+        }
+        @keyframes kbdPulseStatus { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .kbd-chatbot-lang { margin-left: auto; display: flex; gap: 4px; }
+        .kbd-chatbot-lang button {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .kbd-chatbot-lang button:hover, .kbd-chatbot-lang button.active { background: rgba(255,255,255,0.3); }
+        .kbd-chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: #f8fafc;
+        }
+        .kbd-chatbot-messages::-webkit-scrollbar { width: 6px; }
+        .kbd-chatbot-messages::-webkit-scrollbar-track { background: transparent; }
+        .kbd-chatbot-messages::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .kbd-msg { display: flex; gap: 10px; max-width: 88%; animation: kbdMsgIn 0.3s ease; }
+        @keyframes kbdMsgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .kbd-msg.bot { align-self: flex-start; }
+        .kbd-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+        .kbd-msg-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        .kbd-msg.bot .kbd-msg-avatar { background: #e8f4fc; color: #137dbe; }
+        .kbd-msg.user .kbd-msg-avatar { background: #137dbe; color: white; }
+        .kbd-msg-bubble { padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.55; }
+        .kbd-msg.bot .kbd-msg-bubble { background: #ffffff; color: #2d3748; border: 1px solid #e2e8f0; border-bottom-left-radius: 6px; }
+        .kbd-msg.user .kbd-msg-bubble { background: #137dbe; color: white; border-bottom-right-radius: 6px; }
+        .kbd-msg-bubble a { color: #0e5a8a; font-weight: 600; text-decoration: none; }
+        .kbd-msg-bubble a:hover { text-decoration: underline; }
+        .kbd-msg.user .kbd-msg-bubble a { color: #bfdbfe; }
+        .kbd-quick-replies { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .kbd-quick-btn {
+            background: #ffffff;
+            border: 1px solid #137dbe;
+            color: #137dbe;
+            padding: 8px 14px;
+            border-radius: 18px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .kbd-quick-btn:hover { background: #137dbe; color: white; }
+        .kbd-typing {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            border-bottom-left-radius: 6px;
+            width: fit-content;
+        }
+        .kbd-typing span { width: 8px; height: 8px; background: #94a3b8; border-radius: 50%; animation: kbdTypingDot 1.4s infinite; }
+        .kbd-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .kbd-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes kbdTypingDot { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+        .kbd-chatbot-input {
+            padding: 16px 20px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .kbd-chatbot-input input {
+            flex: 1;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 12px 18px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        .kbd-chatbot-input input:focus { border-color: #137dbe; }
+        .kbd-chatbot-input button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #137dbe;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .kbd-chatbot-input button:hover { background: #0e5a8a; }
+        @media (max-width: 480px) {
+            .kbd-chatbot-window { width: calc(100% - 20px); height: calc(100% - 120px); right: 10px; bottom: 90px; border-radius: 16px; }
+            .kbd-chatbot-trigger { right: 16px; bottom: 16px; }
+        }
+    </style>
+
+    <button class="kbd-chatbot-trigger" id="kbdChatbotTrigger" aria-label="Open chat">
+        <i class="fas fa-info"></i>
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="kbd-chatbot-window" id="kbdChatbotWindow">
+        <div class="kbd-chatbot-header">
+            <div class="kbd-chatbot-avatar"><i class="fas fa-shield-halved"></i></div>
+            <div class="kbd-chatbot-info">
+                <h3>Knowledge by Data</h3>
+                <span id="kbdStatusText">Online - Vraag het ons</span>
+            </div>
+            <div class="kbd-chatbot-lang">
+                <button id="langNL" class="active" onclick="kbdSetLang('nl')">NL</button>
+                <button id="langEN" onclick="kbdSetLang('en')">EN</button>
+                <button id="langPAP" onclick="kbdSetLang('pap')">PAP</button>
+            </div>
+        </div>
+        <div class="kbd-chatbot-messages" id="kbdChatMessages"></div>
+        <div class="kbd-chatbot-input">
+            <input type="text" id="kbdChatInput" placeholder="Stel uw vraag..." onkeypress="if(event.key==='Enter')kbdSendMessage()">
+            <button onclick="kbdSendMessage()" aria-label="Verstuur"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        'use strict';
+        var currentLang = 'nl';
+        var chatStarted = false;
+        var translations = {
+            nl: {
+                statusOnline: 'Online - Vraag het ons',
+                placeholder: 'Stel uw vraag...',
+                welcome: 'Welkom! Ik ben de virtuele assistent van Knowledge by Data. Ik help u graag met vragen over onze Analysis Suite en applicaties voor ondermijningsaanpak. Waar kan ik u mee helpen?',
+                quickReplies: ['Wat doet Knowledge by Data?', 'Welke applicaties zijn er?', 'Voor wie is dit bedoeld?', 'Wat is de Analysis Suite?'],
+                fallback: 'Interessante vraag! Voor een uitgebreid antwoord raad ik u aan een <a href="index.html#contact">demo aan te vragen</a>. Onze specialist kan al uw vragen beantwoorden.',
+                priceRedirect: 'Voor informatie over prijzen en licenties nodig ik u graag uit voor een <a href="index.html#contact">vrijblijvende demo</a>. Zo kunnen we de opties bespreken die het beste bij uw organisatie passen.',
+                techRedirect: 'De technische details van onze oplossing bespreken we graag persoonlijk. <a href="index.html#contact">Plan een demo</a> en onze specialist legt alles helder uit.',
+                demoInvite: 'Wilt u meer weten of een demonstratie zien? <a href="index.html#contact">Vraag hier een vrijblijvende demo aan</a>.'
+            },
+            en: {
+                statusOnline: 'Online - Ask us anything',
+                placeholder: 'Ask your question...',
+                welcome: 'Welcome! I am the virtual assistant of Knowledge by Data. I am happy to help you with questions about our Analysis Suite and applications for tackling organized crime. How can I help you?',
+                quickReplies: ['What does Knowledge by Data do?', 'Which applications are available?', 'Who is this for?', 'What is the Analysis Suite?'],
+                fallback: 'Interesting question! For a comprehensive answer, I recommend <a href="index.html#contact">requesting a demo</a>. Our specialist can answer all your questions.',
+                priceRedirect: 'For information about pricing and licenses, I would like to invite you to a <a href="index.html#contact">no-obligation demo</a>. This way we can discuss the options that best suit your organization.',
+                techRedirect: 'We prefer to discuss the technical details of our solution in person. <a href="index.html#contact">Schedule a demo</a> and our specialist will explain everything clearly.',
+                demoInvite: 'Would you like to know more or see a demonstration? <a href="index.html#contact">Request a free demo here</a>.'
+            },
+            pap: {
+                statusOnline: 'Online - Puntra nos',
+                placeholder: 'Hasi bo pregunta...',
+                welcome: 'Bon bini! Mi ta e asistente virtual di Knowledge by Data. Mi ta gustoso di yuda bo ku preguntanan tokante nos Analysis Suite i aplikashonnan pa kombati kriminalidat organisa. Kon mi por yuda bo?',
+                quickReplies: ['Kiko Knowledge by Data ta hasi?', 'Kua aplikashonnan tin?', 'Pa ken esaki ta?', 'Kiko ta e Analysis Suite?'],
+                fallback: 'Pregunta interesante! Pa un kontesta kompleto, mi ta rekomenda <a href="index.html#contact">pidi un demo</a>. Nos spesialista por kontesta tur bo preguntanan.',
+                priceRedirect: 'Pa informashon tokante preis i lisensia, mi ta gustoso di invita bo pa un <a href="index.html#contact">demo sin obligashon</a>. Asina nos por diskuti e opshonnan ku ta konbini miho ku bo organisashon.',
+                techRedirect: 'Nos ta prefera di diskuti e detayenan tekniko di nos solushon en persona. <a href="index.html#contact">Plania un demo</a> i nos spesialista lo splika tur kos kla.',
+                demoInvite: 'Bo ke sa mas of mira un demonstrashon? <a href="index.html#contact">Pidi un demo gratis aki</a>.'
+            }
+        };
+        var knowledgeBase = {
+            nl: {
+                'wat doet knowledge by data|wie zijn jullie|over het bedrijf|wat is knowledge by data': 'Knowledge by Data B.V. is een Nederlands softwarebedrijf gespecialiseerd in analyse-applicaties voor overheidsorganisaties. Wij ontwikkelen tools voor BIBOB-onderzoeken, zorgfraude-detectie, ondermijningsaanpak en data-analyse. Onze software wordt gebruikt door gemeenten, RIECs, politie en andere opsporingsinstanties.',
+                'welke applicaties|welke apps|welke software|wat bieden jullie aan|producten|overzicht': 'Wij bieden zes professionele applicaties:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integriteitsonderzoeken met 79 risico-indicatoren<br>• <strong>ZorgAnalyst Pro</strong> - Detectie van zorgfraude (43 indicatoren)<br>• <strong>VAT Analyst Pro</strong> - Analyse seksbranche/uitbuiting<br>• <strong>Analyst Pro</strong> - GRAV-database voor ondermijning<br>• <strong>Data Handler Pro</strong> - Data-import uit 15+ overheidsbronnen<br>• <strong>Document Parser</strong> - Zelf documenten trainen',
+                'bibob|integriteitsonderzoek|wet bibob': 'BIBOB Analyst Pro is onze complete oplossing voor integriteitsonderzoeken conform de Wet BIBOB. De applicatie bevat <strong>79 actuele risico-indicatoren</strong> van bronnen als NLA, LBB en Politie. Functies zijn onder meer: OM Tipformulier generatie, cross-referentie analyse, en professionele PDF-rapportages.',
+                'zorgfraude|zorganalyst|wmo fraude|pgb fraude|jeugdzorg': 'ZorgAnalyst Pro detecteert fraude in Wmo, Jeugdzorg, PGB en Wlz. De applicatie bevat <strong>43 zorg-specifieke indicatoren</strong> van IKZ, IGJ, NZa en VNG. U kunt diplomas verifieren, signaalrapportages genereren en verdachte patronen identificeren.',
+                'vat analyst|seksbranche|uitbuiting|mensenhandel': 'VAT Analyst Pro is een gespecialiseerde analysetool voor detectie van uitbuiting in de seksbranche. De applicatie biedt risicoprofielen, netwerkanalyse en kaartweergave. Extra beveiligd met 2FA.',
+                'analyst pro|grav|ondermijning|ondermijningsaanpak': 'Analyst Pro is onze GRAV-database voor de aanpak van ondermijning. Personen, voertuigen, objecten en netwerken worden geintegreerd bijgehouden. Inclusief relatieanalyse en netwerkvisualisatie.',
+                'data handler|data import|databronnen|kvk|rdw|kadaster': 'Data Handler Pro verzorgt data-import en transformatie uit <strong>15+ overheidsbronnen</strong> zoals KvK, RDW, Kadaster en meer. Ondersteunt JSON/CSV import/export en batch verwerking.',
+                'document parser|pdf herkenning|documenten trainen': 'Met de Document Parser traint u zelf hoe specifieke PDF-documenten geparsed worden. Inclusief template trainer, veldmapping en batch import. Exclusief beschikbaar in de Analysis Suite.',
+                'analysis suite|suite|complete pakket|alles in een': 'De <strong>Analysis Suite</strong> bevat alle zes applicaties in een pakket met onbeperkt aantal gebruikers en een licentie. Extra voordelen: Document Parser (exclusief), geintegreerde data-uitwisseling tussen apps, en telefonische support. Ideaal voor organisaties die breed willen inzetten.',
+                'voor wie|doelgroep|wie gebruikt dit|klanten': 'Onze software is ontwikkeld voor professionals in de publieke sector:<br><br>• <strong>Gemeenten</strong> - 342 in Nederland<br>• <strong>RIECs</strong> - 10 regios<br>• <strong>Politie</strong> - Nationale Politie<br>• <strong>Openbaar Ministerie</strong><br>• <strong>Arbeidsinspectie (NLA)</strong>',
+                'voordelen|waarom|wat maakt jullie anders': 'Belangrijke voordelen van onze software:<br><br>• <strong>Zero-Cloud</strong> - Uw data blijft volledig onder eigen beheer<br>• <strong>AVG-compliant</strong> - Geen verwerkersovereenkomst nodig<br>• <strong>Cross-platform</strong> - Werkt op Windows, Mac, Linux, Chromebook<br>• <strong>Geen IT-belasting</strong> - Direct inzetbaar<br>• <strong>39 jaar expertise</strong> - Opsporingservaring ingebouwd',
+                'beveiliging|veilig|avg|privacy|gdpr': 'Beveiliging staat centraal. Onze Zero-Cloud architectuur betekent dat uw data volledig onder eigen beheer blijft. Geen externe servers, geen cloud, geen aanvalsoppervlak. Daardoor is geen verwerkersovereenkomst nodig en bent u volledig AVG-compliant.',
+                'support|hulp|ondersteuning|contact': 'Wij bieden telefonische support op <strong>06 84 82 07 08</strong>. U kunt ook mailen naar info@knowledgebydata.nl. Voor een uitgebreide demonstratie kunt u een <a href="index.html#contact">vrijblijvende demo aanvragen</a>.',
+                'demo|demonstratie|uitproberen|testen': 'Wij geven graag een vrijblijvende demonstratie van onze software. <a href="index.html#contact">Plan hier uw demo</a> en ontdek hoe onze Analysis Suite uw organisatie kan versterken.',
+                'updates|nieuwe versies|onderhoud': 'Updates worden direct doorgevoerd zonder downtime of complexe migraties. Bij de Analysis Suite zijn alle updates tijdens de licentieperiode inbegrepen.'
+            },
+            en: {
+                'what does knowledge by data do|who are you|about the company|what is knowledge by data': 'Knowledge by Data B.V. is a Dutch software company specialized in analysis applications for government organizations. We develop tools for BIBOB investigations, healthcare fraud detection, tackling organized crime and data analysis. Our software is used by municipalities, RIECs, police and other investigative agencies.',
+                'which applications|which apps|what software|what do you offer|products|overview': 'We offer six professional applications:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integrity investigations with 79 risk indicators<br>• <strong>ZorgAnalyst Pro</strong> - Healthcare fraud detection (43 indicators)<br>• <strong>VAT Analyst Pro</strong> - Sex industry/exploitation analysis<br>• <strong>Analyst Pro</strong> - GRAV database for organized crime<br>• <strong>Data Handler Pro</strong> - Data import from 15+ government sources<br>• <strong>Document Parser</strong> - Train your own documents',
+                'bibob|integrity investigation|bibob act': 'BIBOB Analyst Pro is our complete solution for integrity investigations in accordance with the BIBOB Act. The application contains <strong>79 current risk indicators</strong> from sources such as NLA, LBB and Police. Features include: OM Tip form generation, cross-reference analysis, and professional PDF reports.',
+                'healthcare fraud|zorganalyst|wmo fraud|pgb fraud|youth care': 'ZorgAnalyst Pro detects fraud in Wmo, Youth Care, PGB and Wlz. The application contains <strong>43 healthcare-specific indicators</strong> from IKZ, IGJ, NZa and VNG. You can verify diplomas, generate signal reports and identify suspicious patterns.',
+                'vat analyst|sex industry|exploitation|human trafficking': 'VAT Analyst Pro is a specialized analysis tool for detecting exploitation in the sex industry. The application offers risk profiles, network analysis and map view. Extra secured with 2FA.',
+                'analyst pro|grav|organized crime|undermining': 'Analyst Pro is our GRAV database for tackling organized crime. People, vehicles, objects and networks are tracked in an integrated manner. Including relationship analysis and network visualization.',
+                'data handler|data import|data sources|chamber of commerce': 'Data Handler Pro handles data import and transformation from <strong>15+ government sources</strong> such as Chamber of Commerce, RDW, Land Registry and more. Supports JSON/CSV import/export and batch processing.',
+                'document parser|pdf recognition|train documents': 'With the Document Parser you train yourself how specific PDF documents should be parsed. Including template trainer, field mapping and batch import. Exclusively available in the Analysis Suite.',
+                'analysis suite|suite|complete package|all in one': 'The <strong>Analysis Suite</strong> contains all six applications in one package with unlimited users and one license. Extra benefits: Document Parser (exclusive), integrated data exchange between apps, and phone support. Ideal for organizations that want broad deployment.',
+                'who is this for|target audience|who uses this|customers': 'Our software is developed for professionals in the public sector:<br><br>• <strong>Municipalities</strong> - 342 in the Netherlands<br>• <strong>RIECs</strong> - 10 regions<br>• <strong>Police</strong> - National Police<br>• <strong>Public Prosecution Service</strong><br>• <strong>Labor Inspectorate (NLA)</strong>',
+                'benefits|advantages|why|what makes you different': 'Key benefits of our software:<br><br>• <strong>Zero-Cloud</strong> - Your data remains fully under your control<br>• <strong>GDPR-compliant</strong> - No processor agreement needed<br>• <strong>Cross-platform</strong> - Works on Windows, Mac, Linux, Chromebook<br>• <strong>No IT burden</strong> - Ready to use immediately<br>• <strong>39 years expertise</strong> - Investigative experience built in',
+                'security|safe|gdpr|privacy|avg': 'Security is central. Our Zero-Cloud architecture means your data remains fully under your control. No external servers, no cloud, no attack surface. Therefore no processor agreement is needed and you are fully GDPR-compliant.',
+                'support|help|assistance|contact': 'We offer phone support at <strong>+31 6 84 82 07 08</strong>. You can also email info@knowledgebydata.nl. For an extensive demonstration you can <a href="index.html#contact">request a free demo</a>.',
+                'demo|demonstration|try out|test': 'We would be happy to give a no-obligation demonstration of our software. <a href="index.html#contact">Schedule your demo here</a> and discover how our Analysis Suite can strengthen your organization.',
+                'updates|new versions|maintenance': 'Updates are applied immediately without downtime or complex migrations. With the Analysis Suite all updates during the license period are included.'
+            },
+            pap: {
+                'kiko knowledge by data ta hasi|ken ta boso|tokante e kompania|kiko ta knowledge by data': 'Knowledge by Data B.V. ta un kompania di software Hulandes spesialisa den aplikashonnan di analisis pa organisashonnan di gobiernu. Nos ta desaroya herramientanan pa investigashon BIBOB, detekshon di frode di kuido, kombati kriminalidat organisa i analisis di data.',
+                'kua aplikashonnan|kua appnan|kua software|kiko boso ta ofrese|produktonan': 'Nos ta ofrese seis aplikashon profesional:<br><br>• <strong>BIBOB Analyst Pro</strong> - Investigashon di integridat ku 79 indikado di riesgo<br>• <strong>ZorgAnalyst Pro</strong> - Detekshon di frode di kuido (43 indikado)<br>• <strong>VAT Analyst Pro</strong> - Analisis di industria di sekso/esplotashon<br>• <strong>Analyst Pro</strong> - Base di dato GRAV pa kriminalidat organisa<br>• <strong>Data Handler Pro</strong> - Importa data di 15+ fuente di gobiernu<br>• <strong>Document Parser</strong> - Trein bo mes dokumentonan',
+                'bibob|investigashon di integridat': 'BIBOB Analyst Pro ta nos solushon kompleto pa investigashon di integridat konforme ku Lei BIBOB. E aplikashon tin <strong>79 indikado di riesgo aktual</strong> di fuentenan manera NLA, LBB i Polis.',
+                'analysis suite|suite|paki kompleto': 'E <strong>Analysis Suite</strong> ta kontene tur seis aplikashon den un paki ku kantidat di usuario sin limite i un lisensia. Benefisio ekstra: Document Parser (eksklisivo), interkambio di data integra entre appnan, i soporte telefoniko.',
+                'pa ken|grupo meta|ken ta usa esaki|klientenan': 'Nos software ta desaroya pa profesionalnan den sektor publiko:<br><br>• <strong>Munisipionan</strong> - 342 na Hulanda<br>• <strong>RIEC-nan</strong> - 10 region<br>• <strong>Polis</strong> - Polis Nashonal<br>• <strong>Ministerio Publiko</strong><br>• <strong>Inspekshon di Trabou (NLA)</strong>',
+                'benefisio|ventaha|pakiko|kiko ta hasi boso diferente': 'Benefisionan importante di nos software:<br><br>• <strong>Zero-Cloud</strong> - Bo data ta keda kompletamente bou di bo mes kontrol<br>• <strong>Konforme ku AVG</strong> - Sin mester akuerdo di prosesado<br>• <strong>Cross-platform</strong> - Ta traha riba Windows, Mac, Linux, Chromebook<br>• <strong>Sin karga di IT</strong> - Kla pa usa mesora<br>• <strong>39 ana di eksperensia</strong> - Eksperensia di investigashon konstrui aden',
+                'seguridat|sigur|avg|privasidat': 'Seguridat ta sentral. Nos arkitektura Zero-Cloud ta nifika ku bo data ta keda kompletamente bou di bo mes kontrol. Sin server eksterno, sin cloud, sin superfisie di atake.',
+                'soporte|yudansa|kontakto': 'Nos ta ofrese soporte telefoniko na <strong>+31 6 84 82 07 08</strong>. Bo por tambe email na info@knowledgebydata.nl. Pa un demonstrashon ekstensivo bo por <a href="index.html#contact">pidi un demo gratis</a>.',
+                'demo|demonstrashon|purba|test': 'Nos ta gustoso di duna un demonstrashon sin obligashon di nos software. <a href="index.html#contact">Plania bo demo aki</a> i deskubri kon nos Analysis Suite por fortalese bo organisashon.'
+            }
+        };
+        var blockedPatterns = {
+            nl: /prijs|kosten|tarief|wat kost|hoeveel|euro|geld|budget|licentiefee|abonnement/i,
+            en: /price|cost|rate|how much|euro|money|budget|license fee|subscription|pricing/i,
+            pap: /preis|kostu|kuantu|euro|plaka|presupuesto|lisensia fee/i
+        };
+        var techPatterns = {
+            nl: /architectuur|technisch|hoe werkt het|technologie|server|database|hosting|cloud|framework|code|programmeer|installatie|systeem.?eisen/i,
+            en: /architecture|technical|how does it work|technology|server|database|hosting|cloud|framework|code|programming|installation|system.?requirements/i,
+            pap: /arkitektura|tekniko|kon ta traha|teknologia|server|database|hosting|cloud/i
+        };
+        function showWelcome() {
+            var container = document.getElementById('kbdChatMessages');
+            container.innerHTML = '';
+            addMessage(translations[currentLang].welcome, true, translations[currentLang].quickReplies);
+        }
+        window.kbdSetLang = function(lang) {
+            currentLang = lang;
+            document.getElementById('langNL').classList.toggle('active', lang === 'nl');
+            document.getElementById('langEN').classList.toggle('active', lang === 'en');
+            document.getElementById('langPAP').classList.toggle('active', lang === 'pap');
+            document.getElementById('kbdStatusText').textContent = translations[lang].statusOnline;
+            document.getElementById('kbdChatInput').placeholder = translations[lang].placeholder;
+            if (chatStarted) {
+                showWelcome();
+            }
+        };
+        function addMessage(text, isBot, quickReplies) {
+            var container = document.getElementById('kbdChatMessages');
+            var msgDiv = document.createElement('div');
+            msgDiv.className = 'kbd-msg ' + (isBot ? 'bot' : 'user');
+            var icon = isBot ? 'fa-shield-halved' : 'fa-user';
+            msgDiv.innerHTML = '<div class="kbd-msg-avatar"><i class="fas ' + icon + '"></i></div><div class="kbd-msg-bubble">' + text + '</div>';
+            container.appendChild(msgDiv);
+            if (quickReplies && quickReplies.length > 0) {
+                var repliesDiv = document.createElement('div');
+                repliesDiv.className = 'kbd-quick-replies';
+                quickReplies.forEach(function(reply) {
+                    var btn = document.createElement('button');
+                    btn.className = 'kbd-quick-btn';
+                    btn.textContent = reply;
+                    btn.onclick = function() { addMessage(reply, false); processInput(reply); repliesDiv.remove(); };
+                    repliesDiv.appendChild(btn);
+                });
+                container.appendChild(repliesDiv);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+        function showTyping() {
+            var container = document.getElementById('kbdChatMessages');
+            var typingDiv = document.createElement('div');
+            typingDiv.className = 'kbd-msg bot';
+            typingDiv.id = 'kbdTyping';
+            typingDiv.innerHTML = '<div class="kbd-msg-avatar"><i class="fas fa-shield-halved"></i></div><div class="kbd-typing"><span></span><span></span><span></span></div>';
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+        function hideTyping() { var t = document.getElementById('kbdTyping'); if (t) t.remove(); }
+        function findAnswer(input) {
+            var lower = input.toLowerCase();
+            if (blockedPatterns[currentLang].test(lower)) return translations[currentLang].priceRedirect;
+            if (techPatterns[currentLang].test(lower)) return translations[currentLang].techRedirect;
+            var kb = knowledgeBase[currentLang];
+            for (var patterns in kb) {
+                var list = patterns.split('|');
+                for (var i = 0; i < list.length; i++) { if (lower.indexOf(list[i]) !== -1) return kb[patterns]; }
+            }
+            return translations[currentLang].fallback;
+        }
+        function processInput(input) {
+            showTyping();
+            setTimeout(function() { hideTyping(); addMessage(findAnswer(input), true); }, 600 + Math.random() * 800);
+        }
+        window.kbdSendMessage = function() {
+            var input = document.getElementById('kbdChatInput');
+            var text = input.value.trim();
+            if (!text) return;
+            addMessage(text, false);
+            input.value = '';
+            processInput(text);
+        };
+        document.getElementById('kbdChatbotTrigger').addEventListener('click', function() {
+            var win = document.getElementById('kbdChatbotWindow');
+            var trigger = document.getElementById('kbdChatbotTrigger');
+            win.classList.toggle('active');
+            trigger.classList.toggle('active');
+            if (win.classList.contains('active') && !chatStarted) {
+                chatStarted = true;
+                setTimeout(function() { showWelcome(); }, 400);
+            }
+        });
+        var htmlLang = document.documentElement.lang;
+        if (htmlLang === 'en') kbdSetLang('en');
+        else if (htmlLang === 'pap') kbdSetLang('pap');
+    })();
+    </script>
+</body>
+</html>

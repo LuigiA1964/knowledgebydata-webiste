@@ -1220,6 +1220,7 @@
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://knowledgebydata.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     <!-- ============================================
          CHATBOT WIDGET - KNOWLEDGE BY DATA
@@ -1455,36 +1456,37 @@
     (function() {
         'use strict';
         var currentLang = 'nl';
+        var chatStarted = false;
         var translations = {
             nl: {
                 statusOnline: 'Online - Vraag het ons',
                 placeholder: 'Stel uw vraag...',
                 welcome: 'Welkom! Ik ben de virtuele assistent van Knowledge by Data. Ik help u graag met vragen over onze Analysis Suite en applicaties voor ondermijningsaanpak. Waar kan ik u mee helpen?',
                 quickReplies: ['Wat doet Knowledge by Data?', 'Welke applicaties zijn er?', 'Voor wie is dit bedoeld?', 'Wat is de Analysis Suite?'],
-                fallback: 'Interessante vraag! Voor een uitgebreid antwoord raad ik u aan een <a href="#contact">demo aan te vragen</a>. Onze specialist kan al uw vragen beantwoorden.',
-                priceRedirect: 'Voor informatie over prijzen en licenties nodig ik u graag uit voor een <a href="#contact">vrijblijvende demo</a>. Zo kunnen we de opties bespreken die het beste bij uw organisatie passen.',
-                techRedirect: 'De technische details van onze oplossing bespreken we graag persoonlijk. <a href="#contact">Plan een demo</a> en onze specialist legt alles helder uit.',
-                demoInvite: 'Wilt u meer weten of een demonstratie zien? <a href="#contact">Vraag hier een vrijblijvende demo aan</a>.'
+                fallback: 'Interessante vraag! Voor een uitgebreid antwoord raad ik u aan een <a href="index.html#contact">demo aan te vragen</a>. Onze specialist kan al uw vragen beantwoorden.',
+                priceRedirect: 'Voor informatie over prijzen en licenties nodig ik u graag uit voor een <a href="index.html#contact">vrijblijvende demo</a>. Zo kunnen we de opties bespreken die het beste bij uw organisatie passen.',
+                techRedirect: 'De technische details van onze oplossing bespreken we graag persoonlijk. <a href="index.html#contact">Plan een demo</a> en onze specialist legt alles helder uit.',
+                demoInvite: 'Wilt u meer weten of een demonstratie zien? <a href="index.html#contact">Vraag hier een vrijblijvende demo aan</a>.'
             },
             en: {
                 statusOnline: 'Online - Ask us anything',
                 placeholder: 'Ask your question...',
                 welcome: 'Welcome! I am the virtual assistant of Knowledge by Data. I am happy to help you with questions about our Analysis Suite and applications for tackling organized crime. How can I help you?',
                 quickReplies: ['What does Knowledge by Data do?', 'Which applications are available?', 'Who is this for?', 'What is the Analysis Suite?'],
-                fallback: 'Interesting question! For a comprehensive answer, I recommend <a href="#contact">requesting a demo</a>. Our specialist can answer all your questions.',
-                priceRedirect: 'For information about pricing and licenses, I would like to invite you to a <a href="#contact">no-obligation demo</a>. This way we can discuss the options that best suit your organization.',
-                techRedirect: 'We prefer to discuss the technical details of our solution in person. <a href="#contact">Schedule a demo</a> and our specialist will explain everything clearly.',
-                demoInvite: 'Would you like to know more or see a demonstration? <a href="#contact">Request a free demo here</a>.'
+                fallback: 'Interesting question! For a comprehensive answer, I recommend <a href="index.html#contact">requesting a demo</a>. Our specialist can answer all your questions.',
+                priceRedirect: 'For information about pricing and licenses, I would like to invite you to a <a href="index.html#contact">no-obligation demo</a>. This way we can discuss the options that best suit your organization.',
+                techRedirect: 'We prefer to discuss the technical details of our solution in person. <a href="index.html#contact">Schedule a demo</a> and our specialist will explain everything clearly.',
+                demoInvite: 'Would you like to know more or see a demonstration? <a href="index.html#contact">Request a free demo here</a>.'
             },
             pap: {
                 statusOnline: 'Online - Puntra nos',
                 placeholder: 'Hasi bo pregunta...',
                 welcome: 'Bon bini! Mi ta e asistente virtual di Knowledge by Data. Mi ta gustoso di yuda bo ku preguntanan tokante nos Analysis Suite i aplikashonnan pa kombati kriminalidat organisa. Kon mi por yuda bo?',
                 quickReplies: ['Kiko Knowledge by Data ta hasi?', 'Kua aplikashonnan tin?', 'Pa ken esaki ta?', 'Kiko ta e Analysis Suite?'],
-                fallback: 'Pregunta interesante! Pa un kontesta kompleto, mi ta rekomenda <a href="#contact">pidi un demo</a>. Nos spesialista por kontesta tur bo preguntanan.',
-                priceRedirect: 'Pa informashon tokante preis i lisensia, mi ta gustoso di invita bo pa un <a href="#contact">demo sin obligashon</a>. Asina nos por diskuti e opshonnan ku ta konbini miho ku bo organisashon.',
-                techRedirect: 'Nos ta prefera di diskuti e detayenan tekniko di nos solushon en persona. <a href="#contact">Plania un demo</a> i nos spesialista lo splika tur kos kla.',
-                demoInvite: 'Bo ke sa mas of mira un demonstrashon? <a href="#contact">Pidi un demo gratis aki</a>.'
+                fallback: 'Pregunta interesante! Pa un kontesta kompleto, mi ta rekomenda <a href="index.html#contact">pidi un demo</a>. Nos spesialista por kontesta tur bo preguntanan.',
+                priceRedirect: 'Pa informashon tokante preis i lisensia, mi ta gustoso di invita bo pa un <a href="index.html#contact">demo sin obligashon</a>. Asina nos por diskuti e opshonnan ku ta konbini miho ku bo organisashon.',
+                techRedirect: 'Nos ta prefera di diskuti e detayenan tekniko di nos solushon en persona. <a href="index.html#contact">Plania un demo</a> i nos spesialista lo splika tur kos kla.',
+                demoInvite: 'Bo ke sa mas of mira un demonstrashon? <a href="index.html#contact">Pidi un demo gratis aki</a>.'
             }
         };
         var knowledgeBase = {
@@ -1501,8 +1503,8 @@
                 'voor wie|doelgroep|wie gebruikt dit|klanten': 'Onze software is ontwikkeld voor professionals in de publieke sector:<br><br>• <strong>Gemeenten</strong> - 342 in Nederland<br>• <strong>RIECs</strong> - 10 regios<br>• <strong>Politie</strong> - Nationale Politie<br>• <strong>Openbaar Ministerie</strong><br>• <strong>Arbeidsinspectie (NLA)</strong>',
                 'voordelen|waarom|wat maakt jullie anders': 'Belangrijke voordelen van onze software:<br><br>• <strong>Zero-Cloud</strong> - Uw data blijft volledig onder eigen beheer<br>• <strong>AVG-compliant</strong> - Geen verwerkersovereenkomst nodig<br>• <strong>Cross-platform</strong> - Werkt op Windows, Mac, Linux, Chromebook<br>• <strong>Geen IT-belasting</strong> - Direct inzetbaar<br>• <strong>39 jaar expertise</strong> - Opsporingservaring ingebouwd',
                 'beveiliging|veilig|avg|privacy|gdpr': 'Beveiliging staat centraal. Onze Zero-Cloud architectuur betekent dat uw data volledig onder eigen beheer blijft. Geen externe servers, geen cloud, geen aanvalsoppervlak. Daardoor is geen verwerkersovereenkomst nodig en bent u volledig AVG-compliant.',
-                'support|hulp|ondersteuning|contact': 'Wij bieden telefonische support op <strong>06 84 82 07 08</strong>. U kunt ook mailen naar info@knowledgebydata.nl. Voor een uitgebreide demonstratie kunt u een <a href="#contact">vrijblijvende demo aanvragen</a>.',
-                'demo|demonstratie|uitproberen|testen': 'Wij geven graag een vrijblijvende demonstratie van onze software. <a href="#contact">Plan hier uw demo</a> en ontdek hoe onze Analysis Suite uw organisatie kan versterken.',
+                'support|hulp|ondersteuning|contact': 'Wij bieden telefonische support op <strong>06 84 82 07 08</strong>. U kunt ook mailen naar info@knowledgebydata.nl. Voor een uitgebreide demonstratie kunt u een <a href="index.html#contact">vrijblijvende demo aanvragen</a>.',
+                'demo|demonstratie|uitproberen|testen': 'Wij geven graag een vrijblijvende demonstratie van onze software. <a href="index.html#contact">Plan hier uw demo</a> en ontdek hoe onze Analysis Suite uw organisatie kan versterken.',
                 'updates|nieuwe versies|onderhoud': 'Updates worden direct doorgevoerd zonder downtime of complexe migraties. Bij de Analysis Suite zijn alle updates tijdens de licentieperiode inbegrepen.'
             },
             en: {
@@ -1518,8 +1520,8 @@
                 'who is this for|target audience|who uses this|customers': 'Our software is developed for professionals in the public sector:<br><br>• <strong>Municipalities</strong> - 342 in the Netherlands<br>• <strong>RIECs</strong> - 10 regions<br>• <strong>Police</strong> - National Police<br>• <strong>Public Prosecution Service</strong><br>• <strong>Labor Inspectorate (NLA)</strong>',
                 'benefits|advantages|why|what makes you different': 'Key benefits of our software:<br><br>• <strong>Zero-Cloud</strong> - Your data remains fully under your control<br>• <strong>GDPR-compliant</strong> - No processor agreement needed<br>• <strong>Cross-platform</strong> - Works on Windows, Mac, Linux, Chromebook<br>• <strong>No IT burden</strong> - Ready to use immediately<br>• <strong>39 years expertise</strong> - Investigative experience built in',
                 'security|safe|gdpr|privacy|avg': 'Security is central. Our Zero-Cloud architecture means your data remains fully under your control. No external servers, no cloud, no attack surface. Therefore no processor agreement is needed and you are fully GDPR-compliant.',
-                'support|help|assistance|contact': 'We offer phone support at <strong>+31 6 84 82 07 08</strong>. You can also email info@knowledgebydata.nl. For an extensive demonstration you can <a href="#contact">request a free demo</a>.',
-                'demo|demonstration|try out|test': 'We would be happy to give a no-obligation demonstration of our software. <a href="#contact">Schedule your demo here</a> and discover how our Analysis Suite can strengthen your organization.',
+                'support|help|assistance|contact': 'We offer phone support at <strong>+31 6 84 82 07 08</strong>. You can also email info@knowledgebydata.nl. For an extensive demonstration you can <a href="index.html#contact">request a free demo</a>.',
+                'demo|demonstration|try out|test': 'We would be happy to give a no-obligation demonstration of our software. <a href="index.html#contact">Schedule your demo here</a> and discover how our Analysis Suite can strengthen your organization.',
                 'updates|new versions|maintenance': 'Updates are applied immediately without downtime or complex migrations. With the Analysis Suite all updates during the license period are included.'
             },
             pap: {
@@ -1530,8 +1532,8 @@
                 'pa ken|grupo meta|ken ta usa esaki|klientenan': 'Nos software ta desaroya pa profesionalnan den sektor publiko:<br><br>• <strong>Munisipionan</strong> - 342 na Hulanda<br>• <strong>RIEC-nan</strong> - 10 region<br>• <strong>Polis</strong> - Polis Nashonal<br>• <strong>Ministerio Publiko</strong><br>• <strong>Inspekshon di Trabou (NLA)</strong>',
                 'benefisio|ventaha|pakiko|kiko ta hasi boso diferente': 'Benefisionan importante di nos software:<br><br>• <strong>Zero-Cloud</strong> - Bo data ta keda kompletamente bou di bo mes kontrol<br>• <strong>Konforme ku AVG</strong> - Sin mester akuerdo di prosesado<br>• <strong>Cross-platform</strong> - Ta traha riba Windows, Mac, Linux, Chromebook<br>• <strong>Sin karga di IT</strong> - Kla pa usa mesora<br>• <strong>39 ana di eksperensia</strong> - Eksperensia di investigashon konstrui aden',
                 'seguridat|sigur|avg|privasidat': 'Seguridat ta sentral. Nos arkitektura Zero-Cloud ta nifika ku bo data ta keda kompletamente bou di bo mes kontrol. Sin server eksterno, sin cloud, sin superfisie di atake.',
-                'soporte|yudansa|kontakto': 'Nos ta ofrese soporte telefoniko na <strong>+31 6 84 82 07 08</strong>. Bo por tambe email na info@knowledgebydata.nl. Pa un demonstrashon ekstensivo bo por <a href="#contact">pidi un demo gratis</a>.',
-                'demo|demonstrashon|purba|test': 'Nos ta gustoso di duna un demonstrashon sin obligashon di nos software. <a href="#contact">Plania bo demo aki</a> i deskubri kon nos Analysis Suite por fortalese bo organisashon.'
+                'soporte|yudansa|kontakto': 'Nos ta ofrese soporte telefoniko na <strong>+31 6 84 82 07 08</strong>. Bo por tambe email na info@knowledgebydata.nl. Pa un demonstrashon ekstensivo bo por <a href="index.html#contact">pidi un demo gratis</a>.',
+                'demo|demonstrashon|purba|test': 'Nos ta gustoso di duna un demonstrashon sin obligashon di nos software. <a href="index.html#contact">Plania bo demo aki</a> i deskubri kon nos Analysis Suite por fortalese bo organisashon.'
             }
         };
         var blockedPatterns = {
@@ -1544,6 +1546,11 @@
             en: /architecture|technical|how does it work|technology|server|database|hosting|cloud|framework|code|programming|installation|system.?requirements/i,
             pap: /arkitektura|tekniko|kon ta traha|teknologia|server|database|hosting|cloud/i
         };
+        function showWelcome() {
+            var container = document.getElementById('kbdChatMessages');
+            container.innerHTML = '';
+            addMessage(translations[currentLang].welcome, true, translations[currentLang].quickReplies);
+        }
         window.kbdSetLang = function(lang) {
             currentLang = lang;
             document.getElementById('langNL').classList.toggle('active', lang === 'nl');
@@ -1551,6 +1558,9 @@
             document.getElementById('langPAP').classList.toggle('active', lang === 'pap');
             document.getElementById('kbdStatusText').textContent = translations[lang].statusOnline;
             document.getElementById('kbdChatInput').placeholder = translations[lang].placeholder;
+            if (chatStarted) {
+                showWelcome();
+            }
         };
         function addMessage(text, isBot, quickReplies) {
             var container = document.getElementById('kbdChatMessages');
@@ -1611,8 +1621,9 @@
             var trigger = document.getElementById('kbdChatbotTrigger');
             win.classList.toggle('active');
             trigger.classList.toggle('active');
-            if (win.classList.contains('active') && document.getElementById('kbdChatMessages').children.length === 0) {
-                setTimeout(function() { addMessage(translations[currentLang].welcome, true, translations[currentLang].quickReplies); }, 400);
+            if (win.classList.contains('active') && !chatStarted) {
+                chatStarted = true;
+                setTimeout(function() { showWelcome(); }, 400);
             }
         });
         var htmlLang = document.documentElement.lang;
