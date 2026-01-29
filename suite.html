@@ -777,6 +777,9 @@
                 e.preventDefault();
                 var target = document.querySelector(this.getAttribute('href'));
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
 
     <!-- ============================================
          CHATBOT WIDGET - KNOWLEDGE BY DATA
@@ -1049,47 +1052,39 @@
             nl: {
                 'wat doet knowledge by data|wie zijn jullie|over het bedrijf|wat is knowledge by data': 'Knowledge by Data B.V. is een Nederlands softwarebedrijf gespecialiseerd in analyse-applicaties voor overheidsorganisaties. Wij ontwikkelen tools voor BIBOB-onderzoeken, zorgfraude-detectie, ondermijningsaanpak en data-analyse. Onze software wordt gebruikt door gemeenten, RIECs, politie en andere opsporingsinstanties.',
                 'welke applicaties|welke apps|welke software|wat bieden jullie aan|producten|overzicht': 'Wij bieden zes professionele applicaties:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integriteitsonderzoeken met 79 risico-indicatoren<br>• <strong>ZorgAnalyst Pro</strong> - Detectie van zorgfraude (43 indicatoren)<br>• <strong>VAT Analyst Pro</strong> - Analyse seksbranche/uitbuiting<br>• <strong>Analyst Pro</strong> - GRAV-database voor ondermijning<br>• <strong>Data Handler Pro</strong> - Data-import uit 15+ overheidsbronnen<br>• <strong>Document Parser</strong> - Zelf documenten trainen',
-                'bibob|integriteitsonderzoek|wet bibob': 'BIBOB Analyst Pro is onze complete oplossing voor integriteitsonderzoeken conform de Wet BIBOB. De applicatie bevat <strong>79 actuele risico-indicatoren</strong> van bronnen als NLA, LBB en Politie. Functies zijn onder meer: OM Tipformulier generatie, cross-referentie analyse, en professionele PDF-rapportages.',
-                'zorgfraude|zorganalyst|wmo fraude|pgb fraude|jeugdzorg': 'ZorgAnalyst Pro detecteert fraude in Wmo, Jeugdzorg, PGB en Wlz. De applicatie bevat <strong>43 zorg-specifieke indicatoren</strong> van IKZ, IGJ, NZa en VNG. U kunt diplomas verifieren, signaalrapportages genereren en verdachte patronen identificeren.',
-                'vat analyst|seksbranche|uitbuiting|mensenhandel': 'VAT Analyst Pro is een gespecialiseerde analysetool voor detectie van uitbuiting in de seksbranche. De applicatie biedt risicoprofielen, netwerkanalyse en kaartweergave. Extra beveiligd met 2FA.',
-                'analyst pro|grav|ondermijning|ondermijningsaanpak': 'Analyst Pro is onze GRAV-database voor de aanpak van ondermijning. Personen, voertuigen, objecten en netwerken worden geintegreerd bijgehouden. Inclusief relatieanalyse en netwerkvisualisatie.',
-                'data handler|data import|databronnen|kvk|rdw|kadaster': 'Data Handler Pro verzorgt data-import en transformatie uit <strong>15+ overheidsbronnen</strong> zoals KvK, RDW, Kadaster en meer. Ondersteunt JSON/CSV import/export en batch verwerking.',
-                'document parser|pdf herkenning|documenten trainen': 'Met de Document Parser traint u zelf hoe specifieke PDF-documenten geparsed worden. Inclusief template trainer, veldmapping en batch import. Exclusief beschikbaar in de Analysis Suite.',
-                'analysis suite|suite|complete pakket|alles in een': 'De <strong>Analysis Suite</strong> bevat alle zes applicaties in een pakket met onbeperkt aantal gebruikers en een licentie. Extra voordelen: Document Parser (exclusief), geintegreerde data-uitwisseling tussen apps, en telefonische support. Ideaal voor organisaties die breed willen inzetten.',
-                'voor wie|doelgroep|wie gebruikt dit|klanten': 'Onze software is ontwikkeld voor professionals in de publieke sector:<br><br>• <strong>Gemeenten</strong> - 342 in Nederland<br>• <strong>RIECs</strong> - 10 regios<br>• <strong>Politie</strong> - Nationale Politie<br>• <strong>Openbaar Ministerie</strong><br>• <strong>Arbeidsinspectie (NLA)</strong>',
-                'voordelen|waarom|wat maakt jullie anders': 'Belangrijke voordelen van onze software:<br><br>• <strong>Zero-Cloud</strong> - Uw data blijft volledig onder eigen beheer<br>• <strong>AVG-compliant</strong> - Geen verwerkersovereenkomst nodig<br>• <strong>Cross-platform</strong> - Werkt op Windows, Mac, Linux, Chromebook<br>• <strong>Geen IT-belasting</strong> - Direct inzetbaar<br>• <strong>39 jaar expertise</strong> - Opsporingservaring ingebouwd',
-                'beveiliging|veilig|avg|privacy|gdpr': 'Beveiliging staat centraal. Onze Zero-Cloud architectuur betekent dat uw data volledig onder eigen beheer blijft. Geen externe servers, geen cloud, geen aanvalsoppervlak. Daardoor is geen verwerkersovereenkomst nodig en bent u volledig AVG-compliant.',
-                'support|hulp|ondersteuning|contact': 'Wij bieden telefonische support op <strong>06 84 82 07 08</strong>. U kunt ook mailen naar info@knowledgebydata.nl. Voor een uitgebreide demonstratie kunt u een <a href="index.html#contact">vrijblijvende demo aanvragen</a>.',
-                'demo|demonstratie|uitproberen|testen': 'Wij geven graag een vrijblijvende demonstratie van onze software. <a href="index.html#contact">Plan hier uw demo</a> en ontdek hoe onze Analysis Suite uw organisatie kan versterken.',
-                'updates|nieuwe versies|onderhoud': 'Updates worden direct doorgevoerd zonder downtime of complexe migraties. Bij de Analysis Suite zijn alle updates tijdens de licentieperiode inbegrepen.'
+                'bibob|integriteitsonderzoek|wet bibob': 'BIBOB Analyst Pro is onze complete oplossing voor integriteitsonderzoeken conform de Wet BIBOB. De applicatie bevat <strong>79 actuele risico-indicatoren</strong> van bronnen als NLA, LBB en Politie.',
+                'zorgfraude|zorganalyst|wmo fraude|pgb fraude|jeugdzorg': 'ZorgAnalyst Pro detecteert fraude in Wmo, Jeugdzorg, PGB en Wlz. De applicatie bevat <strong>43 zorg-specifieke indicatoren</strong> van IKZ, IGJ, NZa en VNG.',
+                'vat analyst|seksbranche|uitbuiting|mensenhandel': 'VAT Analyst Pro is een gespecialiseerde analysetool voor detectie van uitbuiting in de seksbranche. De applicatie biedt risicoprofielen, netwerkanalyse en kaartweergave.',
+                'analyst pro|grav|ondermijning|ondermijningsaanpak': 'Analyst Pro is onze GRAV-database voor de aanpak van ondermijning. Personen, voertuigen, objecten en netwerken worden geintegreerd bijgehouden.',
+                'data handler|data import|databronnen|kvk|rdw|kadaster': 'Data Handler Pro verzorgt data-import en transformatie uit <strong>15+ overheidsbronnen</strong> zoals KvK, RDW, Kadaster en meer.',
+                'document parser|pdf herkenning|documenten trainen': 'Met de Document Parser traint u zelf hoe specifieke PDF-documenten geparsed worden. Exclusief beschikbaar in de Analysis Suite.',
+                'analysis suite|suite|complete pakket|alles in een': 'De <strong>Analysis Suite</strong> bevat alle zes applicaties in een pakket met onbeperkt aantal gebruikers en een licentie.',
+                'voor wie|doelgroep|wie gebruikt dit|klanten': 'Onze software is ontwikkeld voor gemeenten, RIECs, politie, Openbaar Ministerie en de Arbeidsinspectie (NLA).',
+                'voordelen|waarom|wat maakt jullie anders': 'Belangrijke voordelen: Zero-Cloud (data onder eigen beheer), AVG-compliant, cross-platform, geen IT-belasting, en 39 jaar opsporingservaring.',
+                'beveiliging|veilig|avg|privacy|gdpr': 'Beveiliging staat centraal. Onze Zero-Cloud architectuur betekent dat uw data volledig onder eigen beheer blijft.',
+                'support|hulp|ondersteuning|contact': 'Wij bieden telefonische support op <strong>06 84 82 07 08</strong>. U kunt ook mailen naar info@knowledgebydata.nl.',
+                'demo|demonstratie|uitproberen|testen': 'Wij geven graag een vrijblijvende demonstratie. <a href="index.html#contact">Plan hier uw demo</a>.',
+                'updates|nieuwe versies|onderhoud': 'Updates worden direct doorgevoerd zonder downtime. Bij de Analysis Suite zijn alle updates inbegrepen.'
             },
             en: {
-                'what does knowledge by data do|who are you|about the company|what is knowledge by data': 'Knowledge by Data B.V. is a Dutch software company specialized in analysis applications for government organizations. We develop tools for BIBOB investigations, healthcare fraud detection, tackling organized crime and data analysis. Our software is used by municipalities, RIECs, police and other investigative agencies.',
-                'which applications|which apps|what software|what do you offer|products|overview': 'We offer six professional applications:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integrity investigations with 79 risk indicators<br>• <strong>ZorgAnalyst Pro</strong> - Healthcare fraud detection (43 indicators)<br>• <strong>VAT Analyst Pro</strong> - Sex industry/exploitation analysis<br>• <strong>Analyst Pro</strong> - GRAV database for organized crime<br>• <strong>Data Handler Pro</strong> - Data import from 15+ government sources<br>• <strong>Document Parser</strong> - Train your own documents',
-                'bibob|integrity investigation|bibob act': 'BIBOB Analyst Pro is our complete solution for integrity investigations in accordance with the BIBOB Act. The application contains <strong>79 current risk indicators</strong> from sources such as NLA, LBB and Police. Features include: OM Tip form generation, cross-reference analysis, and professional PDF reports.',
-                'healthcare fraud|zorganalyst|wmo fraud|pgb fraud|youth care': 'ZorgAnalyst Pro detects fraud in Wmo, Youth Care, PGB and Wlz. The application contains <strong>43 healthcare-specific indicators</strong> from IKZ, IGJ, NZa and VNG. You can verify diplomas, generate signal reports and identify suspicious patterns.',
-                'vat analyst|sex industry|exploitation|human trafficking': 'VAT Analyst Pro is a specialized analysis tool for detecting exploitation in the sex industry. The application offers risk profiles, network analysis and map view. Extra secured with 2FA.',
-                'analyst pro|grav|organized crime|undermining': 'Analyst Pro is our GRAV database for tackling organized crime. People, vehicles, objects and networks are tracked in an integrated manner. Including relationship analysis and network visualization.',
-                'data handler|data import|data sources|chamber of commerce': 'Data Handler Pro handles data import and transformation from <strong>15+ government sources</strong> such as Chamber of Commerce, RDW, Land Registry and more. Supports JSON/CSV import/export and batch processing.',
-                'document parser|pdf recognition|train documents': 'With the Document Parser you train yourself how specific PDF documents should be parsed. Including template trainer, field mapping and batch import. Exclusively available in the Analysis Suite.',
-                'analysis suite|suite|complete package|all in one': 'The <strong>Analysis Suite</strong> contains all six applications in one package with unlimited users and one license. Extra benefits: Document Parser (exclusive), integrated data exchange between apps, and phone support. Ideal for organizations that want broad deployment.',
-                'who is this for|target audience|who uses this|customers': 'Our software is developed for professionals in the public sector:<br><br>• <strong>Municipalities</strong> - 342 in the Netherlands<br>• <strong>RIECs</strong> - 10 regions<br>• <strong>Police</strong> - National Police<br>• <strong>Public Prosecution Service</strong><br>• <strong>Labor Inspectorate (NLA)</strong>',
-                'benefits|advantages|why|what makes you different': 'Key benefits of our software:<br><br>• <strong>Zero-Cloud</strong> - Your data remains fully under your control<br>• <strong>GDPR-compliant</strong> - No processor agreement needed<br>• <strong>Cross-platform</strong> - Works on Windows, Mac, Linux, Chromebook<br>• <strong>No IT burden</strong> - Ready to use immediately<br>• <strong>39 years expertise</strong> - Investigative experience built in',
-                'security|safe|gdpr|privacy|avg': 'Security is central. Our Zero-Cloud architecture means your data remains fully under your control. No external servers, no cloud, no attack surface. Therefore no processor agreement is needed and you are fully GDPR-compliant.',
-                'support|help|assistance|contact': 'We offer phone support at <strong>+31 6 84 82 07 08</strong>. You can also email info@knowledgebydata.nl. For an extensive demonstration you can <a href="index.html#contact">request a free demo</a>.',
-                'demo|demonstration|try out|test': 'We would be happy to give a no-obligation demonstration of our software. <a href="index.html#contact">Schedule your demo here</a> and discover how our Analysis Suite can strengthen your organization.',
-                'updates|new versions|maintenance': 'Updates are applied immediately without downtime or complex migrations. With the Analysis Suite all updates during the license period are included.'
+                'what does knowledge by data do|who are you|about the company': 'Knowledge by Data B.V. is a Dutch software company specialized in analysis applications for government organizations.',
+                'which applications|which apps|what software|products': 'We offer six professional applications: BIBOB Analyst Pro, ZorgAnalyst Pro, VAT Analyst Pro, Analyst Pro, Data Handler Pro, and Document Parser.',
+                'analysis suite|suite|complete package': 'The <strong>Analysis Suite</strong> contains all six applications with unlimited users and one license.',
+                'who is this for|target audience|customers': 'Our software is developed for municipalities, RIECs, police, Public Prosecution Service, and Labor Inspectorate.',
+                'benefits|advantages|why': 'Key benefits: Zero-Cloud, GDPR-compliant, cross-platform, no IT burden, 39 years expertise.',
+                'security|safe|gdpr|privacy': 'Security is central. Our Zero-Cloud architecture means your data remains fully under your control.',
+                'support|help|contact': 'We offer phone support at <strong>+31 6 84 82 07 08</strong>.',
+                'demo|demonstration|test': 'We would be happy to give a demonstration. <a href="index.html#contact">Schedule your demo here</a>.'
             },
             pap: {
-                'kiko knowledge by data ta hasi|ken ta boso|tokante e kompania|kiko ta knowledge by data': 'Knowledge by Data B.V. ta un kompania di software Hulandes spesialisa den aplikashonnan di analisis pa organisashonnan di gobiernu. Nos ta desaroya herramientanan pa investigashon BIBOB, detekshon di frode di kuido, kombati kriminalidat organisa i analisis di data.',
-                'kua aplikashonnan|kua appnan|kua software|kiko boso ta ofrese|produktonan': 'Nos ta ofrese seis aplikashon profesional:<br><br>• <strong>BIBOB Analyst Pro</strong> - Investigashon di integridat ku 79 indikado di riesgo<br>• <strong>ZorgAnalyst Pro</strong> - Detekshon di frode di kuido (43 indikado)<br>• <strong>VAT Analyst Pro</strong> - Analisis di industria di sekso/esplotashon<br>• <strong>Analyst Pro</strong> - Base di dato GRAV pa kriminalidat organisa<br>• <strong>Data Handler Pro</strong> - Importa data di 15+ fuente di gobiernu<br>• <strong>Document Parser</strong> - Trein bo mes dokumentonan',
-                'bibob|investigashon di integridat': 'BIBOB Analyst Pro ta nos solushon kompleto pa investigashon di integridat konforme ku Lei BIBOB. E aplikashon tin <strong>79 indikado di riesgo aktual</strong> di fuentenan manera NLA, LBB i Polis.',
-                'analysis suite|suite|paki kompleto': 'E <strong>Analysis Suite</strong> ta kontene tur seis aplikashon den un paki ku kantidat di usuario sin limite i un lisensia. Benefisio ekstra: Document Parser (eksklisivo), interkambio di data integra entre appnan, i soporte telefoniko.',
-                'pa ken|grupo meta|ken ta usa esaki|klientenan': 'Nos software ta desaroya pa profesionalnan den sektor publiko:<br><br>• <strong>Munisipionan</strong> - 342 na Hulanda<br>• <strong>RIEC-nan</strong> - 10 region<br>• <strong>Polis</strong> - Polis Nashonal<br>• <strong>Ministerio Publiko</strong><br>• <strong>Inspekshon di Trabou (NLA)</strong>',
-                'benefisio|ventaha|pakiko|kiko ta hasi boso diferente': 'Benefisionan importante di nos software:<br><br>• <strong>Zero-Cloud</strong> - Bo data ta keda kompletamente bou di bo mes kontrol<br>• <strong>Konforme ku AVG</strong> - Sin mester akuerdo di prosesado<br>• <strong>Cross-platform</strong> - Ta traha riba Windows, Mac, Linux, Chromebook<br>• <strong>Sin karga di IT</strong> - Kla pa usa mesora<br>• <strong>39 ana di eksperensia</strong> - Eksperensia di investigashon konstrui aden',
-                'seguridat|sigur|avg|privasidat': 'Seguridat ta sentral. Nos arkitektura Zero-Cloud ta nifika ku bo data ta keda kompletamente bou di bo mes kontrol. Sin server eksterno, sin cloud, sin superfisie di atake.',
-                'soporte|yudansa|kontakto': 'Nos ta ofrese soporte telefoniko na <strong>+31 6 84 82 07 08</strong>. Bo por tambe email na info@knowledgebydata.nl. Pa un demonstrashon ekstensivo bo por <a href="index.html#contact">pidi un demo gratis</a>.',
-                'demo|demonstrashon|purba|test': 'Nos ta gustoso di duna un demonstrashon sin obligashon di nos software. <a href="index.html#contact">Plania bo demo aki</a> i deskubri kon nos Analysis Suite por fortalese bo organisashon.'
+                'kiko knowledge by data ta hasi|ken ta boso': 'Knowledge by Data B.V. ta un kompania di software Hulandes spesialisa den aplikashonnan di analisis pa organisashonnan di gobiernu.',
+                'kua aplikashonnan|kua software': 'Nos ta ofrese seis aplikashon profesional: BIBOB Analyst Pro, ZorgAnalyst Pro, VAT Analyst Pro, Analyst Pro, Data Handler Pro, i Document Parser.',
+                'analysis suite|suite|paki kompleto': 'E <strong>Analysis Suite</strong> ta kontene tur seis aplikashon ku kantidat di usuario sin limite.',
+                'pa ken|grupo meta': 'Nos software ta desaroya pa munisipionan, RIEC-nan, polis, Ministerio Publiko, i Inspekshon di Trabou.',
+                'benefisio|ventaha': 'Benefisionan importante: Zero-Cloud, konforme ku AVG, cross-platform, sin karga di IT.',
+                'seguridat|sigur|avg': 'Seguridat ta sentral. Bo data ta keda kompletamente bou di bo mes kontrol.',
+                'soporte|yudansa|kontakto': 'Nos ta ofrese soporte telefoniko na <strong>+31 6 84 82 07 08</strong>.',
+                'demo|demonstrashon': 'Nos ta gustoso di duna un demonstrashon. <a href="index.html#contact">Plania bo demo aki</a>.'
             }
         };
         var blockedPatterns = {
@@ -1114,9 +1109,7 @@
             document.getElementById('langPAP').classList.toggle('active', lang === 'pap');
             document.getElementById('kbdStatusText').textContent = translations[lang].statusOnline;
             document.getElementById('kbdChatInput').placeholder = translations[lang].placeholder;
-            if (chatStarted) {
-                showWelcome();
-            }
+            if (chatStarted) showWelcome();
         };
         function addMessage(text, isBot, quickReplies) {
             var container = document.getElementById('kbdChatMessages');
