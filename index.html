@@ -360,15 +360,33 @@
             border-radius: 16px;
             padding: 35px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--product-color, var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         .product-card:hover {
-            border-color: var(--primary);
+            border-color: var(--product-color, var(--primary));
             box-shadow: 0 15px 40px rgba(19, 125, 190, 0.1);
         }
+        .product-card:hover::before { opacity: 1; }
+        .product-card.product-bibob { --product-color: #dc2626; }
+        .product-card.product-vat { --product-color: #7c3aed; }
+        .product-card.product-analyst { --product-color: #2563eb; }
+        .product-card.product-zorg { --product-color: #059669; }
+        .product-card.product-datahandler { --product-color: #d97706; }
+        .product-card.product-pwa { --product-color: #7c3aed; }
         .product-icon {
             width: 50px; height: 50px;
             border-radius: 10px;
-            background: var(--primary);
+            background: var(--product-color, var(--primary));
             color: white;
             display: flex;
             align-items: center;
@@ -794,7 +812,7 @@
                 <p data-nl="Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk." data-en="Professional analysis tools for government agencies, developed from practical experience." data-pap="Instrumentonan di análisis profesional pa instansianan gubernamental, desaroyá for di práktika.">Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk.</p>
             </div>
             <div class="products-grid">
-                <div class="product-card">
+                <div class="product-card product-bibob">
                     <div class="product-icon"><i class="fas fa-balance-scale"></i></div>
                     <h3>BIBOB Analyst Pro</h3>
                     <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
@@ -806,7 +824,7 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Interview generator en rapportage" data-en="Interview generator and reporting" data-pap="Generadó di entrevista i rapòrt">Interview generator en rapportage</span></li>
                     </ul>
                 </div>
-                <div class="product-card">
+                <div class="product-card product-vat">
                     <div class="product-icon"><i class="fas fa-user-shield"></i></div>
                     <h3>VAT Analyst Pro</h3>
                     <p data-nl="Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant)." data-en="Analysis tool for supervisors detecting exploitation in the sex industry. Pure analysis, no data storage (GDPR-compliant)." data-pap="Instrumento di análisis pa supervisónan pa detektá eksplotashon den industria di sekso. Solamente análisis, sin almasenahementu di data (konforme ku AVG).">Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
@@ -818,8 +836,8 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Direct inzetbaar" data-en="Ready to use" data-pap="Pronto pa usa">Direct inzetbaar</span></li>
                     </ul>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon"><i class="fas fa-city"></i></div>
+                <div class="product-card product-analyst">
+                    <div class="product-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
                     <h3>Analyst Pro</h3>
                     <p data-nl="Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten." data-en="All-in-one solution for combating organized crime. For larger and smaller municipalities." data-pap="Solushon tur-den-un pa kombate di kriminalidad organisá. Pa munisipalitanan grandi i chikitu.">Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten.</p>
                     <ul class="product-features">
@@ -832,8 +850,8 @@
                 </div>
             </div>
             <div class="products-grid-bottom">
-                <div class="product-card">
-                    <div class="product-icon" style="background: #1e5f74;"><i class="fas fa-heartbeat"></i></div>
+                <div class="product-card product-zorg">
+                    <div class="product-icon"><i class="fas fa-heart-pulse"></i></div>
                     <h3>Zorganalyst Pro</h3>
                     <p data-nl="Gespecialiseerde analysetool voor detectie van zorgfraude en ondermijning in de zorgsector. Voor gemeenten, zorgkantoren en toezichthouders." data-en="Specialized analysis tool for detecting healthcare fraud and organized crime in the healthcare sector. For municipalities, care offices and supervisors." data-pap="Instrumento di análisis spesialisá pa detektá frode di kuido i kriminalidad organisá den sektor di kuido. Pa munisipalitanan, kantornan di kuido i supervisónan.">Gespecialiseerde analysetool voor detectie van zorgfraude en ondermijning in de zorgsector. Voor gemeenten, zorgkantoren en toezichthouders.</p>
                     <ul class="product-features">
@@ -844,8 +862,8 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Toezicht- en meldingensignalen" data-en="Supervision and reporting signals" data-pap="Señalnan di supervishon i rapòrt">Toezicht- en meldingensignalen</span></li>
                     </ul>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon"><i class="fas fa-database"></i></div>
+                <div class="product-card product-datahandler">
+                    <div class="product-icon"><i class="fas fa-exchange-alt"></i></div>
                     <h3>Data Handler Pro</h3>
                     <p data-nl="Geautomatiseerde data-aggregatie uit overheidsbronnen. Alle relevante registers met één zoekopdracht, direct bruikbare PDF-rapporten." data-en="Automated data aggregation from government sources. All relevant registers with one query, instantly usable PDF reports." data-pap="Agregashon outomátiko di data for di fuentenan gubernamental. Tur registro relevante ku un solo búskeda, rapòrt PDF listo pa usa.">Geautomatiseerde data-aggregatie uit overheidsbronnen. Alle relevante registers met één zoekopdracht, direct bruikbare PDF-rapporten.</p>
                     <ul class="product-features">
@@ -856,8 +874,8 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Sessiegebonden: geen data na afsluiten" data-en="Session-based: no data after closing" data-pap="Basá riba seshon: sin data despues di sera">Sessiegebonden: geen data na afsluiten</span></li>
                     </ul>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);"><i class="fas fa-mobile-alt"></i></div>
+                <div class="product-card product-pwa">
+                    <div class="product-icon"><i class="fas fa-mobile-alt"></i></div>
                     <h3>Progressive Web Apps</h3>
                     <p data-nl="Mobiele veldapplicaties als aanvulling op de bestaande applicaties. Installeerbaar op smartphone, volledig offline bruikbaar, data blijft lokaal op het apparaat. Ideaal voor buitendienst en veldwerk." data-en="Mobile field applications complementing the existing applications. Installable on smartphone, fully usable offline, data stays local on the device. Ideal for field work and external services." data-pap="Aplikashonnan móvil pa komplementá e aplikashonnan eksistente. Instalabel riba smartphone, kompletamente usabel sin internet, data keda lokal riba e aparato. Ideal pa trabou di kampo.">Mobiele veldapplicaties als aanvulling op de bestaande applicaties. Installeerbaar op smartphone, volledig offline bruikbaar, data blijft lokaal op het apparaat. Ideaal voor buitendienst en veldwerk.</p>
                     <ul class="product-features">
