@@ -521,13 +521,84 @@
             max-width: 1100px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
         }
         .footer-logo { height: 60px; filter: brightness(0) invert(1); }
-        .footer p { font-size: 0.9rem; }
+        .footer-contact {
+            width: 100%;
+            max-width: 950px;
+            text-align: center;
+        }
+        .footer-contact h4 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        .footer-email-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .footer-email-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            transition: all 0.3s;
+        }
+        .footer-email-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .footer-email-item i {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .footer-email-item div {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+            flex: 1;
+            min-width: 0;
+        }
+        .footer-email-item strong {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .footer-email-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .footer-email-item a:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+        .footer p { 
+            font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
 
         .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
         .faq-item { background: var(--bg-white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
@@ -1086,6 +1157,32 @@
     <footer class="footer">
         <div class="footer-container">
             <img src="logo.svg" alt="Knowledge by Data" class="footer-logo">
+            <div class="footer-contact">
+                <h4>Knowledge by Data B.V.</h4>
+                <div class="footer-email-list">
+                    <div class="footer-email-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong data-nl="Algemene informatie" data-en="General information" data-pap="Informashon general">Algemene informatie</strong>
+                            <a href="mailto:info@knowledgebydata.nl">info@knowledgebydata.nl</a>
+                        </div>
+                    </div>
+                    <div class="footer-email-item">
+                        <i class="fas fa-comment"></i>
+                        <div>
+                            <strong data-nl="Feedback" data-en="Feedback" data-pap="Feedback">Feedback</strong>
+                            <a href="mailto:feedback@knowledgebydata.nl">feedback@knowledgebydata.nl</a>
+                        </div>
+                    </div>
+                    <div class="footer-email-item">
+                        <i class="fas fa-life-ring"></i>
+                        <div>
+                            <strong data-nl="Support" data-en="Support" data-pap="Soporte">Support</strong>
+                            <a href="mailto:support@knowledgebydata.nl">support@knowledgebydata.nl</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <p data-nl="© 2025 Knowledge by Data B.V. Alle rechten voorbehouden." data-en="© 2025 Knowledge by Data B.V. All rights reserved." data-pap="© 2025 Knowledge by Data B.V. Tur derecho reservá.">© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
         </div>
     </footer>
