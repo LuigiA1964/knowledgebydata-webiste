@@ -550,6 +550,46 @@
             font-size: 2.5rem;
         }
 
+        .screenshot-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: top left;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .screenshot-card img:hover {
+            opacity: 0.9;
+        }
+
+        .screenshot-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screenshot-lightbox.active {
+            display: flex;
+        }
+
+        .screenshot-lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
         .screenshot-info {
             padding: 20px;
         }
@@ -929,29 +969,11 @@
     <div class="container">
         <div class="section-header">
             <h2 data-nl="Liever zelf ervaren?" data-en="Prefer to Experience It Yourself?" data-pap="Prefera eksperensia bo mes?">Liever zelf ervaren?</h2>
-            <p data-nl="Twee manieren om BIBOB Analyst Pro uit te proberen" data-en="Two ways to try BIBOB Analyst Pro" data-pap="Du manera pa prueba BIBOB Analyst Pro">Twee manieren om BIBOB Analyst Pro uit te proberen</p>
+            <p data-nl="Plan een persoonlijke demonstratie en ontdek wat BIBOB Analyst Pro voor uw organisatie kan betekenen" data-en="Schedule a personal demonstration and discover what BIBOB Analyst Pro can do for your organization" data-pap="Plania un demonstrashon personal i deskubrí kiko BIBOB Analyst Pro por nifiká pa bo organisashon">Plan een persoonlijke demonstratie en ontdek wat BIBOB Analyst Pro voor uw organisatie kan betekenen</p>
         </div>
 
-        <div class="options-grid">
-            <!-- Option 1: Demo Mode -->
-            <div class="option-card">
-                <div class="option-icon">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-                <h3 data-nl="Demo-modus" data-en="Demo Mode" data-pap="Modo demo">Demo-modus</h3>
-                <p data-nl="Download BIBOB Analyst Pro en start direct in demo-modus. Verken alle functionaliteit met een realistisch voorbeeldscenario — zonder licentie." data-en="Download BIBOB Analyst Pro and start directly in demo mode. Explore all functionality with a realistic example scenario — without a license." data-pap="Deskarha BIBOB Analyst Pro i inisio direkto en modo demo. Eksplora tur funktionalidad ku un scenario ejemplo realistiko — sin lisensia.">Download BIBOB Analyst Pro en start direct in demo-modus. Verken alle functionaliteit met een realistisch voorbeeldscenario — zonder licentie.</p>
-                <ul class="option-features">
-                    <li><i class="fas fa-check"></i> <span data-nl="Volledig functioneel" data-en="Fully Functional" data-pap="Kompletamente funktional">Volledig functioneel</span></li>
-                    <li><i class="fas fa-check"></i> <span data-nl="Realistisch democase" data-en="Realistic Demo Case" data-pap="Kaso demo realistiko">Realistisch democase</span></li>
-                    <li><i class="fas fa-check"></i> <span data-nl="Geen licentie nodig" data-en="No License Required" data-pap="Sin lisensia mester">Geen licentie nodig</span></li>
-                </ul>
-                <a href="mailto:info@knowledgebydata.nl?subject=Demo%20Download%20Aanvraag" class="btn btn-primary">
-                    <i class="fas fa-download"></i>
-                    <span data-nl="Download demo" data-en="Download Demo" data-pap="Deskarha demo">Download demo</span>
-                </a>
-            </div>
-
-            <!-- Option 2: Personal Demo -->
+        <div class="options-grid" style="max-width: 500px; margin: 0 auto;">
+            <!-- Personal Demo -->
             <div class="option-card">
                 <div class="option-icon">
                     <i class="fas fa-video"></i>
@@ -981,69 +1003,75 @@
         </div>
 
         <div class="screenshots-grid">
-            <!-- Screenshot 1 -->
+            <!-- Screenshot 1: Document Upload -->
             <div class="screenshot-card">
-                <div class="screenshot-placeholder">
-                    <i class="fas fa-chart-line"></i>
-                </div>
+                <img src="screenshot-document-upload.png" alt="Document Uploaden" onclick="openLightbox(this.src)" loading="lazy">
                 <div class="screenshot-info">
-                    <h4 data-nl="Dashboard & Risicoprofiel" data-en="Dashboard & Risk Profile" data-pap="Dashboard & Profil di riesgo">Dashboard & Risicoprofiel</h4>
-                    <p data-nl="Overzicht van alle onderzoeken en risicoscores" data-en="Overview of all investigations and risk scores" data-pap="Overzicht di tur investigashonnan i puntuashonnan di riesgo">Overzicht van alle onderzoeken en risicoscores</p>
+                    <h4 data-nl="Document Uploaden" data-en="Document Upload" data-pap="Subi dokumento">Document Uploaden</h4>
+                    <p data-nl="13+ documenttypen: Graydon, KvK, Kadaster en meer. Automatische PDF-herkenning." data-en="13+ document types: Graydon, CoC, Land Registry and more. Automatic PDF recognition." data-pap="13+ tipo di dokumento: Graydon, KvK, Kadaster i mas. Rekonosementu outomátiko di PDF.">13+ documenttypen: Graydon, KvK, Kadaster en meer. Automatische PDF-herkenning.</p>
                 </div>
             </div>
 
-            <!-- Screenshot 2 -->
+            <!-- Screenshot 2: Indicatoren Overzicht -->
             <div class="screenshot-card">
-                <div class="screenshot-placeholder">
-                    <i class="fas fa-file-pdf"></i>
-                </div>
+                <img src="screenshot-indicatoren-overzicht.png" alt="Indicatoren Overzicht" onclick="openLightbox(this.src)" loading="lazy">
                 <div class="screenshot-info">
-                    <h4 data-nl="Documentverwerking" data-en="Document Processing" data-pap="Prosesamento di dokumento">Documentverwerking</h4>
-                    <p data-nl="Upload en analyse van PDF-documenten" data-en="Upload and analysis of PDF documents" data-pap="Subi i analisis di dokumentonan PDF">Upload en analyse van PDF-documenten</p>
+                    <h4 data-nl="Risico-indicatoren" data-en="Risk Indicators" data-pap="Indikadónan di riesgo">Risico-indicatoren</h4>
+                    <p data-nl="99+ indicatoren met automatische detectie. Overzicht per categorie en ernst." data-en="99+ indicators with automatic detection. Overview by category and severity." data-pap="99+ indikadó ku detekshon outomátiko. Overzicht pa kategoria i severidat.">99+ indicatoren met automatische detectie. Overzicht per categorie en ernst.</p>
                 </div>
             </div>
 
-            <!-- Screenshot 3 -->
+            <!-- Screenshot 3: Netwerkvisualisatie -->
             <div class="screenshot-card">
-                <div class="screenshot-placeholder">
-                    <i class="fas fa-diagram-project"></i>
-                </div>
+                <img src="screenshot-netwerkvisualisatie.png" alt="Netwerkvisualisatie" onclick="openLightbox(this.src)" loading="lazy">
                 <div class="screenshot-info">
-                    <h4 data-nl="Netwerkvisualisatie" data-en="Network Visualization" data-pap="Visualizashon di network">Netwerkvisualisatie</h4>
-                    <p data-nl="Interactieve relaties tussen personen en bedrijven" data-en="Interactive relationships between people and companies" data-pap="Relashonnan interaktibo entre personanan i kompanianan">Interactieve relaties tussen personen en bedrijven</p>
+                    <h4 data-nl="Netwerkvisualisatie" data-en="Network Visualization" data-pap="Visualisashon di ret">Netwerkvisualisatie</h4>
+                    <p data-nl="Interactieve D3.js grafiek: bedrijven, personen en financiële relaties in één overzicht." data-en="Interactive D3.js graph: companies, people and financial relationships in one overview." data-pap="Gráfiko interaktibo D3.js: kompanianan, personanan i relashonnan finansiero den un overzicht.">Interactieve D3.js grafiek: bedrijven, personen en financiële relaties in één overzicht.</p>
                 </div>
             </div>
 
-            <!-- Screenshot 4 -->
+            <!-- Screenshot 4: Financiële Analyse -->
             <div class="screenshot-card">
-                <div class="screenshot-placeholder">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
+                <img src="screenshot-financiele-analyse.png" alt="Financiële Analyse" onclick="openLightbox(this.src)" loading="lazy">
                 <div class="screenshot-info">
-                    <h4 data-nl="Rode Vlaggen Overzicht" data-en="Red Flags Overview" data-pap="Overzicht di banderas roba">Rode Vlaggen Overzicht</h4>
-                    <p data-nl="Alle gedetecteerde risicoindicatoren in kaart" data-en="All detected risk indicators mapped" data-pap="Tur indikado di riesgo detektá na mapa">Alle gedetecteerde risicoindicatoren in kaart</p>
+                    <h4 data-nl="Financiële Analyse" data-en="Financial Analysis" data-pap="Análisis finansiero">Financiële Analyse</h4>
+                    <p data-nl="Automatische analyse van jaarrekeningen. Trends, ratio's en BIBOB-signalen." data-en="Automatic analysis of annual accounts. Trends, ratios and BIBOB signals." data-pap="Análisis outomátiko di kuenta anual. Tendensianan, ratio'nan i señalnan BIBOB.">Automatische analyse van jaarrekeningen. Trends, ratio's en BIBOB-signalen.</p>
                 </div>
             </div>
 
-            <!-- Screenshot 5 -->
+            <!-- Screenshot 5: Verwonderpunten -->
             <div class="screenshot-card">
-                <div class="screenshot-placeholder">
-                    <i class="fas fa-comments"></i>
-                </div>
+                <img src="screenshot-verwonderpunten.png" alt="Verwonderpunten" onclick="openLightbox(this.src)" loading="lazy">
                 <div class="screenshot-info">
-                    <h4 data-nl="Interviewworkflow" data-en="Interview Workflow" data-pap="Workflow di interview">Interviewworkflow</h4>
-                    <p data-nl="Intelligente vragenlijsten op basis van bevindingen" data-en="Intelligent question lists based on findings" data-pap="Listanan di preguntanan inteligentenan basa riba deskubrimentonan">Intelligente vragenlijsten op basis van bevindingen</p>
+                    <h4 data-nl="Verwonderpunten & Interview" data-en="Red Flags & Interview" data-pap="Punto di sospecha & Entrevista">Verwonderpunten & Interview</h4>
+                    <p data-nl="Selecteer bevindingen voor het interview. Automatische vraaggeneratie op basis van rode vlaggen." data-en="Select findings for interview. Automatic question generation based on red flags." data-pap="Selekta deskubrimentonan pa entrevista. Generashon outomátiko di pregunta basa riba banderas roba.">Selecteer bevindingen voor het interview. Automatische vraaggeneratie op basis van rode vlaggen.</p>
                 </div>
             </div>
 
-            <!-- Screenshot 6 -->
+            <!-- Screenshot 6: Tijdlijn -->
             <div class="screenshot-card">
-                <div class="screenshot-placeholder">
-                    <i class="fas fa-file-signature"></i>
-                </div>
+                <img src="screenshot-tijdlijn.png" alt="Tijdlijn" onclick="openLightbox(this.src)" loading="lazy">
                 <div class="screenshot-info">
-                    <h4 data-nl="Rapportgeneratie" data-en="Report Generation" data-pap="Generashon di rapporta">Rapportgeneratie</h4>
-                    <p data-nl="Professionele BIBOB-adviezen en OM-formulieren" data-en="Professional BIBOB reports and Public Prosecutor forms" data-pap="Raporta profesional di BIBOB i formulario di OM">Professionele BIBOB-adviezen en OM-formulieren</p>
+                    <h4 data-nl="Tijdlijn" data-en="Timeline" data-pap="Línea di tempu">Tijdlijn</h4>
+                    <p data-nl="Chronologisch overzicht van alle events: oprichting, bestuurders, aandeelhouders en mutaties." data-en="Chronological overview of all events: incorporation, directors, shareholders and changes." data-pap="Overzicht kronológiko di tur evento: fundashon, direktòrnan, akshonistanan i kambionan.">Chronologisch overzicht van alle events: oprichting, bestuurders, aandeelhouders en mutaties.</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 7: Samenhangmatrix -->
+            <div class="screenshot-card">
+                <img src="screenshot-samenhangmatrix.png" alt="Samenhangmatrix" onclick="openLightbox(this.src)" loading="lazy">
+                <div class="screenshot-info">
+                    <h4 data-nl="Samenhangmatrix" data-en="Correlation Matrix" data-pap="Matriks di korelashon">Samenhangmatrix</h4>
+                    <p data-nl="Weging van strafbare feiten ten opzichte van de aangevraagde vergunning." data-en="Weighing criminal facts against the requested permit." data-pap="Ponderashon di echonan kriminal kontra e pèrmit solisitá.">Weging van strafbare feiten ten opzichte van de aangevraagde vergunning.</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 8: Rapportgeneratie -->
+            <div class="screenshot-card">
+                <img src="screenshot-rapportgeneratie.png" alt="Rapportgeneratie" onclick="openLightbox(this.src)" loading="lazy">
+                <div class="screenshot-info">
+                    <h4 data-nl="Rapportgeneratie" data-en="Report Generation" data-pap="Generashon di rapòrt">Rapportgeneratie</h4>
+                    <p data-nl="BIBOB-adviesrapport en OM-Tip generatie. Juridisch volledig met bronverwijzingen." data-en="BIBOB advisory report and Public Prosecutor Tip generation. Legally complete with source references." data-pap="Rapòrt di konseho BIBOB i generashon di OM-Tip. Hurídikamente kompleto ku referensianan di fuente.">BIBOB-adviesrapport en OM-Tip generatie. Juridisch volledig met bronverwijzingen.</p>
                 </div>
             </div>
         </div>
@@ -1117,6 +1145,29 @@
         btn.addEventListener('click', function() {
             localStorage.setItem('preferredLanguage', currentLanguage);
         });
+    });
+</script>
+
+<!-- Lightbox for screenshot zoom -->
+<div class="screenshot-lightbox" id="screenshotLightbox" onclick="closeLightbox()">
+    <img id="lightboxImage" src="" alt="Screenshot vergroting">
+</div>
+<script>
+    'use strict';
+    function openLightbox(src) {
+        const lightbox = document.getElementById('screenshotLightbox');
+        const img = document.getElementById('lightboxImage');
+        img.src = src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        const lightbox = document.getElementById('screenshotLightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { closeLightbox(); }
     });
 </script>
 
