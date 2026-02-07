@@ -95,30 +95,35 @@
             background: var(--bg-white);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
-            padding: 0 20px;
+            padding: 0 10px 0 0;
         }
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 100px;
+            height: 70px;
+            gap: 10px;
         }
-        .logo { height: 80px; }
+        .logo { height: 50px; margin-left: 15px; flex-shrink: 0; }
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 6px;
             list-style: none;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
         }
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
             transition: color 0.2s;
-            padding: 8px 0;
+            padding: 6px 5px;
             border-bottom: 2px solid transparent;
+            white-space: nowrap;
         }
         .nav-links a:hover, .nav-links a.active {
             color: var(--primary);
@@ -127,10 +132,11 @@
         .nav-links a.nav-suite {
             background: linear-gradient(135deg, var(--primary) 0%, #1e5a87 100%);
             color: white !important;
-            padding: 8px 16px;
+            padding: 5px 12px;
             border-radius: 20px;
             border-bottom: none !important;
             font-weight: 600;
+            font-size: 0.8rem;
             transition: all 0.3s;
         }
         .nav-links a.nav-suite:hover {
@@ -138,13 +144,16 @@
             box-shadow: 0 4px 12px rgba(19, 125, 190, 0.4);
         }
         .nav-contact {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 10px;
         }
         .nav-contact a { color: var(--primary); text-decoration: none; }
 
         .hero {
-            padding: 210px 20px 80px;
+            padding: 160px 20px 80px;
             background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
         }
         .hero-container {
@@ -668,14 +677,22 @@
         .account-notice i { color: var(--warning); font-size: 1.1rem; margin-top: 2px; }
         .account-notice p { font-size: 0.9rem; color: var(--text-dark); margin: 0; }
 
+        @media (max-width: 1100px) {
+            .nav-links { gap: 4px; }
+            .nav-links a { font-size: 0.78rem; padding: 6px 3px; }
+            .nav-links a.nav-suite { padding: 4px 8px; font-size: 0.76rem; }
+            .nav-contact { font-size: 0.75rem; }
+            .logo { height: 40px; }
+        }
         @media (max-width: 992px) {
             .pillars { grid-template-columns: repeat(2, 1fr); }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
             .products-grid-bottom { grid-template-columns: repeat(2, 1fr); }
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .nav-links, .nav-contact { display: none; }
+            .hero { padding: 150px 20px 60px; }
         }
         @media (max-width: 768px) {
-            .nav-links, .nav-contact { display: none; }
             .hero h1 { font-size: 2rem; }
             .pillars { grid-template-columns: 1fr; }
             .products-grid { grid-template-columns: 1fr; }
