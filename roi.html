@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-nl="ROI Calculator - BIBOB Analyst Pro" data-en="ROI Calculator - BIBOB Analyst Pro" data-pap="ROI Calculator - BIBOB Analyst Pro">ROI Calculator - BIBOB Analyst Pro</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #137dbe;
+            --primary-dark: #0e5a8a;
+            --primary-light: #e8f4fc;
+            --text-dark: #2d3748;
+            --text-muted: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+        }
+
+        /* Language Bar */
+        .language-bar {
+            background-color: var(--bg-light);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            text-align: right;
+            padding-right: 40px;
+        }
+
+        .language-bar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .language-bar a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .language-bar a:hover {
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-phone {
+            font-size: 14px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-white) 100%);
+            padding: 80px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .calculator-section h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .calculator-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .input-group .input-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .input-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .input-group input[type="range"]::-webkit-slider-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        .input-group input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .input-group input[type="range"]::-moz-range-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .result-card {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .result-card h3 {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .result-card .scenario-title {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .result-card .metric {
+            margin-bottom: 20px;
+        }
+
+        .result-card .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .result-card .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .result-card.savings {
+            background-color: #d4f4dd;
+            border-color: var(--success);
+        }
+
+        .result-card.savings h3 {
+            color: var(--success);
+        }
+
+        .result-card.savings .metric-value {
+            color: var(--success);
+            font-size: 32px;
+        }
+
+        .metric-bar-container {
+            width: 100%;
+            height: 12px;
+            background-color: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .metric-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            border-radius: 6px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 0%;
+        }
+
+        .savings-bar {
+            background: linear-gradient(90deg, var(--success), #059669);
+        }
+
+        .comparison-section {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .comparison-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .comparison-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bar-label {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .bar-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .bar-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .visual-bar {
+            flex: 1;
+            height: 30px;
+            background-color: var(--primary-light);
+            border-radius: 4px;
+            border: 2px solid var(--primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .visual-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            border-radius: 2px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 0%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* Breakdown Table */
+        .breakdown-section {
+            margin: 80px 0;
+        }
+
+        .breakdown-section h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .breakdown-table th,
+        .breakdown-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breakdown-table th {
+            background-color: var(--primary-light);
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .breakdown-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .breakdown-table tr:hover {
+            background-color: var(--bg-light);
+        }
+
+        .breakdown-table td {
+            color: var(--text-dark);
+        }
+
+        .savings-percentage {
+            font-weight: 700;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .savings-percentage i {
+            font-size: 16px;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin: 80px 0;
+        }
+
+        .benefits-section h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(19, 125, 190, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .benefit-card i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .benefit-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Business Case Section */
+        .business-case-section {
+            margin: 80px 0;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+            padding: 50px 40px;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+
+        .business-case-section h2 {
+            font-size: 24px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .business-case-section p {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 125, 190, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            margin: 80px 0;
+            border-radius: 8px;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-section .btn {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .cta-section .btn:hover {
+            background-color: var(--bg-light);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .language-bar {
+                padding-right: 20px;
+            }
+
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .calculator-section {
+                padding: 20px;
+            }
+
+            .calculator-inputs {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .comparison-bars {
+                grid-template-columns: 1fr;
+            }
+
+            .breakdown-section h2,
+            .benefits-section h2 {
+                font-size: 24px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .breakdown-table th,
+            .breakdown-table td {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .cta-section {
+                padding: 50px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+            }
+
+            .business-case-section {
+                padding: 30px 20px;
+            }
+
+            .business-case-section h2 {
+                font-size: 20px;
+            }
+        }
+
+        @media print {
+            .language-bar,
+            nav,
+            .cta-section {
+                display: none;
+            }
+
+            body {
+                background-color: white;
+            }
+
+            .calculator-section,
+            .breakdown-section,
+            .benefits-section,
+            .business-case-section {
+                page-break-inside: avoid;
+                border: none;
+                box-shadow: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calculator-section,
+        .breakdown-section,
+        .benefits-section,
+        .business-case-section {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .benefit-card {
+            animation: slideIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .benefit-card:nth-child(1) { animation-delay: 0.1s; }
+        .benefit-card:nth-child(2) { animation-delay: 0.2s; }
+        .benefit-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Language Bar -->
+    <div class="language-bar">
+        <a href="#" class="lang-btn active" data-lang="nl">NL</a>
+        <a href="#" class="lang-btn" data-lang="en">EN</a>
+        <a href="#" class="lang-btn" data-lang="pap">PAP</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-logo">Knowledge by Data</a>
+        <ul class="nav-links">
+            <li><a href="index.html" data-nl="Home" data-en="Home" data-pap="Home">Home</a></li>
+            <li><a href="index.html#security" data-nl="Beveiliging" data-en="Security" data-pap="Seguridad">Beveiliging</a></li>
+            <li><a href="index.html#products" data-nl="Producten" data-en="Products" data-pap="Produktos">Producten</a></li>
+            <li><a href="index.html#analysis" data-nl="Analysis Suite" data-en="Analysis Suite" data-pap="Analysis Suite">Analysis Suite</a></li>
+            <li><a href="index.html#demo" data-nl="Demo" data-en="Demo" data-pap="Demo">Demo</a></li>
+            <li><a href="index.html#faq" data-nl="FAQ" data-en="FAQ" data-pap="FAQ">FAQ</a></li>
+            <li><a href="index.html#team" data-nl="Team" data-en="Team" data-pap="Team">Team</a></li>
+            <li><a href="roi.html" class="active" data-nl="ROI" data-en="ROI" data-pap="ROI">ROI</a></li>
+            <li><a href="index.html#contact" data-nl="Contact" data-en="Contact" data-pap="Kontakto">Contact</a></li>
+        </ul>
+        <div class="nav-phone">
+            <i class="fas fa-phone"></i> +599 9 5236 333
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 data-nl="Return on Investment" data-en="Return on Investment" data-pap="Return on Investment">Return on Investment</h1>
+        <p data-nl="Ontdek hoeveel tijd en kosten u kunt besparen met BIBOB Analyst Pro. Onze calculator toont u exact wat uw organisatie aan onderzoekswerk kan optimaliseren." data-en="Discover how much time and costs you can save with BIBOB Analyst Pro. Our calculator shows you exactly what your organization can optimize in investigative work." data-pap="Deskubrir kuantu tempo i kostunan bo por ahorra ku BIBOB Analyst Pro. Nos kalkulador ta mustra bo eksaktamente ki su organisashon por optimisa den investigativo.">Ontdek hoeveel tijd en kosten u kunt besparen met BIBOB Analyst Pro.</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Calculator Section -->
+        <div class="calculator-section">
+            <h2 data-nl="Interactieve ROI Calculator" data-en="Interactive ROI Calculator" data-pap="Interaktibo ROI Calculator">Interactieve ROI Calculator</h2>
+
+            <div class="calculator-inputs">
+                <div class="input-group">
+                    <label for="investigationsPerYear" data-nl="Aantal BIBOB-onderzoeken per jaar" data-en="Number of BIBOB investigations per year" data-pap="Kantidad di BIBOB investigashon kada anja">Aantal BIBOB-onderzoeken per jaar</label>
+                    <div class="input-value">
+                        <span id="investigationsValue">25</span>
+                        <span>/jaar</span>
+                    </div>
+                    <input type="range" id="investigationsPerYear" min="5" max="200" value="25" step="1">
+                </div>
+
+                <div class="input-group">
+                    <label for="hourlyRate" data-nl="Gemiddeld uurloon onderzoeker (€)" data-en="Average hourly rate researcher (€)" data-pap="Promedio tempo tarifan investigador (€)">Gemiddeld uurloon onderzoeker (€)</label>
+                    <div class="input-value">
+                        <span>€</span>
+                        <span id="hourlyRateValue">85</span>
+                    </div>
+                    <input type="range" id="hourlyRate" min="50" max="150" value="85" step="1">
+                </div>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid">
+                <!-- Current Situation -->
+                <div class="result-card">
+                    <h3 data-nl="Huidige situatie" data-en="Current situation" data-pap="Situashon atuwal">Huidige situatie</h3>
+                    <div class="scenario-title" data-nl="(handmatig)" data-en="(manual)" data-pap="(manual)">(handmatig)</div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Uren per onderzoek" data-en="Hours per investigation" data-pap="Ora kada investigashon">Uren per onderzoek</div>
+                        <div class="metric-value">50h</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Totale uren/jaar" data-en="Total hours/year" data-pap="Total ora/anja">Totale uren/jaar</div>
+                        <div class="metric-value" id="manualHoursPerYear">1.250h</div>
+                        <div class="metric-bar-container">
+                            <div class="metric-bar" id="manualHoursBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Totale kosten/jaar" data-en="Total costs/year" data-pap="Total kostunan/anja">Totale kosten/jaar</div>
+                        <div class="metric-value" id="manualCostsPerYear">€ 106.250</div>
+                    </div>
+                </div>
+
+                <!-- With BIBOB -->
+                <div class="result-card">
+                    <h3 data-nl="Met BIBOB Analyst Pro" data-en="With BIBOB Analyst Pro" data-pap="Ku BIBOB Analyst Pro">Met BIBOB Analyst Pro</h3>
+                    <div class="scenario-title" data-nl="(geautomatiseerd)" data-en="(automated)" data-pap="(automated)">(geautomatiseerd)</div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Uren per onderzoek" data-en="Hours per investigation" data-pap="Ora kada investigashon">Uren per onderzoek</div>
+                        <div class="metric-value">12.5h</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Totale uren/jaar" data-en="Total hours/year" data-pap="Total ora/anja">Totale uren/jaar</div>
+                        <div class="metric-value" id="automatedHoursPerYear">312.5h</div>
+                        <div class="metric-bar-container">
+                            <div class="metric-bar" id="automatedHoursBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Totale kosten/jaar" data-en="Total costs/year" data-pap="Total kostunan/anja">Totale kosten/jaar</div>
+                        <div class="metric-value" id="automatedCostsPerYear">€ 26.562</div>
+                    </div>
+                </div>
+
+                <!-- Savings -->
+                <div class="result-card savings">
+                    <h3 data-nl="Jaarlijkse besparing" data-en="Annual savings" data-pap="Anual na ekonomiya">Jaarlijkse besparing</h3>
+                    <div class="scenario-title" data-nl="Verschil" data-en="Difference" data-pap="Diferensha">Verschil</div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Urenbesparing" data-en="Hours saved" data-pap="Ora na nakara">Urenbesparing</div>
+                        <div class="metric-value" id="hoursSaved">937.5h</div>
+                        <div class="metric-bar-container">
+                            <div class="metric-bar savings-bar" id="hoursSavedBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Kostenreductie" data-en="Cost reduction" data-pap="Reduksyon di kostunan">Kostenreductie</div>
+                        <div class="metric-value" id="costsSaved">€ 79.688</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Besparing per onderzoek" data-en="Savings per investigation" data-pap="Ekonomiya kada investigashon">Besparing per onderzoek</div>
+                        <div class="metric-value">37.5h</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label" data-nl="Procentueel" data-en="Percentage" data-pap="Porsenta">Procentueel</div>
+                        <div class="metric-value" id="savingsPercentage">75%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Bars -->
+            <div class="comparison-section">
+                <div class="comparison-title" data-nl="Visuele vergelijking" data-en="Visual comparison" data-pap="Visual na kompayashon">Visuele vergelijking</div>
+                <div class="comparison-bars">
+                    <div class="bar-item">
+                        <div class="bar-label" data-nl="Handmatige methode" data-en="Manual method" data-pap="Manual na metodo">Handmatige methode</div>
+                        <div class="bar-value" id="barManualHours">1.250h</div>
+                        <div class="bar-wrapper">
+                            <div class="visual-bar">
+                                <div class="visual-bar-fill" id="barManualFill" style="width: 100%;">
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bar-item">
+                        <div class="bar-label" data-nl="Met BIBOB Analyst Pro" data-en="With BIBOB Analyst Pro" data-pap="Ku BIBOB Analyst Pro">Met BIBOB Analyst Pro</div>
+                        <div class="bar-value" id="barAutomatedHours">312.5h</div>
+                        <div class="bar-wrapper">
+                            <div class="visual-bar">
+                                <div class="visual-bar-fill" id="barAutomatedFill" style="width: 25%;">
+                                    <span>25%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breakdown Section -->
+        <div class="breakdown-section">
+            <h2 data-nl="Waar zit de tijdsbesparing?" data-en="Where is the time savings?" data-pap="Unda ta lokalizá na tempo ekonomiya?">Waar zit de tijdsbesparing?</h2>
+
+            <table class="breakdown-table">
+                <thead>
+                    <tr>
+                        <th data-nl="Fase" data-en="Phase" data-pap="Fase">Fase</th>
+                        <th data-nl="Handmatig" data-en="Manual" data-pap="Manual">Handmatig</th>
+                        <th data-nl="Met BIBOB Analyst Pro" data-en="With BIBOB Analyst Pro" data-pap="Ku BIBOB Analyst Pro">Met BIBOB Analyst Pro</th>
+                        <th data-nl="Besparing" data-en="Savings" data-pap="Ekonomiya">Besparing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-nl="Documentverwerking & extractie" data-en="Document processing & extraction" data-pap="Dokumentasyon prosesamento & ekstrakshon">Documentverwerking & extractie</td>
+                        <td>12-15u</td>
+                        <td>1-2u</td>
+                        <td><span class="savings-percentage"><i class="fas fa-arrow-up"></i> ~85%</span></td>
+                    </tr>
+                    <tr>
+                        <td data-nl="Bronnenonderzoek & cross-referentie" data-en="Source research & cross-reference" data-pap="Fuente peskiza & cross-referensha">Bronnenonderzoek & cross-referentie</td>
+                        <td>8-12u</td>
+                        <td>2-3u</td>
+                        <td><span class="savings-percentage"><i class="fas fa-arrow-up"></i> ~75%</span></td>
+                    </tr>
+                    <tr>
+                        <td data-nl="Rode vlaggen identificatie" data-en="Red flag identification" data-pap="Prueba bandéra identifikashon">Rode vlaggen identificatie</td>
+                        <td>6-8u</td>
+                        <td data-nl="Geautomatiseerd" data-en="Automated" data-pap="Automated">Geautomatiseerd</td>
+                        <td><span class="savings-percentage"><i class="fas fa-arrow-up"></i> ~90%</span></td>
+                    </tr>
+                    <tr>
+                        <td data-nl="Interviewvoorbereiding" data-en="Interview preparation" data-pap="Entrevista preparashon">Interviewvoorbereiding</td>
+                        <td>4-6u</td>
+                        <td>1u</td>
+                        <td><span class="savings-percentage"><i class="fas fa-arrow-up"></i> ~80%</span></td>
+                    </tr>
+                    <tr>
+                        <td data-nl="Rapportage & advies" data-en="Reporting & advice" data-pap="Reportahe & konseho">Rapportage & advies</td>
+                        <td>8-12u</td>
+                        <td>2-3u</td>
+                        <td><span class="savings-percentage"><i class="fas fa-arrow-up"></i> ~75%</span></td>
+                    </tr>
+                    <tr>
+                        <td data-nl="Dossierbeheer & archivering" data-en="File management & archiving" data-en="Dosyé manehó & arkibashon">Dossierbeheer & archivering</td>
+                        <td>3-5u</td>
+                        <td>0.5-1u</td>
+                        <td><span class="savings-percentage"><i class="fas fa-arrow-up"></i> ~80%</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <h2 data-nl="Meer dan alleen tijdsbesparing" data-en="More than just time savings" data-pap="Mas ku solo tempo ekonomiya">Meer dan alleen tijdsbesparing</h2>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3 data-nl="Hogere onderzoekskwaliteit" data-en="Higher investigation quality" data-pap="Mas haltu na kalidad investigashon">Hogere onderzoekskwaliteit</h3>
+                    <p data-nl="99+ gevalideerde indicatoren zorgen voor completere, objectievere onderzoeken. Minder kans op gemiste signalen." data-en="99+ validated indicators ensure more complete, objective investigations. Less chance of missed signals." data-pap="99+ validado na indikatoran ta sigura di mas completo, objektibo na investigashon. Mas poko probabilidad di sinyalnan nakara.">99+ gevalideerde indicatoren zorgen voor completere, objectievere onderzoeken. Minder kans op gemiste signalen.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <i class="fas fa-server"></i>
+                    <h3 data-nl="Lagere ICT-kosten" data-en="Lower IT costs" data-pap="Palo IT na kostunan">Lagere ICT-kosten</h3>
+                    <p data-nl="Geen servers, geen cloud, geen beheer. Geen verwerkersovereenkomst, minimale DPIA. Direct inzetbaar zonder IT-afdeling." data-en="No servers, no cloud, no management. No processing agreement, minimal DPIA. Ready to use without IT department." data-pap="Nada servidor, nada cloud, nada manehó. Nada proseso akerdu, minimal DPIA. Direkto usabel sin IT departamento.">Geen servers, geen cloud, geen beheer. Geen verwerkersovereenkomst, minimale DPIA. Direct inzetbaar zonder IT-afdeling.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3 data-nl="Consistentie & reproduceerbaarheid" data-en="Consistency & reproducibility" data-pap="Konsistensha & reprodusibilidad">Consistentie & reproduceerbaarheid</h3>
+                    <p data-nl="Elke onderzoeker werkt met dezelfde methodologie. Overdracht tussen collega's is eenvoudig via dossiercodes." data-en="Every investigator works with the same methodology. Handover between colleagues is easy via file codes." data-pap="Kada investigador ta trabaha ku hopi metodo. Transafer entre koleganan ta fasil via dosye kodigo.">Elke onderzoeker werkt met dezelfde methodologie. Overdracht tussen collega's is eenvoudig via dossiercodes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Case Section -->
+        <div class="business-case-section">
+            <h2 data-nl="Business Case Template" data-en="Business Case Template" data-pap="Business Case Template">Business Case Template</h2>
+            <p data-nl="Wilt u een kant-en-klare business case voor uw organisatie? Neem contact op en wij stellen deze kosteloos voor u samen." data-en="Would you like a ready-made business case for your organization? Contact us and we'll create it for free." data-pap="Bo ke one lista bisnes kaso para su organisashon? Kontakta nos i nos lo krea libre.">Wilt u een kant-en-klare business case voor uw organisatie? Neem contact op en wij stellen deze kosteloos voor u samen.</p>
+            <a href="mailto:info@knowledgebydata.nl?subject=Business%20Case%20Aanvraag" class="btn btn-secondary" data-nl="Business case aanvragen" data-en="Request business case" data-pap="Hunga business case">Business case aanvragen</a>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2 data-nl="Overtuigd? Plan een demonstratie" data-en="Convinced? Schedule a demonstration" data-pap="Konvensido? Planifiká demostrasyon">Overtuigd? Plan een demonstratie</h2>
+        <p data-nl="Laat ons u in actie zien. Neem contact op voor een persoonlijke demonstratie." data-en="Let us show you it in action. Contact us for a personal demonstration." data-pap="Deixa nos mustra bo ena akshon. Kontakta nos para demostrasyon personal.">Laat ons u in actie zien. Neem contact op voor een persoonlijke demonstratie.</p>
+        <a href="index.html#contact" class="btn btn-primary" data-nl="Contact opnemen" data-en="Get in touch" data-pap="Kontakta nos">Contact opnemen</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p data-nl="© 2024 Knowledge by Data. Alle rechten voorbehouden." data-en="© 2024 Knowledge by Data. All rights reserved." data-pap="© 2024 Knowledge by Data. Tur derechos reservado.">© 2024 Knowledge by Data. Alle rechten voorbehouden.</p>
+        <p>
+            <a href="mailto:info@knowledgebydata.nl">info@knowledgebydata.nl</a> |
+            <a href="tel:+599952363333">+599 9 5236 333</a>
+        </p>
+    </footer>
+
+    <script>
+        // Language management
+        let currentLanguage = 'nl';
+
+        const languageMap = {
+            'nl': 'data-nl',
+            'en': 'data-en',
+            'pap': 'data-pap'
+        };
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+
+            // Update all text elements
+            document.querySelectorAll('[data-nl][data-en][data-pap]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+
+            // Recalculate to update any numbers
+            calculateROI();
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                setLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+
+        // Number formatting
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('nl-NL', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(value);
+        }
+
+        function formatNumber(value) {
+            return new Intl.NumberFormat('nl-NL', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 1
+            }).format(value);
+        }
+
+        // ROI Calculator Logic
+        const investigationsSlider = document.getElementById('investigationsPerYear');
+        const hourlyRateSlider = document.getElementById('hourlyRate');
+
+        function calculateROI() {
+            const investigationsPerYear = parseInt(investigationsSlider.value);
+            const hourlyRate = parseInt(hourlyRateSlider.value);
+
+            // Constants
+            const manualHoursPerInvestigation = 50;
+            const automatedHoursPerInvestigation = 12.5;
+            const savingsPerInvestigation = manualHoursPerInvestigation - automatedHoursPerInvestigation;
+
+            // Calculations
+            const manualTotalHours = investigationsPerYear * manualHoursPerInvestigation;
+            const manualTotalCosts = manualTotalHours * hourlyRate;
+
+            const automatedTotalHours = investigationsPerYear * automatedHoursPerInvestigation;
+            const automatedTotalCosts = automatedTotalHours * hourlyRate;
+
+            const hoursSaved = manualTotalHours - automatedTotalHours;
+            const costsSaved = manualTotalCosts - automatedTotalCosts;
+            const savingsPercentage = Math.round((hoursSaved / manualTotalHours) * 100);
+
+            // Update display values
+            document.getElementById('investigationsValue').textContent = investigationsPerYear;
+            document.getElementById('hourlyRateValue').textContent = hourlyRate;
+
+            // Manual scenario
+            document.getElementById('manualHoursPerYear').textContent = formatNumber(manualTotalHours) + 'h';
+            document.getElementById('manualCostsPerYear').textContent = formatCurrency(manualTotalCosts);
+
+            // Automated scenario
+            document.getElementById('automatedHoursPerYear').textContent = formatNumber(automatedTotalHours) + 'h';
+            document.getElementById('automatedCostsPerYear').textContent = formatCurrency(automatedTotalCosts);
+
+            // Savings
+            document.getElementById('hoursSaved').textContent = formatNumber(hoursSaved) + 'h';
+            document.getElementById('costsSaved').textContent = formatCurrency(costsSaved);
+            document.getElementById('savingsPercentage').textContent = savingsPercentage + '%';
+
+            // Comparison bars
+            document.getElementById('barManualHours').textContent = formatNumber(manualTotalHours) + 'h';
+            document.getElementById('barAutomatedHours').textContent = formatNumber(automatedTotalHours) + 'h';
+            const automatedPercentage = (automatedTotalHours / manualTotalHours) * 100;
+            document.getElementById('barAutomatedFill').style.width = automatedPercentage + '%';
+            document.querySelector('#barAutomatedFill span').textContent = Math.round(automatedPercentage) + '%';
+
+            // Animate bars
+            animateBars(manualTotalHours, automatedTotalHours, hoursSaved);
+        }
+
+        function animateBars() {
+            const investigationsPerYear = parseInt(investigationsSlider.value);
+            const hourlyRate = parseInt(hourlyRateSlider.value);
+            const maxHours = investigationsPerYear * 50;
+
+            const manualHours = investigationsPerYear * 50;
+            const automatedHours = investigationsPerYear * 12.5;
+            const hoursSaved = manualHours - automatedHours;
+
+            const manualPercent = (manualHours / maxHours) * 100;
+            const automatedPercent = (automatedHours / maxHours) * 100;
+            const savingsPercent = (hoursSaved / maxHours) * 100;
+
+            document.getElementById('manualHoursBar').style.width = manualPercent + '%';
+            document.getElementById('automatedHoursBar').style.width = automatedPercent + '%';
+            document.getElementById('hoursSavedBar').style.width = savingsPercent + '%';
+        }
+
+        // Event listeners
+        investigationsSlider.addEventListener('input', calculateROI);
+        hourlyRateSlider.addEventListener('input', calculateROI);
+
+        // Initial calculation
+        calculateROI();
+    </script>
+</body>
+</html>

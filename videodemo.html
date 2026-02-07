@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Demo - Knowledge by Data | BIBOB Analyst Pro</title>
+    <meta name="description" content="Zie BIBOB Analyst Pro in actie. Professionele videodemonstratie van onze integriteitsonderzoek software.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #137dbe;
+            --primary-dark: #0e5a8a;
+            --primary-light: #e8f4fc;
+            --text-dark: #2d3748;
+            --text-muted: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ==================== Language Bar ==================== */
+        .language-bar {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 8px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .language-switcher:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .lang-btn.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .lang-divider {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== Navigation Bar ==================== */
+        .navbar {
+            position: fixed;
+            top: 40px;
+            left: 0; right: 0;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+        }
+
+        .logo {
+            height: 80px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .nav-links a.nav-suite {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e5a87 100%);
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border-bottom: none !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-links a.nav-suite:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 125, 190, 0.4);
+        }
+
+        .nav-contact {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .nav-contact a { color: var(--primary); text-decoration: none; }
+
+        /* ==================== Hero Section ==================== */
+        .hero {
+            padding: 210px 20px 80px;
+            background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
+        }
+
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span { color: var(--primary); }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ==================== Main Video Section ==================== */
+        .video-section {
+            padding: 80px 20px;
+            background: var(--bg-light);
+        }
+
+        .video-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(19, 125, 190, 0.15);
+            background: linear-gradient(135deg, #1a1f3a 0%, #2d1b4e 100%);
+            margin-bottom: 40px;
+        }
+
+        .video-player-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        /* Animated pulse play button */
+        .play-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            animation: pulse-ring 2s infinite;
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(19, 125, 190, 0.5);
+            animation: pulse-ring-inner 2s infinite;
+        }
+
+        .play-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .play-button i {
+            color: white;
+            font-size: 50px;
+            z-index: 1;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(19, 125, 190, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 30px rgba(19, 125, 190, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(19, 125, 190, 0);
+            }
+        }
+
+        @keyframes pulse-ring-inner {
+            0% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .video-placeholder-text {
+            color: white;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .video-placeholder-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .video-placeholder-text p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 500px;
+        }
+
+        .video-cta-section {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-white);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-top: 30px;
+        }
+
+        .video-cta-section h3 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .video-cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ==================== Timeline Section ==================== */
+        .timeline-section {
+            padding: 80px 20px;
+            background: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            position: relative;
+        }
+
+        .timeline-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .timeline-card::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(19, 125, 190, 0.2);
+        }
+
+        .timeline-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(19, 125, 190, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 15px auto 20px;
+        }
+
+        .timeline-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .timeline-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ==================== Options Section ==================== */
+        .options-section {
+            padding: 80px 20px;
+            background: var(--bg-light);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .option-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(19, 125, 190, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .option-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 25px;
+        }
+
+        .option-card h3 {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .option-card p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.7;
+            min-height: 80px;
+        }
+
+        .option-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .option-features li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-features li:last-child {
+            border-bottom: none;
+        }
+
+        .option-features i {
+            color: var(--success);
+            font-size: 0.8rem;
+        }
+
+        /* ==================== Screenshots Section ==================== */
+        .screenshots-section {
+            padding: 80px 20px;
+            background: var(--bg-white);
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .screenshot-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .screenshot-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(19, 125, 190, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, rgba(19, 125, 190, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+
+        .screenshot-info {
+            padding: 20px;
+        }
+
+        .screenshot-info h4 {
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .screenshot-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* ==================== CTA Section ==================== */
+        .cta-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            color: white;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* ==================== Buttons ==================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-light);
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==================== Footer ==================== */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* ==================== Responsive ==================== */
+        @media (max-width: 768px) {
+            .navbar {
+                top: 40px;
+            }
+
+            .nav-container {
+                height: auto;
+                padding: 15px 0;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .hero {
+                padding: 160px 20px 50px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .play-button {
+                width: 80px;
+                height: 80px;
+            }
+
+            .play-button i {
+                font-size: 35px;
+            }
+
+            .video-placeholder-text h2 {
+                font-size: 1.3rem;
+            }
+
+            .video-placeholder-text p {
+                font-size: 0.95rem;
+            }
+
+            .cta-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ==================== Print Styles ==================== */
+        @media print {
+            .language-bar, .navbar, footer {
+                display: none;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+
+            .btn {
+                border: 1px solid var(--text-dark);
+                color: var(--text-dark) !important;
+                background: transparent !important;
+            }
+
+            .option-card, .timeline-card, .screenshot-card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== Language Bar ==================== -->
+<div class="language-bar">
+    <div class="language-switcher">
+        <button class="lang-btn active" id="btnNL" onclick="changeLanguage('nl')">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Crect fill='%23AE1C28' width='900' height='200'/%3E%3Crect fill='white' y='200' width='900' height='200'/%3E%3Crect fill='%23033DA5' y='400' width='900' height='200'/%3E%3C/svg%3E" alt="NL" class="flag-icon">
+            NL
+        </button>
+        <span class="lang-divider">|</span>
+        <button class="lang-btn" id="btnEN" onclick="changeLanguage('en')">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect fill='%23012169' width='60' height='30'/%3E%3Cpath fill='white' d='M0 0L60 30M60 0L0 30'/%3E%3Cpath fill='white' d='M30 0v30M0 15h60'/%3E%3Cpath fill='%23C8102E' d='M30 0v30M0 15h60'/%3E%3C/svg%3E" alt="EN" class="flag-icon">
+            EN
+        </button>
+        <span class="lang-divider">|</span>
+        <button class="lang-btn" id="btnPAP" onclick="changeLanguage('pap')">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Crect fill='%23009ADF' width='300' height='600'/%3E%3Crect fill='white' x='300' width='300' height='600'/%3E%3Crect fill='%23FFD100' x='600' width='300' height='600'/%3E%3C/svg%3E" alt="PAP" class="flag-icon">
+            PAP
+        </button>
+    </div>
+</div>
+
+<!-- ==================== Navigation ==================== -->
+<nav class="navbar">
+    <div class="nav-container">
+        <svg class="logo" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="fill:none;stroke:#137dbe;stroke-width:3">
+            <rect x="20" y="20" width="160" height="120" rx="12"/>
+            <circle cx="60" cy="50" r="8" fill="#137dbe"/>
+            <circle cx="100" cy="50" r="8" fill="#137dbe"/>
+            <circle cx="140" cy="50" r="8" fill="#137dbe"/>
+            <line x1="40" y1="80" x2="160" y2="80" stroke="#137dbe" stroke-width="2"/>
+            <line x1="40" y1="100" x2="160" y2="100" stroke="#137dbe" stroke-width="2"/>
+            <line x1="40" y1="120" x2="160" y2="120" stroke="#137dbe" stroke-width="2"/>
+        </svg>
+        <ul class="nav-links">
+            <li><a href="index.html" data-nl="Home" data-en="Home" data-pap="Inicio">Home</a></li>
+            <li><a href="#" class="active" data-nl="Video Demo" data-en="Video Demo" data-pap="Video Demo">Video Demo</a></li>
+            <li><a href="#contact" data-nl="Contact" data-en="Contact" data-pap="Kontakto">Contact</a></li>
+        </ul>
+        <div class="nav-contact">
+            <span data-nl="Vragen?" data-en="Questions?" data-pap="Preguntanan?">Vragen?</span>
+            <a href="mailto:info@knowledgebydata.nl"> info@knowledgebydata.nl</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ==================== Hero Section ==================== -->
+<section class="hero">
+    <div class="hero-container">
+        <h1 data-nl="Zie BIBOB Analyst Pro in actie" data-en="Watch BIBOB Analyst Pro in Action" data-pap="Mira BIBOB Analyst Pro na aksyon">Zie BIBOB Analyst Pro in actie</h1>
+        <p class="hero-subtitle" data-nl="Bekijk hoe onze software een compleet BIBOB-onderzoek ondersteunt — van documentupload tot adviesrapport" data-en="Watch how our software supports a complete BIBOB investigation — from document upload to advisory report" data-pap="Mira kon nus software ta suporta un investigashon BIBOB kompleto — for i dokumentupload pa advisory report">Bekijk hoe onze software een compleet BIBOB-onderzoek ondersteunt — van documentupload tot adviesrapport</p>
+    </div>
+</section>
+
+<!-- ==================== Main Video Section ==================== -->
+<section class="video-section">
+    <div class="video-container">
+        <!-- Video Placeholder - Production Ready -->
+        <div class="video-player-wrapper">
+            <div class="video-player-content">
+                <div class="play-button" onclick="alert('Video player would be initialized here. To replace with real video, use the code comment below.')">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-placeholder-text">
+                    <h2 data-nl="Video binnenkort beschikbaar" data-en="Video Coming Soon" data-pap="Video lo bin disponibel pronto">Video binnenkort beschikbaar</h2>
+                    <p data-nl="Wij werken aan een uitgebreide videodemonstratie. In de tussentijd kunt u een persoonlijke demo aanvragen." data-en="We are working on a comprehensive video demonstration. In the meantime, you can request a personal demo." data-pap="Nos ta trabahan riba un demonstrashon di video ekstensibo. Entretanto, bo por pidi un demo personal.">Wij werken aan een uitgebreide videodemonstratie. In de tussentijd kunt u een persoonlijke demo aanvragen.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Code Comments - For Easy Future Integration -->
+        <!--
+        TO REPLACE THIS PLACEHOLDER WITH A REAL VIDEO:
+
+        OPTION 1: YouTube Embed
+        <div class="video-player-wrapper">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0;"></iframe>
+        </div>
+
+        OPTION 2: Vimeo Embed
+        <div class="video-player-wrapper">
+            <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID?h=YOUR_HASH" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0;"></iframe>
+        </div>
+
+        OPTION 3: Self-hosted Video
+        <div class="video-player-wrapper">
+            <video width="100%" height="100%" controls style="position: absolute; top: 0; left: 0;">
+                <source src="path/to/your/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        OPTION 4: HTML5 Video Player Library (like Plyr)
+        Add library reference in <head>, then use:
+        <div class="video-player-wrapper">
+            <div class="plyr__video-embed" id="player">
+                <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen allowtransparency allow="autoplay"></iframe>
+            </div>
+        </div>
+        <script>
+            const player = new Plyr('#player');
+        </script>
+
+        The placeholder styling is fully integrated and will work seamlessly with any of these options.
+        -->
+
+        <div class="video-cta-section">
+            <h3 data-nl="Plan een persoonlijke demo" data-en="Schedule a Personal Demo" data-pap="Plania un demo personal">Plan een persoonlijke demo</h3>
+            <p data-nl="Wil u BIBOB Analyst Pro liever live zien? Onze specialist toont u graag hoe de software werkt en beantwoordt al uw vragen." data-en="Would you prefer to see BIBOB Analyst Pro live? Our specialist will be happy to show you how the software works and answer all your questions." data-pap="Bo ta prefera mira BIBOB Analyst Pro live? Nos spesialista lo gustoso mustra bo con ta traha e software i kontesta tur bo preguntanan.">Wil u BIBOB Analyst Pro liever live zien? Onze specialist toont u graag hoe de software werkt en beantwoordt al uw vragen.</p>
+            <a href="mailto:info@knowledgebydata.nl?subject=Demo%20Aanvraag" class="btn btn-primary">
+                <i class="fas fa-calendar-check"></i>
+                <span data-nl="Plan een persoonlijke demo" data-en="Schedule a Demo" data-pap="Plania un demo">Plan een persoonlijke demo</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== Timeline Section ==================== -->
+<section class="timeline-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 data-nl="Wat u ziet in de demo" data-en="What You'll See in the Demo" data-pap="Kiko bo lo mira en e demo">Wat u ziet in de demo</h2>
+            <p data-nl="Een stap-voor-stap overzicht van alle functionaliteit van BIBOB Analyst Pro" data-en="A step-by-step overview of all features of BIBOB Analyst Pro" data-pap="Un overzicht paso-por-paso di tur e features di BIBOB Analyst Pro">Een stap-voor-stap overzicht van alle functionaliteit van BIBOB Analyst Pro</p>
+        </div>
+
+        <div class="timeline-grid">
+            <!-- Step 1: Opstarten & Authenticatie -->
+            <div class="timeline-card" data-step="1">
+                <div class="timeline-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3 data-nl="Opstarten & Authenticatie" data-en="Startup & Authentication" data-pap="Inisio & Autentifikashon">Opstarten & Authenticatie</h3>
+                <p data-nl="Licentie-activatie, wachtwoord en 2FA-setup voor veilige toegang" data-en="License activation, password and 2FA setup for secure access" data-pap="Aktivashon di lisensia, password i setup di 2FA pa aksesu sigur">Licentie-activatie, wachtwoord en 2FA-setup voor veilige toegang</p>
+            </div>
+
+            <!-- Step 2: Documenten uploaden -->
+            <div class="timeline-card" data-step="2">
+                <div class="timeline-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <h3 data-nl="Documenten uploaden" data-en="Upload Documents" data-pap="Subi dokumentonan">Documenten uploaden</h3>
+                <p data-nl="PDF's verwerken uit Graydon, KvK, Kadaster, Politie en meer" data-en="Process PDFs from Graydon, KvK, Cadastre, Police and more" data-pap="Prosesa PDF di Graydon, KvK, Kadaster, Polis i mas">PDF's verwerken uit Graydon, KvK, Kadaster, Politie en meer</p>
+            </div>
+
+            <!-- Step 3: Automatische analyse -->
+            <div class="timeline-card" data-step="3">
+                <div class="timeline-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 data-nl="Automatische analyse" data-en="Automated Analysis" data-pap="Analisis automatiko">Automatische analyse</h3>
+                <p data-nl="79+ indicatoren scannen uw documenten op rode vlaggen en risico's" data-en="79+ indicators scan your documents for red flags and risks" data-pap="79+ indikado ta skania bo dokumentonan pa banderas roba i riesganan">79+ indicatoren scannen uw documenten op rode vlaggen en risico's</p>
+            </div>
+
+            <!-- Step 4: Netwerkvisualisatie -->
+            <div class="timeline-card" data-step="4">
+                <div class="timeline-icon">
+                    <i class="fas fa-diagram-project"></i>
+                </div>
+                <h3 data-nl="Netwerkvisualisatie" data-en="Network Visualization" data-pap="Visualizashon di network">Netwerkvisualisatie</h3>
+                <p data-nl="Interactieve grafieken van bedrijven, personen en onderlinge relaties" data-en="Interactive graphs of companies, people and relationships" data-pap="Grafiknan interaktibo di kompanianan, personanan i relashonnan">Interactieve grafieken van bedrijven, personen en onderlinge relaties</p>
+            </div>
+
+            <!-- Step 5: Risicoscoring -->
+            <div class="timeline-card" data-step="5">
+                <div class="timeline-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3 data-nl="Risicoscoring" data-en="Risk Scoring" data-pap="Puntuashon di riesgo">Risicoscoring</h3>
+                <p data-nl="Gewogen risicoscore op basis van 5 risicocategorieën" data-en="Weighted risk score based on 5 risk categories" data-pap="Puntuashon di riesgo ponderá basa riba 5 kategorianan di riesgo">Gewogen risicoscore op basis van 5 risicocategorieën</p>
+            </div>
+
+            <!-- Step 6: Interviewworkflow -->
+            <div class="timeline-card" data-step="6">
+                <div class="timeline-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 data-nl="Interviewworkflow" data-en="Interview Workflow" data-pap="Workflow di interview">Interviewworkflow</h3>
+                <p data-nl="Automatisch vragen genereren op basis van bevindingen" data-en="Automatically generate questions based on findings" data-pap="Genera automatiamente preguntanan basa riba deskubrimentonan">Automatisch vragen genereren op basis van bevindingen</p>
+            </div>
+
+            <!-- Step 7: Rapportage -->
+            <div class="timeline-card" data-step="7">
+                <div class="timeline-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <h3 data-nl="Rapportage" data-en="Report Generation" data-pap="Generashon di rapporta">Rapportage</h3>
+                <p data-nl="Formeel BIBOB-adviesrapport en OM-tipformulier genereren" data-en="Generate formal BIBOB advisory report and Public Prosecutor tip form" data-pap="Genera rapporta formal di konseho BIBOB i formulario di tip OM">Formeel BIBOB-adviesrapport en OM-tipformulier genereren</p>
+            </div>
+
+            <!-- Step 8: Dossierbeheer -->
+            <div class="timeline-card" data-step="8">
+                <div class="timeline-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h3 data-nl="Dossierbeheer" data-en="Case Management" data-pap="Manehuo di kaso">Dossierbeheer</h3>
+                <p data-nl="Dossiers opslaan, laden en overdragen naar collegae" data-en="Save, load and transfer cases to colleagues" data-pap="Salva, karga i transfera kasonan pa koleganan">Dossiers opslaan, laden en overdragen naar collegae</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== Options Section ==================== -->
+<section class="options-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 data-nl="Liever zelf ervaren?" data-en="Prefer to Experience It Yourself?" data-pap="Prefera eksperensia bo mes?">Liever zelf ervaren?</h2>
+            <p data-nl="Twee manieren om BIBOB Analyst Pro uit te proberen" data-en="Two ways to try BIBOB Analyst Pro" data-pap="Du manera pa prueba BIBOB Analyst Pro">Twee manieren om BIBOB Analyst Pro uit te proberen</p>
+        </div>
+
+        <div class="options-grid">
+            <!-- Option 1: Demo Mode -->
+            <div class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <h3 data-nl="Demo-modus" data-en="Demo Mode" data-pap="Modo demo">Demo-modus</h3>
+                <p data-nl="Download BIBOB Analyst Pro en start direct in demo-modus. Verken alle functionaliteit met een realistisch voorbeeldscenario — zonder licentie." data-en="Download BIBOB Analyst Pro and start directly in demo mode. Explore all functionality with a realistic example scenario — without a license." data-pap="Deskarha BIBOB Analyst Pro i inisio direkto en modo demo. Eksplora tur funktionalidad ku un scenario ejemplo realistiko — sin lisensia.">Download BIBOB Analyst Pro en start direct in demo-modus. Verken alle functionaliteit met een realistisch voorbeeldscenario — zonder licentie.</p>
+                <ul class="option-features">
+                    <li><i class="fas fa-check"></i> <span data-nl="Volledig functioneel" data-en="Fully Functional" data-pap="Kompletamente funktional">Volledig functioneel</span></li>
+                    <li><i class="fas fa-check"></i> <span data-nl="Realistisch democase" data-en="Realistic Demo Case" data-pap="Kaso demo realistiko">Realistisch democase</span></li>
+                    <li><i class="fas fa-check"></i> <span data-nl="Geen licentie nodig" data-en="No License Required" data-pap="Sin lisensia mester">Geen licentie nodig</span></li>
+                </ul>
+                <a href="mailto:info@knowledgebydata.nl?subject=Demo%20Download%20Aanvraag" class="btn btn-primary">
+                    <i class="fas fa-download"></i>
+                    <span data-nl="Download demo" data-en="Download Demo" data-pap="Deskarha demo">Download demo</span>
+                </a>
+            </div>
+
+            <!-- Option 2: Personal Demo -->
+            <div class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 data-nl="Persoonlijke demonstratie" data-en="Personal Demonstration" data-pap="Demonstrashon personal">Persoonlijke demonstratie</h3>
+                <p data-nl="Plan een persoonlijke videodemonstratie. Wij laten u zien hoe de software past bij uw specifieke onderzoeksbehoeften." data-en="Schedule a personal video demonstration. We'll show you how the software fits your specific investigation needs." data-pap="Plania un demonstrashon di video personal. Nos lo mustra bo con ta fit e software ku bo nesesidad spesifiko di investigashon.">Plan een persoonlijke videodemonstratie. Wij laten u zien hoe de software past bij uw specifieke onderzoeksbehoeften.</p>
+                <ul class="option-features">
+                    <li><i class="fas fa-check"></i> <span data-nl="Op maat gesneden" data-en="Tailored" data-pap="Tayado">Op maat gesneden</span></li>
+                    <li><i class="fas fa-check"></i> <span data-nl="Vrijblijvend" data-en="No Obligation" data-pap="Sin obligashon">Vrijblijvend</span></li>
+                    <li><i class="fas fa-check"></i> <span data-nl="Online of ter plaatse" data-en="Online or On-site" data-pap="Online o na loko">Online of ter plaatse</span></li>
+                </ul>
+                <a href="mailto:info@knowledgebydata.nl?subject=Persoonlijke%20Demo%20Aanvraag" class="btn btn-primary">
+                    <i class="fas fa-calendar-check"></i>
+                    <span data-nl="Plan demonstratie" data-en="Schedule Demo" data-pap="Plania demo">Plan demonstratie</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== Screenshots Section ==================== -->
+<section class="screenshots-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 data-nl="Screenshots & Voorbeelden" data-en="Screenshots & Examples" data-pap="Screenshots & Ehemplonan">Screenshots & Voorbeelden</h2>
+            <p data-nl="Een snelle blik op de verschillende modules van BIBOB Analyst Pro" data-en="A quick look at the different modules of BIBOB Analyst Pro" data-pap="Un bista ripido di e diferente modulonan di BIBOB Analyst Pro">Een snelle blik op de verschillende modules van BIBOB Analyst Pro</p>
+        </div>
+
+        <div class="screenshots-grid">
+            <!-- Screenshot 1 -->
+            <div class="screenshot-card">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="screenshot-info">
+                    <h4 data-nl="Dashboard & Risicoprofiel" data-en="Dashboard & Risk Profile" data-pap="Dashboard & Profil di riesgo">Dashboard & Risicoprofiel</h4>
+                    <p data-nl="Overzicht van alle onderzoeken en risicoscores" data-en="Overview of all investigations and risk scores" data-pap="Overzicht di tur investigashonnan i puntuashonnan di riesgo">Overzicht van alle onderzoeken en risicoscores</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 2 -->
+            <div class="screenshot-card">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="screenshot-info">
+                    <h4 data-nl="Documentverwerking" data-en="Document Processing" data-pap="Prosesamento di dokumento">Documentverwerking</h4>
+                    <p data-nl="Upload en analyse van PDF-documenten" data-en="Upload and analysis of PDF documents" data-pap="Subi i analisis di dokumentonan PDF">Upload en analyse van PDF-documenten</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 3 -->
+            <div class="screenshot-card">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-diagram-project"></i>
+                </div>
+                <div class="screenshot-info">
+                    <h4 data-nl="Netwerkvisualisatie" data-en="Network Visualization" data-pap="Visualizashon di network">Netwerkvisualisatie</h4>
+                    <p data-nl="Interactieve relaties tussen personen en bedrijven" data-en="Interactive relationships between people and companies" data-pap="Relashonnan interaktibo entre personanan i kompanianan">Interactieve relaties tussen personen en bedrijven</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 4 -->
+            <div class="screenshot-card">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="screenshot-info">
+                    <h4 data-nl="Rode Vlaggen Overzicht" data-en="Red Flags Overview" data-pap="Overzicht di banderas roba">Rode Vlaggen Overzicht</h4>
+                    <p data-nl="Alle gedetecteerde risicoindicatoren in kaart" data-en="All detected risk indicators mapped" data-pap="Tur indikado di riesgo detektá na mapa">Alle gedetecteerde risicoindicatoren in kaart</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 5 -->
+            <div class="screenshot-card">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="screenshot-info">
+                    <h4 data-nl="Interviewworkflow" data-en="Interview Workflow" data-pap="Workflow di interview">Interviewworkflow</h4>
+                    <p data-nl="Intelligente vragenlijsten op basis van bevindingen" data-en="Intelligent question lists based on findings" data-pap="Listanan di preguntanan inteligentenan basa riba deskubrimentonan">Intelligente vragenlijsten op basis van bevindingen</p>
+                </div>
+            </div>
+
+            <!-- Screenshot 6 -->
+            <div class="screenshot-card">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <div class="screenshot-info">
+                    <h4 data-nl="Rapportgeneratie" data-en="Report Generation" data-pap="Generashon di rapporta">Rapportgeneratie</h4>
+                    <p data-nl="Professionele BIBOB-adviezen en OM-formulieren" data-en="Professional BIBOB reports and Public Prosecutor forms" data-pap="Raporta profesional di BIBOB i formulario di OM">Professionele BIBOB-adviezen en OM-formulieren</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CTA Section ==================== -->
+<section class="cta-section" id="contact">
+    <div class="cta-content">
+        <h2 data-nl="Klaar om te starten?" data-en="Ready to Get Started?" data-pap="Listo pa inisio?">Klaar om te starten?</h2>
+        <p data-nl="Neem contact met ons op voor een vrijblijvende demonstratie of meer informatie" data-en="Contact us for a no-obligation demonstration or more information" data-pap="Kontakta nos pa un demo sin obligashon o mas informashon">Neem contact met ons op voor een vrijblijvende demonstratie of meer informatie</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+            <a href="mailto:info@knowledgebydata.nl?subject=Informatieaanvraag" class="btn btn-white">
+                <i class="fas fa-envelope"></i>
+                <span data-nl="Stuur een e-mail" data-en="Send Email" data-pap="Manda un email">Stuur een e-mail</span>
+            </a>
+            <a href="tel:+31684820708" class="btn btn-outline-white">
+                <i class="fas fa-phone"></i>
+                <span data-nl="Bel ons" data-en="Call Us" data-pap="Lama nos">Bel ons</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== Footer ==================== -->
+<footer>
+    <p data-nl="© 2024 Knowledge by Data. Alle rechten voorbehouden." data-en="© 2024 Knowledge by Data. All rights reserved." data-pap="© 2024 Knowledge by Data. Tur derechos reservado.">© 2024 Knowledge by Data. Alle rechten voorbehouden.</p>
+    <p>
+        <a href="mailto:info@knowledgebydata.nl">info@knowledgebydata.nl</a> |
+        <a href="tel:+31684820708">+31 6 84 82 07 08</a>
+    </p>
+</footer>
+
+<!-- ==================== Language Switcher JavaScript ==================== -->
+<script>
+    let currentLanguage = 'nl';
+
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+
+        // Update active button
+        document.getElementById('btnNL').classList.toggle('active', lang === 'nl');
+        document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+        document.getElementById('btnPAP').classList.toggle('active', lang === 'pap');
+
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
+
+        // Update all translatable elements
+        document.querySelectorAll('[data-nl]').forEach(element => {
+            const attr = 'data-' + lang;
+            if (element.hasAttribute(attr)) {
+                const content = element.getAttribute(attr);
+                if (element.children.length === 0) {
+                    element.textContent = content;
+                } else if (element.tagName === 'A' || element.tagName === 'BUTTON' || element.tagName === 'SPAN') {
+                    element.innerHTML = content;
+                }
+            }
+        });
+    }
+
+    // Initialize with stored language preference or default
+    const savedLanguage = localStorage.getItem('preferredLanguage') || 'nl';
+    if (savedLanguage !== 'nl') {
+        changeLanguage(savedLanguage);
+    }
+
+    // Save language preference
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            localStorage.setItem('preferredLanguage', currentLanguage);
+        });
+    });
+</script>
+
+</body>
+</html>
