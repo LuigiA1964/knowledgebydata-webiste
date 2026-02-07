@@ -56,6 +56,9 @@
             font-size: 14px;
             cursor: pointer;
             transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .language-bar a.active {
@@ -65,6 +68,14 @@
 
         .language-bar a:hover {
             color: var(--primary);
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,0.1);
+            vertical-align: middle;
         }
 
         /* Navigation */
@@ -739,9 +750,18 @@
 <body>
     <!-- Language Bar -->
     <div class="language-bar">
-        <a href="#" class="lang-btn active" data-lang="nl">NL</a>
-        <a href="#" class="lang-btn" data-lang="en">EN</a>
-        <a href="#" class="lang-btn" data-lang="pap">PAP</a>
+        <a href="#" class="lang-btn active" data-lang="nl">
+            <svg class="flag-icon" viewBox="0 0 24 16"><rect width="24" height="5.33" fill="#AE1C28"/><rect y="5.33" width="24" height="5.33" fill="#FFFFFF"/><rect y="10.66" width="24" height="5.34" fill="#21468B"/></svg>
+            NL
+        </a>
+        <a href="#" class="lang-btn" data-lang="en">
+            <svg class="flag-icon" viewBox="0 0 24 16"><rect width="24" height="16" fill="#012169"/><path d="M0,0 L24,16 M24,0 L0,16" stroke="#FFFFFF" stroke-width="2.5"/><path d="M0,0 L24,16 M24,0 L0,16" stroke="#C8102E" stroke-width="1.5"/><path d="M12,0 V16 M0,8 H24" stroke="#FFFFFF" stroke-width="4"/><path d="M12,0 V16 M0,8 H24" stroke="#C8102E" stroke-width="2.5"/></svg>
+            EN
+        </a>
+        <a href="#" class="lang-btn" data-lang="pap">
+            <svg class="flag-icon" viewBox="0 0 24 16"><rect width="24" height="16" fill="#003DA5"/><rect y="10" width="24" height="2" fill="#FFD100"/><polygon points="3.5,3 4.1,4.8 6,4.8 4.5,5.9 5,7.7 3.5,6.6 2,7.7 2.5,5.9 1,4.8 2.9,4.8" fill="#FFFFFF"/><polygon points="7,1.5 7.6,3.3 9.5,3.3 8,4.4 8.5,6.2 7,5.1 5.5,6.2 6,4.4 4.5,3.3 6.4,3.3" fill="#FFFFFF"/></svg>
+            PAP
+        </a>
     </div>
 
     <!-- Navigation -->
