@@ -95,35 +95,30 @@
             background: var(--bg-white);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
-            padding: 0 10px 0 0;
+            padding: 0 20px;
         }
         .nav-container {
-            max-width: 100%;
-            margin: 0;
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
-            gap: 10px;
+            height: 100px;
         }
-        .logo { height: 50px; margin-left: 15px; flex-shrink: 0; }
+        .logo { height: 80px; }
         .nav-links {
             display: flex;
-            gap: 6px;
+            gap: 40px;
             list-style: none;
-            align-items: center;
-            flex: 1;
-            justify-content: center;
         }
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            font-size: 0.82rem;
+            font-size: 0.95rem;
             transition: color 0.2s;
-            padding: 6px 5px;
+            padding: 8px 0;
             border-bottom: 2px solid transparent;
-            white-space: nowrap;
         }
         .nav-links a:hover, .nav-links a.active {
             color: var(--primary);
@@ -132,11 +127,10 @@
         .nav-links a.nav-suite {
             background: linear-gradient(135deg, var(--primary) 0%, #1e5a87 100%);
             color: white !important;
-            padding: 5px 12px;
+            padding: 8px 16px;
             border-radius: 20px;
             border-bottom: none !important;
             font-weight: 600;
-            font-size: 0.8rem;
             transition: all 0.3s;
         }
         .nav-links a.nav-suite:hover {
@@ -144,16 +138,13 @@
             box-shadow: 0 4px 12px rgba(19, 125, 190, 0.4);
         }
         .nav-contact {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            white-space: nowrap;
-            flex-shrink: 0;
-            margin-right: 10px;
         }
         .nav-contact a { color: var(--primary); text-decoration: none; }
 
         .hero {
-            padding: 160px 20px 80px;
+            padding: 210px 20px 80px;
             background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
         }
         .hero-container {
@@ -359,7 +350,7 @@
         }
         .products-grid-bottom {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 25px;
             margin: 25px auto 0;
         }
@@ -392,6 +383,7 @@
         .product-card.product-zorg { --product-color: #059669; }
         .product-card.product-datahandler { --product-color: #d97706; }
         .product-card.product-pwa { --product-color: #7c3aed; }
+        .product-card.product-vergunning { --product-color: #0891b2; }
         .product-icon {
             width: 50px; height: 50px;
             border-radius: 10px;
@@ -677,22 +669,14 @@
         .account-notice i { color: var(--warning); font-size: 1.1rem; margin-top: 2px; }
         .account-notice p { font-size: 0.9rem; color: var(--text-dark); margin: 0; }
 
-        @media (max-width: 1100px) {
-            .nav-links { gap: 4px; }
-            .nav-links a { font-size: 0.78rem; padding: 6px 3px; }
-            .nav-links a.nav-suite { padding: 4px 8px; font-size: 0.76rem; }
-            .nav-contact { font-size: 0.75rem; }
-            .logo { height: 40px; }
-        }
         @media (max-width: 992px) {
             .pillars { grid-template-columns: repeat(2, 1fr); }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
             .products-grid-bottom { grid-template-columns: repeat(2, 1fr); }
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
-            .nav-links, .nav-contact { display: none; }
-            .hero { padding: 150px 20px 60px; }
         }
         @media (max-width: 768px) {
+            .nav-links, .nav-contact { display: none; }
             .hero h1 { font-size: 2rem; }
             .pillars { grid-template-columns: 1fr; }
             .products-grid { grid-template-columns: 1fr; }
@@ -731,10 +715,10 @@
             <span class="lang-divider">|</span>
             <button class="lang-btn" id="btn-pap" onclick="switchLanguage('pap')">
                 <svg class="flag-icon" viewBox="0 0 24 16">
-                    <rect width="24" height="16" fill="#003DA5"/>
-                    <rect y="10" width="24" height="2" fill="#FFD100"/>
-                    <polygon points="3.5,3 4.1,4.8 6,4.8 4.5,5.9 5,7.7 3.5,6.6 2,7.7 2.5,5.9 1,4.8 2.9,4.8" fill="#FFFFFF"/>
-                    <polygon points="7,1.5 7.6,3.3 9.5,3.3 8,4.4 8.5,6.2 7,5.1 5.5,6.2 6,4.4 4.5,3.3 6.4,3.3" fill="#FFFFFF"/>
+                    <rect width="24" height="8" fill="#002B7F"/>
+                    <rect y="8" width="24" height="8" fill="#FCD116"/>
+                    <polygon points="0,0 10,8 0,16" fill="#CE1126"/>
+                    <circle cx="16" cy="8" r="2.5" fill="#FFFFFF"/>
                 </svg>
                 PAP
             </button>
@@ -750,8 +734,6 @@
                 <li><a href="#producten" data-nl="Producten" data-en="Products" data-pap="Produktonan">Producten</a></li>
                 <li><a href="suite.html" class="nav-suite" data-nl="Analysis Suite" data-en="Analysis Suite" data-pap="Analysis Suite">Analysis Suite</a></li>
                 <li><a href="#demo" data-nl="Demo" data-en="Demo" data-pap="Demo">Demo</a></li>
-                <li><a href="videodemo.html" data-nl="Video Demo" data-en="Video Demo" data-pap="Video Demo">Video Demo</a></li>
-                <li><a href="roi.html" data-nl="ROI" data-en="ROI" data-pap="ROI">ROI</a></li>
                 <li><a href="#faq" data-nl="FAQ" data-en="FAQ" data-pap="FAQ">FAQ</a></li>
                 <li><a href="team.html" data-nl="Team" data-en="Team" data-pap="Ekipo">Team</a></li>
                 <li><a href="#contact" data-nl="Contact" data-en="Contact" data-pap="Kontakto">Contact</a></li>
@@ -767,8 +749,7 @@
             <h1 data-nl="Versterk uw <span>informatiepositie</span>" data-en="Strengthen your <span>information position</span>" data-pap="Fortalesé bo <span>posishon di informashon</span>">Versterk uw <span>informatiepositie</span></h1>
             <p class="hero-subtitle" data-nl="Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk." data-en="Affordable analysis software that does what it needs to do. Developed by practitioners, for practitioners." data-pap="Software di análisis ku ta hasi loke e mester hasi. Desaroyá pa profeshonalnan for di práktika, pa profeshonalnan for di práktika.">Betaalbare analyse software die doet wat het moet doen. Ontwikkeld door professionals uit de praktijk, voor professionals uit de praktijk.</p>
             <div class="hero-cta">
-                <a href="#demo" class="btn btn-primary"><i class="fas fa-play-circle"></i> <span data-nl="Bekijk mini demo's" data-en="View mini demos" data-pap="Mira mini demo'nan">Bekijk mini demo's</span></a>
-                <a href="videodemo.html" class="btn btn-primary"><i class="fas fa-video"></i> <span data-nl="Video demo" data-en="Video Demo" data-pap="Video Demo">Video demo</span></a>
+                <a href="#demo" class="btn btn-primary"><i class="fas fa-play-circle"></i> <span data-nl="Bekijk demo" data-en="View demo" data-pap="Mira demo">Bekijk demo</span></a>
                 <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> <span data-nl="Neem contact op" data-en="Get in touch" data-pap="Tuma kontakto">Neem contact op</span></a>
             </div>
             <div class="pillars">
@@ -818,24 +799,16 @@
                         <img src="founder.jpg" alt="Loek Antenbrink" class="founder-avatar">
                         <div class="founder-info">
                             <h4>Loek Antenbrink <a href="https://www.linkedin.com/in/loek-antenbrink-3a286515b" target="_blank" rel="noopener noreferrer" class="linkedin-link" title="LinkedIn profiel"><i class="fab fa-linkedin"></i></a></h4>
-                            <span data-nl="CEO & Founder" data-en="CEO & Founder" data-pap="CEO & Fundadó">CEO & Founder</span>
+                            <span data-nl="Founder" data-en="Founder" data-pap="Fundadó">Founder</span>
                         </div>
                     </div>
-                    <p data-nl="Met 39 jaar ervaring in opsporing en veiligheid heb ik Knowledge by Data opgericht vanuit één overtuiging: de publieke sector verdient betere analysetools. Mijn achtergrond omvat 33 jaar in recherche en opsporing bij de Nationale Politie, gevolgd door jarenlange ervaring in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk." data-en="With 39 years of experience in law enforcement and security, I founded Knowledge by Data from one conviction: the public sector deserves better analysis tools. My background includes 33 years in criminal investigation at the Dutch National Police, followed by years of experience in combating organized crime. Specialized in complex financial-economic crime: money laundering, fraud, human trafficking and fraudulent bankruptcy." data-pap="Ku 39 aña di eksperensia den enkargo di lei i seguridat, mi a fundá Knowledge by Data for di un konvikshon: e sektor públiko meresé instrumentonan di análisis mihó. Mi trasfondo ta inklui 33 aña den investigashon kriminal serka Polis Nashonal Hulandes, siguí pa añanan di eksperensia den kombate di kriminalidat organisá.">Met 39 jaar ervaring in opsporing en veiligheid heb ik Knowledge by Data opgericht vanuit één overtuiging: de publieke sector verdient betere analysetools. Mijn achtergrond omvat 33 jaar in recherche en opsporing bij de Nationale Politie, gevolgd door jarenlange ervaring in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk.</p>
-                    <p data-nl="Die operationele ervaring is de basis van alles wat wij bouwen. Onze software is veilig omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel omdat de maker weet wat onderzoekers in de praktijk nodig hebben. Knowledge by Data opereert volledig onafhankelijk — wij zijn geen overheidsinstantie, maar een zelfstandig softwarebedrijf dat zich richt op het versterken van de informatiepositie van de publieke sector." data-en="That operational experience is the foundation of everything we build. Our software is secure because the creator understands what data security truly means, and functional because the creator knows what investigators need in practice. Knowledge by Data operates fully independently — we are not a government agency, but an independent software company focused on strengthening the information position of the public sector." data-pap="E eksperensia operashonal ei ta e base di tur loke nos ta konstruí. Nos software ta sigur pasobra e kreador ta komprondé kiko seguridat di data ta nifiká realmente, i ta funshonal pasobra e kreador sa kiko investigadónan mester den práktika. Knowledge by Data ta operá kompletamente independiente — nos no ta un instansia di gobièrnu, sino un kompania di software independiente enfokà riba fortalesé e posishon di informashon di e sektor públiko.">Die operationele ervaring is de basis van alles wat wij bouwen. Onze software is veilig omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel omdat de maker weet wat onderzoekers in de praktijk nodig hebben. Knowledge by Data opereert volledig onafhankelijk — wij zijn geen overheidsinstantie, maar een zelfstandig softwarebedrijf dat zich richt op het versterken van de informatiepositie van de publieke sector.</p>
+                    <p data-nl="39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen." data-en="39 years of experience in investigation and administrative enforcement: 33 years in criminal investigation, followed by 6 years in combating organized crime. Specialized in complex financial-economic crime: money laundering, fraud, human trafficking and fraudulent bankruptcy. Worked in various positions where data analysis was central — from the first criminal investigation information systems to advanced big data environments." data-pap="39 aña di eksperensia den investigashon i enkargo administrativo: 33 aña den rechèrs i investigashon, siguí pa 6 aña den kombate di kriminalidad organisá. Spesialisá den kriminalidad finansiero-ekonómiko kompleks: laba plaka, frode, tráfiko di hende i bankarota fraudulento. A traha den diferente funshon kaminda análisis di data tabata sentral — for di e promé sistemanan di informashon di rechèrs te na ambientenan avansá di big data.">39 jaar ervaring in opsporing en bestuurlijke handhaving: 33 jaar in recherche en opsporing, gevolgd door 6 jaar in de aanpak van ondermijnende criminaliteit. Gespecialiseerd in complexe financieel-economische criminaliteit: witwassen, fraude, mensenhandel en bedrieglijke bankbreuk. Werkzaam geweest in diverse functies waarbij data-analyse centraal stond — van de eerste recherche-informatiesystemen tot geavanceerde big data-omgevingen.</p>
+                    <p data-nl="Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben." data-en="This combination of operational experience and formal qualifications forms the foundation of Knowledge by Data: software that is secure because the creator understands what data security really means, and functional because the creator knows what investigators need in practice." data-pap="E kombinashon aki di eksperensia operashonal i kualifikashonnan formal ta forma e base di Knowledge by Data: software ku ta sigur pasobra e kreador ta komprondé kiko seguridat di data ta nifiká realmente, i ta funshonal pasobra e kreador sa kiko investigadónan mester den práktika.">Deze combinatie van operationele ervaring en formele kwalificaties vormt de basis van Knowledge by Data: software die veilig is omdat de maker begrijpt wat databeveiliging werkelijk inhoudt, en functioneel is omdat de maker weet wat onderzoekers in de praktijk nodig hebben.</p>
                     <div class="credentials">
-                        <span class="credential"><i class="fas fa-briefcase"></i> CEO & Founder</span>
                         <span class="credential"><i class="fas fa-certificate"></i> <span data-nl="Functionaris Gegevensbescherming" data-en="Data Protection Officer" data-pap="Ofisial di Protekshon di Data">Functionaris Gegevensbescherming</span></span>
                         <span class="credential"><i class="fas fa-chart-bar"></i> Data Professional</span>
                         <span class="credential"><i class="fas fa-search"></i> Data Analyst</span>
                         <span class="credential"><i class="fas fa-graduation-cap"></i> Chief Data Officer</span>
-                    </div>
-                    <div class="protected-notice" style="margin-top: 20px;">
-                        <i class="fas fa-handshake"></i>
-                        <div>
-                            <strong data-nl="Onafhankelijk & transparant" data-en="Independent & transparent" data-pap="Independiente & transparente">Onafhankelijk & transparant</strong>
-                            <span data-nl="Knowledge by Data B.V. is een onafhankelijk softwarebedrijf. Onze producten zijn ontwikkeld op basis van publiek beschikbare bronnen, wetgeving en vakstandaarden. Wij maken geen gebruik van vertrouwelijke overheidsinformatie." data-en="Knowledge by Data B.V. is an independent software company. Our products are developed based on publicly available sources, legislation and professional standards. We do not use confidential government information." data-pap="Knowledge by Data B.V. ta un kompania di software independiente. Nos produktonan ta desaroyá basá riba fuentenan públikamente disponibel, legislashon i estandarnan profesional. Nos no ta usa informashon konfidensial di gobièrnu.">Knowledge by Data B.V. is een onafhankelijk softwarebedrijf. Onze producten zijn ontwikkeld op basis van publiek beschikbare bronnen, wetgeving en vakstandaarden. Wij maken geen gebruik van vertrouwelijke overheidsinformatie.</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -890,11 +863,6 @@
                     <div><i class="fas fa-check check"></i> <span data-nl="Nee" data-en="No" data-pap="Nò">Nee</span></div>
                 </div>
                 <div class="comparison-row">
-                    <div data-nl="Rapportage-transparantie" data-en="Report transparency" data-pap="Transparensia di rapòrt">Rapportage-transparantie</div>
-                    <div><i class="fas fa-times cross"></i> <span data-nl="Black box (API/JSON)" data-en="Black box (API/JSON)" data-pap="Kaha pretu (API/JSON)">Black box (API/JSON)</span></div>
-                    <div><i class="fas fa-check check"></i> <span data-nl="PDF: controleerbaar en archiveerbaar" data-en="PDF: verifiable and archivable" data-pap="PDF: verifikabel i arkhivabel">PDF: controleerbaar en archiveerbaar</span></div>
-                </div>
-                <div class="comparison-row">
                     <div data-nl="Doorlopende kosten" data-en="Ongoing costs" data-pap="Gastunan kontinuo">Doorlopende kosten</div>
                     <div><i class="fas fa-times cross"></i> <span data-nl="Abonnement" data-en="Subscription" data-pap="Abonamentu">Abonnement</span></div>
                     <div><i class="fas fa-check check"></i> <span data-nl="Lage jaarlijkse licentie" data-en="Low annual license" data-pap="Lisensia anual abou">Lage jaarlijkse licentie</span></div>
@@ -921,11 +889,11 @@
                     <h3>BIBOB Analyst Pro</h3>
                     <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="99+ indicatoren (RIEC-LIEC, FATF, FIU, AMLC, DNB)" data-en="99+ indicators (RIEC-LIEC, FATF, FIU, AMLC, DNB)" data-pap="99+ indikadó (RIEC-LIEC, FATF, FIU, AMLC, DNB)">99+ indicatoren (RIEC-LIEC, FATF, FIU, AMLC, DNB)</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Interview-opname met automatische analyse" data-en="Interview recording with automatic analysis" data-pap="Grabashon di entrevista ku análisis outomátiko">Interview-opname met automatische analyse</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="PDF-rapportages: volledige transparantie, geen black box" data-en="PDF reports: full transparency, no black box" data-pap="Rapòrt PDF: transparensia kompleto, sin kaha pretu">PDF-rapportages: volledige transparantie, geen black box</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Netwerkvisualisatie en cross-referentie analyse" data-en="Network visualization and cross-reference analysis" data-pap="Visualisashon di ret i análisis di referensia krusá">Netwerkvisualisatie en cross-referentie analyse</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="7 sectormodules en OM Tipformulier generatie" data-en="7 sector modules and OM Tip form generation" data-pap="7 módulo di sektòr i generashon di formulario OM Tip">7 sectormodules en OM Tipformulier generatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="79 indicatoren uit erkende bronnen" data-en="79 indicators from recognized sources" data-pap="79 indikadó for di fuentenan rekonosí">79 indicatoren uit erkende bronnen</span></li>
+                        <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Interview generator en rapportage" data-en="Interview generator and reporting" data-pap="Generadó di entrevista i rapòrt">Interview generator en rapportage</span></li>
                     </ul>
                 </div>
                 <div class="product-card product-vat">
@@ -954,6 +922,18 @@
                 </div>
             </div>
             <div class="products-grid-bottom">
+                <div class="product-card product-vergunning">
+                    <div class="product-icon"><i class="fas fa-file-circle-check"></i></div>
+                    <h3>Vergunning Intake Pro</h3>
+                    <p data-nl="Digitale intake-assistent voor gemeentelijke vergunningaanvragen. Controleert documentvolledigheid, scant BIBOB-indicatoren en genereert juridisch onderbouwde adviezen." data-en="Digital intake assistant for municipal permit applications. Checks document completeness, scans BIBOB indicators and generates legally substantiated advice." data-pap="Asistente digital di intake pa petishonnan di pèrmit munisipal. Kontrolá kompleteso di dokumento, sken indikadónan BIBOB i generá konsehonan legalmente fundamentá.">Digitale intake-assistent voor gemeentelijke vergunningaanvragen. Controleert documentvolledigheid, scant BIBOB-indicatoren en genereert juridisch onderbouwde adviezen.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="30 vergunningtypen met documentchecklists" data-en="30 permit types with document checklists" data-pap="30 tipo di pèrmit ku checklists di dokumento">30 vergunningtypen met documentchecklists</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Automatische volledigheidscontrole" data-en="Automatic completeness check" data-pap="Kontrol outomátiko di kompleteso">Automatische volledigheidscontrole</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="BIBOB-indicatorenscan op PDF-documenten" data-en="BIBOB indicator scan on PDF documents" data-pap="Sken di indikadó BIBOB riba dokumentonan PDF">BIBOB-indicatorenscan op PDF-documenten</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Drieledig advies: groen, oranje, rood" data-en="Three-tier advice: green, orange, red" data-pap="Konseho di tres nivel: bèrdè, oranjo, kòrá">Drieledig advies: groen, oranje, rood</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Briefgeneratie op basis van art. 4:5 Awb" data-en="Letter generation based on art. 4:5 Awb" data-pap="Generashon di karta basá riba art. 4:5 Awb">Briefgeneratie op basis van art. 4:5 Awb</span></li>
+                    </ul>
+                </div>
                 <div class="product-card product-zorg">
                     <div class="product-icon"><i class="fas fa-heart-pulse"></i></div>
                     <h3>Zorganalyst Pro</h3>
@@ -1019,6 +999,7 @@
                     <button class="demo-tab active" data-demo="security"><i class="fas fa-shield-alt"></i> <span data-nl="Beveiliging" data-en="Security" data-pap="Seguridat">Beveiliging</span></button>
                     <button class="demo-tab" data-demo="bibob"><i class="fas fa-balance-scale"></i> <span data-nl="BIBOB Analyse" data-en="BIBOB Analysis" data-pap="Análisis BIBOB">BIBOB Analyse</span></button>
                     <button class="demo-tab" data-demo="analyst"><i class="fas fa-project-diagram"></i> Analyst Pro</button>
+                    <button class="demo-tab" data-demo="vergunning"><i class="fas fa-file-circle-check"></i> <span data-nl="Vergunning Intake" data-en="Permit Intake" data-pap="Intake di Pèrmit">Vergunning Intake</span></button>
                 </div>
                 <div class="demo-content">
                     <div class="demo-panel active" id="demo-security">
@@ -1034,6 +1015,11 @@
                     <div class="demo-panel" id="demo-analyst">
                         <div class="demo-iframe-container">
                             <iframe src="demo-analyst.html" class="demo-iframe"></iframe>
+                        </div>
+                    </div>
+                    <div class="demo-panel" id="demo-vergunning">
+                        <div class="demo-iframe-container">
+                            <iframe src="demo-vergunning.html" class="demo-iframe"></iframe>
                         </div>
                     </div>
                 </div>
@@ -1103,28 +1089,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-nl="Hoe werkt de interview-opname in BIBOB Analyst Pro?" data-en="How does interview recording work in BIBOB Analyst Pro?" data-pap="Kon ta e grabashon di entrevista den BIBOB Analyst Pro?">Hoe werkt de interview-opname in BIBOB Analyst Pro?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content" data-nl="BIBOB Analyst Pro bevat een ingebouwde interview-opnamefunctie waarmee BIBOB-gesprekken met aanvragers direct vanuit de applicatie worden opgenomen. De opname kan na afloop worden gedownload en wordt automatisch geanalyseerd op tegenstrijdigheden en risico-indicatoren. Dit bespaart analisten enorm veel tijd: het handmatig uitluisteren en samenvatten van interviews vervalt volledig. De automatische analyse vergelijkt verklaringen direct met eerder aangeleverde documenten en signaleert afwijkingen." data-en="BIBOB Analyst Pro includes a built-in interview recording function that records BIBOB conversations with applicants directly from the application. The recording can be downloaded afterwards and is automatically analyzed for contradictions and risk indicators. This saves analysts enormous time: manually listening to and summarizing interviews is completely eliminated. The automatic analysis compares statements directly with previously submitted documents and flags discrepancies." data-pap="BIBOB Analyst Pro tin un funshon di grabashon di entrevista integrá ku ta graba konversashonnan BIBOB ku aplikantenan direktamente for di e aplikashon. E grabashon por wordu download despues i ta wordu analisá outomátikamente pa kontradikshonnan i indikadónan di riesgo. Esaki ta spaar analistanan hopi tempu: skucha i resumi entrevistanan manuálmente ta eliminá kompletamente. E análisis outomátiko ta kompará deklarashonnan direktamente ku dokumentonan entregá anteriormente i ta señalá diskrepansianan.">
-                            BIBOB Analyst Pro bevat een ingebouwde interview-opnamefunctie waarmee BIBOB-gesprekken met aanvragers direct vanuit de applicatie worden opgenomen. De opname kan na afloop worden gedownload en wordt automatisch geanalyseerd op tegenstrijdigheden en risico-indicatoren. Dit bespaart analisten enorm veel tijd: het handmatig uitluisteren en samenvatten van interviews vervalt volledig. De automatische analyse vergelijkt verklaringen direct met eerder aangeleverde documenten en signaleert afwijkingen.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-nl="Waarom PDF-rapportages en geen API's of JSON?" data-en="Why PDF reports instead of APIs or JSON?" data-pap="Pakiko rapòrt PDF i no API'nan of JSON?">Waarom PDF-rapportages en geen API's of JSON?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content" data-nl="Wij hebben bewust gekozen voor PDF-documenten als rapportageformaat. Bij het gebruik van API's of JSON-bestanden ontstaat een black box: u kunt niet goed controleren wat de applicatie daadwerkelijk heeft gedaan met de data. PDF-rapportages bieden volledige transparantie — elke stap in de analyse is zichtbaar, controleerbaar en archiveerbaar. Dit is essentieel voor BIBOB-onderzoeken waar de onderbouwing van besluiten juridisch houdbaar moet zijn. Een PDF-rapport fungeert als naslag: het bewijs dat de analyse correct en volledig is uitgevoerd." data-en="We deliberately chose PDF documents as the reporting format. When using APIs or JSON files, a black box is created: you cannot properly verify what the application actually did with the data. PDF reports provide full transparency — every step of the analysis is visible, verifiable and archivable. This is essential for BIBOB investigations where the substantiation of decisions must be legally sound. A PDF report serves as reference: proof that the analysis was correctly and completely executed." data-pap="Nos a skohe konsientemente pa dokumentonan PDF komo formato di rapòrt. Ora bo ta usa API'nan of archivonan JSON, ta krea un kaha pretu: bo no por kontrolá bon kiko e aplikashon a hasi realmente ku e data. Rapòrtnan PDF ta ofresé transparensia kompleto — kada paso den e análisis ta visibel, verifikabel i arkhivabel. Esaki ta esensial pa investigashonnan BIBOB kaminda e fundamentashon di desishonnan mester ta hurídikamente válido. Un rapòrt PDF ta sirbi komo referensia: prueba ku e análisis a wordu ehekutá korekto i kompletamente.">
-                            Wij hebben bewust gekozen voor PDF-documenten als rapportageformaat. Bij het gebruik van API's of JSON-bestanden ontstaat een black box: u kunt niet goed controleren wat de applicatie daadwerkelijk heeft gedaan met de data. PDF-rapportages bieden volledige transparantie — elke stap in de analyse is zichtbaar, controleerbaar en archiveerbaar. Dit is essentieel voor BIBOB-onderzoeken waar de onderbouwing van besluiten juridisch houdbaar moet zijn. Een PDF-rapport fungeert als naslag: het bewijs dat de analyse correct en volledig is uitgevoerd.
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -1181,6 +1145,7 @@
                                 <option value="Analyst Pro">Analyst Pro</option>
                                 <option value="Zorganalyst Pro">Zorganalyst Pro</option>
                                 <option value="Data Handler Pro">Data Handler Pro</option>
+                                <option value="Vergunning Intake Pro">Vergunning Intake Pro</option>
                                 <option value="Meerdere producten" data-nl="Meerdere producten" data-en="Multiple products" data-pap="Varios produkto">Meerdere producten</option>
                             </select>
                         </div>
@@ -1661,8 +1626,8 @@
         var knowledgeBase = {
             nl: {
                 'wat doet knowledge by data|wie zijn jullie|over het bedrijf|wat is knowledge by data': 'Knowledge by Data B.V. is een Nederlands softwarebedrijf gespecialiseerd in analyse-applicaties voor overheidsorganisaties. Wij ontwikkelen tools voor BIBOB-onderzoeken, zorgfraude-detectie, ondermijningsaanpak en data-analyse. Onze software wordt gebruikt door gemeenten, RIECs, politie en andere opsporingsinstanties.',
-                'welke applicaties|welke apps|welke software|wat bieden jullie aan|producten|overzicht': 'Wij bieden zes professionele applicaties:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integriteitsonderzoeken met 99+ risico-indicatoren<br>• <strong>ZorgAnalyst Pro</strong> - Detectie van zorgfraude (43 indicatoren)<br>• <strong>VAT Analyst Pro</strong> - Analyse seksbranche/uitbuiting<br>• <strong>Analyst Pro</strong> - GRAV-database voor ondermijning<br>• <strong>Data Handler Pro</strong> - Data-import uit 15+ overheidsbronnen<br>• <strong>Document Parser</strong> - Zelf documenten trainen',
-                'bibob|integriteitsonderzoek|wet bibob': 'BIBOB Analyst Pro is onze complete oplossing voor integriteitsonderzoeken conform de Wet BIBOB. De applicatie bevat <strong>99+ actuele risico-indicatoren</strong> van bronnen als NLA, LBB en Politie. Unieke functies: <strong>interview-opname met automatische analyse</strong> (bespaart uren per onderzoek), <strong>PDF-rapportages voor volledige transparantie</strong> (geen black box), OM Tipformulier generatie, cross-referentie analyse en netwerkvisualisatie.',
+                'welke applicaties|welke apps|welke software|wat bieden jullie aan|producten|overzicht': 'Wij bieden zes professionele applicaties:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integriteitsonderzoeken met 79 risico-indicatoren<br>• <strong>ZorgAnalyst Pro</strong> - Detectie van zorgfraude (43 indicatoren)<br>• <strong>VAT Analyst Pro</strong> - Analyse seksbranche/uitbuiting<br>• <strong>Analyst Pro</strong> - GRAV-database voor ondermijning<br>• <strong>Data Handler Pro</strong> - Data-import uit 15+ overheidsbronnen<br>• <strong>Document Parser</strong> - Zelf documenten trainen',
+                'bibob|integriteitsonderzoek|wet bibob': 'BIBOB Analyst Pro is onze complete oplossing voor integriteitsonderzoeken conform de Wet BIBOB. De applicatie bevat <strong>79 actuele risico-indicatoren</strong> van bronnen als NLA, LBB en Politie. Functies zijn onder meer: OM Tipformulier generatie, cross-referentie analyse, en professionele PDF-rapportages.',
                 'zorgfraude|zorganalyst|wmo fraude|pgb fraude|jeugdzorg': 'ZorgAnalyst Pro detecteert fraude in Wmo, Jeugdzorg, PGB en Wlz. De applicatie bevat <strong>43 zorg-specifieke indicatoren</strong> van IKZ, IGJ, NZa en VNG. U kunt diplomas verifieren, signaalrapportages genereren en verdachte patronen identificeren.',
                 'vat analyst|seksbranche|uitbuiting|mensenhandel': 'VAT Analyst Pro is een gespecialiseerde analysetool voor detectie van uitbuiting in de seksbranche. De applicatie biedt risicoprofielen, netwerkanalyse en kaartweergave. Extra beveiligd met 2FA.',
                 'analyst pro|grav|ondermijning|ondermijningsaanpak': 'Analyst Pro is onze GRAV-database voor de aanpak van ondermijning. Personen, voertuigen, objecten en netwerken worden geintegreerd bijgehouden. Inclusief relatieanalyse en netwerkvisualisatie.',
@@ -1678,8 +1643,8 @@
             },
             en: {
                 'what does knowledge by data do|who are you|about the company|what is knowledge by data': 'Knowledge by Data B.V. is a Dutch software company specialized in analysis applications for government organizations. We develop tools for BIBOB investigations, healthcare fraud detection, tackling organized crime and data analysis. Our software is used by municipalities, RIECs, police and other investigative agencies.',
-                'which applications|which apps|what software|what do you offer|products|overview': 'We offer six professional applications:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integrity investigations with 99+ risk indicators<br>• <strong>ZorgAnalyst Pro</strong> - Healthcare fraud detection (43 indicators)<br>• <strong>VAT Analyst Pro</strong> - Sex industry/exploitation analysis<br>• <strong>Analyst Pro</strong> - GRAV database for organized crime<br>• <strong>Data Handler Pro</strong> - Data import from 15+ government sources<br>• <strong>Document Parser</strong> - Train your own documents',
-                'bibob|integrity investigation|bibob act': 'BIBOB Analyst Pro is our complete solution for integrity investigations in accordance with the BIBOB Act. The application contains <strong>99+ current risk indicators</strong> from sources such as NLA, LBB and Police. Unique features: <strong>interview recording with automatic analysis</strong> (saves hours per investigation), <strong>PDF reports for full transparency</strong> (no black box), OM Tip form generation, cross-reference analysis and network visualization.',
+                'which applications|which apps|what software|what do you offer|products|overview': 'We offer six professional applications:<br><br>• <strong>BIBOB Analyst Pro</strong> - Integrity investigations with 79 risk indicators<br>• <strong>ZorgAnalyst Pro</strong> - Healthcare fraud detection (43 indicators)<br>• <strong>VAT Analyst Pro</strong> - Sex industry/exploitation analysis<br>• <strong>Analyst Pro</strong> - GRAV database for organized crime<br>• <strong>Data Handler Pro</strong> - Data import from 15+ government sources<br>• <strong>Document Parser</strong> - Train your own documents',
+                'bibob|integrity investigation|bibob act': 'BIBOB Analyst Pro is our complete solution for integrity investigations in accordance with the BIBOB Act. The application contains <strong>79 current risk indicators</strong> from sources such as NLA, LBB and Police. Features include: OM Tip form generation, cross-reference analysis, and professional PDF reports.',
                 'healthcare fraud|zorganalyst|wmo fraud|pgb fraud|youth care': 'ZorgAnalyst Pro detects fraud in Wmo, Youth Care, PGB and Wlz. The application contains <strong>43 healthcare-specific indicators</strong> from IKZ, IGJ, NZa and VNG. You can verify diplomas, generate signal reports and identify suspicious patterns.',
                 'vat analyst|sex industry|exploitation|human trafficking': 'VAT Analyst Pro is a specialized analysis tool for detecting exploitation in the sex industry. The application offers risk profiles, network analysis and map view. Extra secured with 2FA.',
                 'analyst pro|grav|organized crime|undermining': 'Analyst Pro is our GRAV database for tackling organized crime. People, vehicles, objects and networks are tracked in an integrated manner. Including relationship analysis and network visualization.',
@@ -1695,8 +1660,8 @@
             },
             pap: {
                 'kiko knowledge by data ta hasi|ken ta boso|tokante e kompania|kiko ta knowledge by data': 'Knowledge by Data B.V. ta un kompania di software Hulandes spesialisa den aplikashonnan di analisis pa organisashonnan di gobiernu. Nos ta desaroya herramientanan pa investigashon BIBOB, detekshon di frode di kuido, kombati kriminalidat organisa i analisis di data.',
-                'kua aplikashonnan|kua appnan|kua software|kiko boso ta ofrese|produktonan': 'Nos ta ofrese seis aplikashon profesional:<br><br>• <strong>BIBOB Analyst Pro</strong> - Investigashon di integridat ku 99+ indikado di riesgo<br>• <strong>ZorgAnalyst Pro</strong> - Detekshon di frode di kuido (43 indikado)<br>• <strong>VAT Analyst Pro</strong> - Analisis di industria di sekso/esplotashon<br>• <strong>Analyst Pro</strong> - Base di dato GRAV pa kriminalidat organisa<br>• <strong>Data Handler Pro</strong> - Importa data di 15+ fuente di gobiernu<br>• <strong>Document Parser</strong> - Trein bo mes dokumentonan',
-                'bibob|investigashon di integridat': 'BIBOB Analyst Pro ta nos solushon kompleto pa investigashon di integridat konforme ku Lei BIBOB. E aplikashon tin <strong>99+ indikado di riesgo aktual</strong> di fuentenan manera NLA, LBB i Polis. Funshonnan úniko: <strong>grabashon di entrevista ku análisis outomátiko</strong> (ta spaar oranan pa investigashon), <strong>rapòrtnan PDF pa transparensia kompleto</strong> (sin kaha pretu), generashon di formulario OM Tip, análisis di referensia krusá i visualisashon di ret.',
+                'kua aplikashonnan|kua appnan|kua software|kiko boso ta ofrese|produktonan': 'Nos ta ofrese seis aplikashon profesional:<br><br>• <strong>BIBOB Analyst Pro</strong> - Investigashon di integridat ku 79 indikado di riesgo<br>• <strong>ZorgAnalyst Pro</strong> - Detekshon di frode di kuido (43 indikado)<br>• <strong>VAT Analyst Pro</strong> - Analisis di industria di sekso/esplotashon<br>• <strong>Analyst Pro</strong> - Base di dato GRAV pa kriminalidat organisa<br>• <strong>Data Handler Pro</strong> - Importa data di 15+ fuente di gobiernu<br>• <strong>Document Parser</strong> - Trein bo mes dokumentonan',
+                'bibob|investigashon di integridat': 'BIBOB Analyst Pro ta nos solushon kompleto pa investigashon di integridat konforme ku Lei BIBOB. E aplikashon tin <strong>79 indikado di riesgo aktual</strong> di fuentenan manera NLA, LBB i Polis.',
                 'analysis suite|suite|paki kompleto': 'E <strong>Analysis Suite</strong> ta kontene tur seis aplikashon den un paki ku kantidat di usuario sin limite i un lisensia. Benefisio ekstra: Document Parser (eksklisivo), interkambio di data integra entre appnan, i soporte telefoniko.',
                 'pa ken|grupo meta|ken ta usa esaki|klientenan': 'Nos software ta desaroya pa profesionalnan den sektor publiko:<br><br>• <strong>Munisipionan</strong> - 342 na Hulanda<br>• <strong>RIEC-nan</strong> - 10 region<br>• <strong>Polis</strong> - Polis Nashonal<br>• <strong>Ministerio Publiko</strong><br>• <strong>Inspekshon di Trabou (NLA)</strong>',
                 'benefisio|ventaha|pakiko|kiko ta hasi boso diferente': 'Benefisionan importante di nos software:<br><br>• <strong>Zero-Cloud</strong> - Bo data ta keda kompletamente bou di bo mes kontrol<br>• <strong>Konforme ku AVG</strong> - Sin mester akuerdo di prosesado<br>• <strong>Cross-platform</strong> - Ta traha riba Windows, Mac, Linux, Chromebook<br>• <strong>Sin karga di IT</strong> - Kla pa usa mesora<br>• <strong>39 ana di eksperensia</strong> - Eksperensia di investigashon konstrui aden',
