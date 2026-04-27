@@ -345,7 +345,7 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 25px;
         }
         .products-grid-bottom {
@@ -384,6 +384,7 @@
         .product-card.product-datahandler { --product-color: #d97706; }
         .product-card.product-pwa { --product-color: #7c3aed; }
         .product-card.product-vergunning { --product-color: #0891b2; }
+        .product-card.product-zorgscan { --product-color: #16a085; }
         .product-icon {
             width: 50px; height: 50px;
             border-radius: 10px;
@@ -883,45 +884,8 @@
                 <h2 data-nl="Onze producten" data-en="Our products" data-pap="Nos produktonan">Onze producten</h2>
                 <p data-nl="Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk." data-en="Professional analysis tools for government agencies, developed from practical experience." data-pap="Instrumentonan di análisis profesional pa instansianan gubernamental, desaroyá for di práktika.">Professionele analysetools voor overheidsinstanties, ontwikkeld vanuit de praktijk.</p>
             </div>
+            <!-- Bovenste rij: Vergunningen Intake Pro -> ZorgScan Pro -> Zorganalyst Pro -> BIBOB Analyst Pro -->
             <div class="products-grid">
-                <div class="product-card product-bibob">
-                    <div class="product-icon"><i class="fas fa-balance-scale"></i></div>
-                    <h3>BIBOB Analyst Pro</h3>
-                    <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
-                    <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="79 indicatoren uit erkende bronnen" data-en="79 indicators from recognized sources" data-pap="79 indikadó for di fuentenan rekonosí">79 indicatoren uit erkende bronnen</span></li>
-                        <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
-                        <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Interview generator en rapportage" data-en="Interview generator and reporting" data-pap="Generadó di entrevista i rapòrt">Interview generator en rapportage</span></li>
-                    </ul>
-                </div>
-                <div class="product-card product-vat">
-                    <div class="product-icon"><i class="fas fa-user-shield"></i></div>
-                    <h3>VAT Analyst Pro</h3>
-                    <p data-nl="Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant)." data-en="Analysis tool for supervisors detecting exploitation in the sex industry. Pure analysis, no data storage (GDPR-compliant)." data-pap="Instrumento di análisis pa supervisónan pa detektá eksplotashon den industria di sekso. Solamente análisis, sin almasenahementu di data (konforme ku AVG).">Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
-                    <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="Signaalherkenning" data-en="Signal recognition" data-pap="Rekonosementu di señal">Signaalherkenning</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Risico-indicatoren" data-en="Risk indicators" data-pap="Indikadónan di riesgo">Risico-indicatoren</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Ondersteuning bij toezicht" data-en="Supervision support" data-pap="Sosten pa supervishon">Ondersteuning bij toezicht</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Geen dataopslag (AVG)" data-en="No data storage (GDPR)" data-pap="Sin almasenahementu di data (AVG)">Geen dataopslag (AVG)</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Direct inzetbaar" data-en="Ready to use" data-pap="Pronto pa usa">Direct inzetbaar</span></li>
-                    </ul>
-                </div>
-                <div class="product-card product-analyst">
-                    <div class="product-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
-                    <h3>Analyst Pro</h3>
-                    <p data-nl="Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten." data-en="All-in-one solution for combating organized crime. For larger and smaller municipalities." data-pap="Solushon tur-den-un pa kombate di kriminalidad organisá. Pa munisipalitanan grandi i chikitu.">Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten.</p>
-                    <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="Cross-reference analyse" data-en="Cross-reference analysis" data-pap="Análisis di referensia krusá">Cross-reference analyse</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Graph visualisatie" data-en="Graph visualization" data-pap="Visualisashon di gráfiko">Graph visualisatie</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Analist & medewerker module" data-en="Analyst & staff module" data-pap="Módulo di analist i kolaboradó">Analist & medewerker module</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Export naar Analyst Notebook" data-en="Export to Analyst Notebook" data-pap="Eksportá pa Analyst Notebook">Export naar Analyst Notebook</span></li>
-                        <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="products-grid-bottom">
                 <div class="product-card product-vergunning">
                     <div class="product-icon"><i class="fas fa-file-circle-check"></i></div>
                     <h3>Vergunning Intake Pro</h3>
@@ -934,6 +898,18 @@
                         <li><i class="fas fa-check"></i> <span data-nl="Briefgeneratie op basis van art. 4:5 Awb" data-en="Letter generation based on art. 4:5 Awb" data-pap="Generashon di karta basá riba art. 4:5 Awb">Briefgeneratie op basis van art. 4:5 Awb</span></li>
                     </ul>
                 </div>
+                <div class="product-card product-zorgscan">
+                    <div class="product-icon"><i class="fas fa-stethoscope"></i></div>
+                    <h3>ZorgScan Pro</h3>
+                    <p data-nl="Risico-scan op zorgaanbieders voor gemeenten (Wmo + Jeugdwet) en zorgkantoren (Wlz). 13 red-flag-regels uit 838 BEVESTIGD-zaken jurisprudentie. In-memory en privacy-by-design." data-en="Risk scan for healthcare providers for municipalities (Wmo + Youth Act) and care offices (Wlz). 13 red-flag rules from 838 confirmed jurisprudence cases. In-memory and privacy by design." data-pap="Sken di riesgo pa proveedónan di kuido pa munisipalitanan (Wmo + Lei di Hubentut) i kantornan di kuido (Wlz). 13 reglanan red-flag for di 838 kasonan konfirma di hurisprudensia. In-memory i privasidat by design.">Risico-scan op zorgaanbieders voor gemeenten (Wmo + Jeugdwet) en zorgkantoren (Wlz). 13 red-flag-regels uit 838 BEVESTIGD-zaken jurisprudentie. In-memory en privacy-by-design.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="13 red-flag-regels (FIN/KVK/DEC/BUD/EXT)" data-en="13 red-flag rules (FIN/KVK/DEC/BUD/EXT)" data-pap="13 reglanan red-flag (FIN/KVK/DEC/BUD/EXT)">13 red-flag-regels (FIN/KVK/DEC/BUD/EXT)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Excel/CSV/JSON of hele map importeren" data-en="Import Excel/CSV/JSON or entire folder" data-pap="Importá Excel/CSV/JSON òf un mapchi henter">Excel/CSV/JSON of hele map importeren</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Drieledig oordeel: groen / Bibob / direct afwijzen" data-en="Three-tier verdict: green / Bibob / immediate rejection" data-pap="Veredicto di tres nivel: bèrdè / Bibob / refusá direkta">Drieledig oordeel: groen / Bibob / direct afwijzen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="NL-locale parser (€ 1.250.000,50, DD-MM-YYYY)" data-en="NL-locale parser (EUR 1.250.000,50, DD-MM-YYYY)" data-pap="Parser NL-locale (€ 1.250.000,50, DD-MM-YYYY)">NL-locale parser (€ 1.250.000,50, DD-MM-YYYY)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Geanonimiseerd diagnostisch logboek (pilot)" data-en="Anonymized diagnostic log (pilot)" data-pap="Logboek diagnóstiko anónimo (pilot)">Geanonimiseerd diagnostisch logboek (pilot)</span></li>
+                    </ul>
+                </div>
                 <div class="product-card product-zorg">
                     <div class="product-icon"><i class="fas fa-heart-pulse"></i></div>
                     <h3>Zorganalyst Pro</h3>
@@ -944,6 +920,45 @@
                         <li><i class="fas fa-check"></i> <span data-nl="PGB en Wmo-fraude detectie" data-en="PGB and Wmo fraud detection" data-pap="Detekshon di frode PGB i Wmo">PGB en Wmo-fraude detectie</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Diploma- en certificaatverificatie" data-en="Diploma and certificate verification" data-pap="Verifikashon di diploma i sertifikado">Diploma- en certificaatverificatie</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="Toezicht- en meldingensignalen" data-en="Supervision and reporting signals" data-pap="Señalnan di supervishon i rapòrt">Toezicht- en meldingensignalen</span></li>
+                    </ul>
+                </div>
+                <div class="product-card product-bibob">
+                    <div class="product-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3>BIBOB Analyst Pro</h3>
+                    <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="79 indicatoren uit erkende bronnen" data-en="79 indicators from recognized sources" data-pap="79 indikadó for di fuentenan rekonosí">79 indicatoren uit erkende bronnen</span></li>
+                        <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
+                        <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Interview generator en rapportage" data-en="Interview generator and reporting" data-pap="Generadó di entrevista i rapòrt">Interview generator en rapportage</span></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Onderste rij: Analyst Pro -> VAT Analyst Pro -> Data Handler Pro -> Progressive Web Apps -->
+            <div class="products-grid-bottom">
+                <div class="product-card product-analyst">
+                    <div class="product-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
+                    <h3>Analyst Pro</h3>
+                    <p data-nl="Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten." data-en="All-in-one solution for combating organized crime. For larger and smaller municipalities." data-pap="Solushon tur-den-un pa kombate di kriminalidad organisá. Pa munisipalitanan grandi i chikitu.">Alles-in-één oplossing voor de aanpak van ondermijning. Voor grotere en kleinere gemeenten.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="Cross-reference analyse" data-en="Cross-reference analysis" data-pap="Análisis di referensia krusá">Cross-reference analyse</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Graph visualisatie" data-en="Graph visualization" data-pap="Visualisashon di gráfiko">Graph visualisatie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Analist & medewerker module" data-en="Analyst & staff module" data-pap="Módulo di analist i kolaboradó">Analist & medewerker module</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Export naar Analyst Notebook" data-en="Export to Analyst Notebook" data-pap="Eksportá pa Analyst Notebook">Export naar Analyst Notebook</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Flexibele workflows" data-en="Flexible workflows" data-pap="Fluho di trabou fleksibel">Flexibele workflows</span></li>
+                    </ul>
+                </div>
+                <div class="product-card product-vat">
+                    <div class="product-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>VAT Analyst Pro</h3>
+                    <p data-nl="Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant)." data-en="Analysis tool for supervisors detecting exploitation in the sex industry. Pure analysis, no data storage (GDPR-compliant)." data-pap="Instrumento di análisis pa supervisónan pa detektá eksplotashon den industria di sekso. Solamente análisis, sin almasenahementu di data (konforme ku AVG).">Analysetool voor toezichthouders bij detectie van uitbuiting in de seksbranche. Puur analyse, geen dataopslag (AVG-compliant).</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> <span data-nl="Signaalherkenning" data-en="Signal recognition" data-pap="Rekonosementu di señal">Signaalherkenning</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Risico-indicatoren" data-en="Risk indicators" data-pap="Indikadónan di riesgo">Risico-indicatoren</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Ondersteuning bij toezicht" data-en="Supervision support" data-pap="Sosten pa supervishon">Ondersteuning bij toezicht</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Geen dataopslag (AVG)" data-en="No data storage (GDPR)" data-pap="Sin almasenahementu di data (AVG)">Geen dataopslag (AVG)</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="Direct inzetbaar" data-en="Ready to use" data-pap="Pronto pa usa">Direct inzetbaar</span></li>
                     </ul>
                 </div>
                 <div class="product-card product-datahandler">

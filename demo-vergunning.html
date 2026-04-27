@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vergunning Intake Pro — Mini Demo</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+  --primary:#0891b2;       /* Vergunning-cyaan, identiek aan productkaart */
+  --primary-dark:#0e7490;
+  --accent:#f59e0b;
+  --success:#10b981;
+  --warning:#f59e0b;
+  --danger:#ef4444;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:linear-gradient(135deg,#0891b2 0%,#155e75 100%);
+  min-height:100vh;
+  padding:20px 15px;
+  color:#1f2937;
+}
+.container{max-width:900px;margin:0 auto}
+h1{color:white;text-align:center;font-size:1.6rem;margin-bottom:6px;text-shadow:0 2px 4px rgba(0,0,0,0.2)}
+.subtitle{color:rgba(255,255,255,0.92);text-align:center;font-size:0.9rem;margin-bottom:20px}
+.demo-card{background:white;border-radius:12px;padding:22px;margin-bottom:15px;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+.demo-card h2{color:var(--primary);margin-bottom:15px;display:flex;align-items:center;gap:10px;font-size:1.1rem}
+.demo-card h2 .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--primary);color:white;font-size:0.9rem}
+
+/* Step indicator */
+.step-indicator{display:flex;justify-content:space-between;margin-bottom:20px;position:relative}
+.step-indicator::before{content:'';position:absolute;top:18px;left:8%;right:8%;height:2px;background:#e5e7eb;z-index:0}
+.step{flex:1;text-align:center;position:relative;z-index:1}
+.step .circle{width:36px;height:36px;border-radius:50%;background:#e5e7eb;color:#6b7280;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-weight:600;border:3px solid white;transition:all .25s}
+.step.done .circle{background:var(--success);color:white}
+.step.active .circle{background:var(--primary);color:white;box-shadow:0 0 0 4px rgba(8,145,178,0.18)}
+.step .label{font-size:0.78rem;color:#6b7280;line-height:1.2}
+.step.done .label,.step.active .label{color:#1f2937;font-weight:600}
+
+/* Form / dropdown */
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:0.85rem;color:#374151;margin-bottom:6px;font-weight:500}
+.form-row select,.form-row input{
+  width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;
+  font-size:0.95rem;font-family:inherit;background:white;
+}
+.form-row select:focus,.form-row input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(8,145,178,0.15)}
+
+/* Upload-checklist (stap 2) */
+.upload-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.upload-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;
+  border:1px solid #e5e7eb;background:#f9fafb;font-size:0.88rem;cursor:pointer;
+  transition:all .15s;
+}
+.upload-item:hover{background:#f3f4f6}
+.upload-item.uploaded{background:#ecfdf5;border-color:#10b981}
+.upload-item.missing{background:#fef2f2;border-color:#ef4444}
+.upload-item .icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:white}
+.upload-item.uploaded .icon{background:var(--success)}
+.upload-item.missing .icon{background:var(--danger)}
+.upload-item .icon i{font-size:0.85rem}
+.upload-item .name{flex:1}
+.upload-item .status{font-size:0.78rem;font-weight:600}
+.upload-item.uploaded .status{color:var(--success)}
+.upload-item.missing .status{color:var(--danger)}
+
+/* PDF-scan (stap 3) */
+.pdf-preview{
+  background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;
+  font-family:'Georgia',serif;font-size:0.85rem;line-height:1.7;color:#1f2937;
+  max-height:280px;overflow-y:auto;
+}
+.pdf-preview .marker{
+  background:rgba(245,158,11,0.25);border-bottom:2px solid var(--warning);
+  padding:1px 3px;border-radius:2px;font-weight:600;cursor:help;
+}
+.pdf-preview .marker.danger{background:rgba(239,68,68,0.20);border-bottom-color:var(--danger)}
+.pdf-preview .marker-tooltip{display:none}
+.indicator-list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.indicator{
+  display:flex;gap:10px;align-items:flex-start;padding:10px 12px;
+  border-radius:8px;background:#fffbeb;border-left:4px solid var(--warning);
+  font-size:0.85rem;
+}
+.indicator.danger{background:#fef2f2;border-left-color:var(--danger)}
+.indicator strong{color:#1f2937}
+.indicator .det{color:#6b7280;display:block;margin-top:3px;font-size:0.78rem}
+
+/* Advies-banner (stap 4) */
+.advice-banner{
+  padding:18px 20px;border-radius:10px;display:flex;align-items:center;gap:14px;
+  font-weight:600;margin-bottom:14px;
+}
+.advice-banner i{font-size:1.6rem;flex-shrink:0}
+.advice-banner.green{background:#ecfdf5;border:2px solid var(--success);color:#065f46}
+.advice-banner.amber{background:#fffbeb;border:2px solid var(--warning);color:#92400e}
+.advice-banner.red{background:#fef2f2;border:2px solid var(--danger);color:#991b1b}
+
+/* Brief-preview */
+.letter-box{
+  background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:18px;
+  font-family:'Georgia',serif;font-size:0.86rem;line-height:1.7;color:#1f2937;
+  white-space:pre-wrap;max-height:340px;overflow-y:auto;
+}
+.letter-box .em{font-style:italic;color:#6b7280}
+
+/* Knoppen */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;
+  border:none;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:all .15s;
+}
+.btn-primary{background:var(--primary);color:white}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-secondary{background:#e5e7eb;color:#374151}
+.btn-secondary:hover{background:#d1d5db}
+.btn-success{background:var(--success);color:white}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+
+.hint{font-size:0.78rem;color:#6b7280;margin-top:8px;display:flex;align-items:center;gap:6px}
+.hint i{color:var(--primary)}
+
+/* Mobiel */
+@media (max-width: 600px){
+  .upload-list{grid-template-columns:1fr}
+  h1{font-size:1.3rem}
+  .step .label{font-size:0.7rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1><i class="fas fa-file-circle-check"></i> Vergunning Intake Pro</h1>
+  <p class="subtitle">Mini-demo: van vergunningstype tot juridisch onderbouwd advies in 4 stappen</p>
+
+  <!-- ========== STEP INDICATOR ========== -->
+  <div class="demo-card">
+    <div class="step-indicator">
+      <div class="step active" data-step="1"><div class="circle">1</div><div class="label">Vergunningstype</div></div>
+      <div class="step" data-step="2"><div class="circle">2</div><div class="label">Volledigheids&shy;controle</div></div>
+      <div class="step" data-step="3"><div class="circle">3</div><div class="label">BIBOB-indicator&shy;scan</div></div>
+      <div class="step" data-step="4"><div class="circle">4</div><div class="label">Advies + brief</div></div>
+    </div>
+
+    <!-- ========== STAP 1: Vergunningstype ========== -->
+    <div id="step-1" class="step-pane">
+      <h2><span class="num">1</span> Selecteer aanvraagtype</h2>
+      <div class="form-row">
+        <label for="vergunType">Type vergunning</label>
+        <select id="vergunType">
+          <option value="">— Maak een keuze —</option>
+          <option value="exploitatie-horeca">Exploitatievergunning horeca (DHW art. 3)</option>
+          <option value="prostitutie">Vergunning seksinrichting / escort</option>
+          <option value="speelautomaten">Aanwezigheids­vergunning speelautomaten</option>
+          <option value="evenement">Evenementenvergunning A/B-categorie</option>
+          <option value="coffeeshop">Gedoogverklaring coffeeshop</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="aanvragerNaam">Aanvrager (rechtspersoon)</label>
+        <input type="text" id="aanvragerNaam" value="Café De Gouden Leeuw B.V." readonly>
+      </div>
+      <div class="form-row">
+        <label for="kvk">KvK-nummer</label>
+        <input type="text" id="kvk" value="80123456" readonly>
+      </div>
+      <div class="hint"><i class="fas fa-circle-info"></i> Demo gebruikt fictieve aanvrager-gegevens. KvK-nummer in niet-uitgegeven 80xxxxxx-range.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goStep(2)" id="btn-step1">Volgende <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- ========== STAP 2: Documentcheck ========== -->
+    <div id="step-2" class="step-pane" style="display:none">
+      <h2><span class="num">2</span> Volledigheidscontrole documenten</h2>
+      <p style="color:#6b7280;font-size:0.88rem;margin-bottom:14px">
+        Voor "<strong id="vergunDisplay">Exploitatievergunning horeca</strong>" zijn 8 documenten vereist
+        (volgens gemeentelijke checklist + DHW art. 3-5).
+      </p>
+      <div class="upload-list" id="uploadList"></div>
+      <div class="hint"><i class="fas fa-shield-halved"></i> Bestanden worden lokaal in de browser verwerkt — niets wordt geüpload.</div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> Terug</button>
+        <button class="btn btn-primary" onclick="goStep(3)">Scan documenten <i class="fas fa-magnifying-glass"></i></button>
+      </div>
+    </div>
+
+    <!-- ========== STAP 3: BIBOB-indicator-scan ========== -->
+    <div id="step-3" class="step-pane" style="display:none">
+      <h2><span class="num">3</span> BIBOB-indicatorenscan op documenten</h2>
+      <p style="color:#6b7280;font-size:0.88rem;margin-bottom:10px">
+        Tekstinhoud van de aangeleverde stukken wordt gescand op
+        <strong>79 BIBOB-indicatoren</strong> (RIEC-LIEC, FIU, FATF, DNB-Wwft).
+        Hieronder fragment uit het ondernemingsplan met gehighlighte indicatoren:
+      </p>
+      <div class="pdf-preview">
+        <p><strong>Fragment uit het ondernemingsplan (pagina 4):</strong></p><br>
+        "Het pand wordt aangekocht via een <span class="marker">contante storting</span> van € 285.000.
+        Het startkapitaal is afkomstig van <span class="marker danger">een familielid in het buitenland</span>
+        dat de exploitatie financieel ondersteunt. De huidige eigenaar is bereid de
+        bedrijfsopvolging informeel te regelen, waarbij de
+        <span class="marker">huurovereenkomst niet in het handelsregister wordt ingeschreven</span>.
+        Twee bestuurders zijn ook actief in
+        <span class="marker danger">drie andere horeca-BV's binnen 18 maanden</span>,
+        elk met een vergelijkbare bedrijfsstructuur."</p>
+      </div>
+      <div class="indicator-list">
+        <div class="indicator">
+          <i class="fas fa-flag" style="color:var(--warning)"></i>
+          <div>
+            <strong>FIN-3 — Contante kapitaalstorting &gt; € 100.000</strong>
+            <span class="det">Bron: FIU Nederland · Hits in stuk: 1 · Severity: 3/5</span>
+          </div>
+        </div>
+        <div class="indicator danger">
+          <i class="fas fa-flag" style="color:var(--danger)"></i>
+          <div>
+            <strong>UBO-2 — Buitenlandse financier zonder economisch nexus</strong>
+            <span class="det">Bron: DNB-Wwft · Hits in stuk: 1 · Severity: 5/5</span>
+          </div>
+        </div>
+        <div class="indicator">
+          <i class="fas fa-flag" style="color:var(--warning)"></i>
+          <div>
+            <strong>HUUR-1 — Huurcontract niet ingeschreven KvK</strong>
+            <span class="det">Bron: RIEC-LIEC · Hits in stuk: 1 · Severity: 3/5</span>
+          </div>
+        </div>
+        <div class="indicator danger">
+          <i class="fas fa-flag" style="color:var(--danger)"></i>
+          <div>
+            <strong>KVK-1 — Bestuurder bij meerdere horeca-BV's &lt; 24 mnd</strong>
+            <span class="det">Bron: KvK-handelsregister · Hits in stuk: 1 · Severity: 4/5</span>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="goStep(2)"><i class="fas fa-arrow-left"></i> Terug</button>
+        <button class="btn btn-primary" onclick="goStep(4)">Genereer advies <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- ========== STAP 4: Advies + briefgeneratie ========== -->
+    <div id="step-4" class="step-pane" style="display:none">
+      <h2><span class="num">4</span> Drieledig advies + briefgeneratie</h2>
+
+      <div class="advice-banner amber">
+        <i class="fas fa-triangle-exclamation"></i>
+        <div>
+          <div style="font-size:1.05rem">🟡 ORANJE — Verdiepend BIBOB-onderzoek aanbevolen</div>
+          <div style="font-weight:400;font-size:0.85rem;margin-top:4px;color:#78350f">
+            Score: <strong>62 / 100</strong> · 4 indicatoren over 3 categorieën · 1 hoog-severity hit (UBO-2)
+          </div>
+        </div>
+      </div>
+
+      <p style="color:#374151;font-size:0.9rem;margin-bottom:10px">
+        Uitkomstmatrix volgens art. 3 Wet Bibob:
+      </p>
+      <ul style="margin-left:1.4rem;color:#374151;font-size:0.88rem;line-height:1.7;margin-bottom:18px">
+        <li><strong>Documentstatus</strong>: 7/8 stukken aanwezig — bedrijfsplan jaarrekening 2024 ontbreekt.</li>
+        <li><strong>BIBOB-indicatoren</strong>: 4 hits (1 rood, 3 oranje) — niet voldoende voor directe weigering, wel voor verdiepend onderzoek.</li>
+        <li><strong>Advies</strong>: aanvulling vragen op grond van art. 4:5 Awb én Bibob-toets aanvragen bij Landelijk Bureau Bibob.</li>
+      </ul>
+
+      <p style="color:#374151;font-size:0.9rem;margin-bottom:10px">
+        <strong>Conceptbrief art. 4:5 Awb</strong> (automatisch gegenereerd):
+      </p>
+      <div class="letter-box" id="letterBox"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="goStep(3)"><i class="fas fa-arrow-left"></i> Terug</button>
+        <button class="btn btn-success" onclick="downloadPdf()"><i class="fas fa-file-pdf"></i> Download brief (PDF)</button>
+        <button class="btn btn-primary" onclick="resetDemo()"><i class="fas fa-rotate-right"></i> Demo opnieuw</button>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:rgba(255,255,255,0.85);font-size:0.78rem;margin-top:14px">
+    Knowledge by Data B.V. · Mini-demo · Geen echte aanvragerdata
+  </p>
+</div>
+
+<script>
+'use strict';
+
+// ─── Documentchecklist per vergunningstype ─────────────────
+const DOCS = {
+  'exploitatie-horeca': [
+    { name: 'Aanvraagformulier (ondertekend)', status: 'uploaded' },
+    { name: 'Uittreksel KvK (≤ 6 mnd)',         status: 'uploaded' },
+    { name: 'Bewijs eigendom/huur pand',         status: 'uploaded' },
+    { name: 'Plattegrond + situatieschets',      status: 'uploaded' },
+    { name: 'VOG bestuurders (≤ 3 mnd)',         status: 'uploaded' },
+    { name: 'Bedrijfsplan + jaarrekening 2024',  status: 'missing'  },
+    { name: 'Verklaring SVH (Sociale Hygiëne)',  status: 'uploaded' },
+    { name: 'Bewijs leeftijd 21+ leidinggevende', status: 'uploaded' },
+  ],
+  'prostitutie': [
+    { name: 'Aanvraagformulier (ondertekend)', status: 'uploaded' },
+    { name: 'Uittreksel KvK (≤ 6 mnd)',         status: 'uploaded' },
+    { name: 'VOG exploitant (≤ 3 mnd)',         status: 'uploaded' },
+    { name: 'VOG beheerder(s) (≤ 3 mnd)',       status: 'missing'  },
+    { name: 'Bedrijfsplan + jaarrekening',       status: 'uploaded' },
+    { name: 'Plattegrond + brandveiligheid',    status: 'uploaded' },
+    { name: 'Bewijs eigendom/huur pand',         status: 'uploaded' },
+    { name: 'Klachten- en hygiëneprotocol',      status: 'missing'  },
+  ],
+  'speelautomaten': [
+    { name: 'Aanvraagformulier',                 status: 'uploaded' },
+    { name: 'Uittreksel KvK',                    status: 'uploaded' },
+    { name: 'VOG bestuurders',                   status: 'uploaded' },
+    { name: 'Vergunningsbewijs aanwezigheids­vergunning Wok',  status: 'missing' },
+    { name: 'Bewijs eigendom/huur pand',         status: 'uploaded' },
+    { name: 'Plattegrond + locatie automaten',   status: 'uploaded' },
+    { name: 'Bedrijfsplan',                      status: 'uploaded' },
+    { name: 'Verklaring kansspelautoriteit',     status: 'uploaded' },
+  ],
+  'evenement': [
+    { name: 'Aanvraagformulier',                 status: 'uploaded' },
+    { name: 'Veiligheidsplan',                   status: 'uploaded' },
+    { name: 'Plattegrond + verkeerssituatie',    status: 'uploaded' },
+    { name: 'Verzekeringsbewijs',                status: 'uploaded' },
+    { name: 'Vergunning geluid',                 status: 'missing'  },
+    { name: 'Programma + tijden',                status: 'uploaded' },
+    { name: 'Bewijs locatie-eigenaar akkoord',   status: 'uploaded' },
+    { name: 'Crowd-management plan',             status: 'uploaded' },
+  ],
+  'coffeeshop': [
+    { name: 'Aanvraagformulier',                 status: 'uploaded' },
+    { name: 'Uittreksel KvK',                    status: 'uploaded' },
+    { name: 'VOG bestuurders + personeel',       status: 'uploaded' },
+    { name: 'Bedrijfsplan + jaarrekening',       status: 'uploaded' },
+    { name: 'Bewijs eigendom/huur pand',         status: 'uploaded' },
+    { name: 'AHOJG-criteria-verklaring',         status: 'uploaded' },
+    { name: 'Brandveiligheidsverklaring',        status: 'uploaded' },
+    { name: 'Sociaal beleidsplan minderjarigen', status: 'missing'  },
+  ],
+};
+const TYPE_LABELS = {
+  'exploitatie-horeca':'Exploitatievergunning horeca',
+  'prostitutie':'Vergunning seksinrichting / escort',
+  'speelautomaten':'Aanwezigheidsvergunning speelautomaten',
+  'evenement':'Evenementenvergunning',
+  'coffeeshop':'Gedoogverklaring coffeeshop',
+};
+
+// ─── State ──────────────────────────────────────────────────
+let currentStep = 1;
+let currentType = '';
+
+// ─── Step navigatie ─────────────────────────────────────────
+function goStep(n) {
+  // Voor stap 1 → 2: validate dat er een type gekozen is
+  if (currentStep === 1 && n > 1) {
+    const sel = document.getElementById('vergunType').value;
+    if (!sel) {
+      alert('Kies eerst een vergunningstype.');
+      return;
+    }
+    currentType = sel;
+    renderUploadList();
+    document.getElementById('vergunDisplay').textContent = TYPE_LABELS[sel];
+  }
+  if (n === 4) renderLetter();
+
+  // UI bijwerken
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('step-' + i).style.display = (i === n) ? 'block' : 'none';
+    const stepEl = document.querySelector('.step[data-step="' + i + '"]');
+    stepEl.classList.remove('active', 'done');
+    if (i < n) stepEl.classList.add('done');
+    if (i === n) stepEl.classList.add('active');
+  }
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Render upload-checklist ────────────────────────────────
+function renderUploadList() {
+  const cont = document.getElementById('uploadList');
+  cont.innerHTML = '';
+  const docs = DOCS[currentType] || [];
+  docs.forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'upload-item ' + d.status;
+    div.innerHTML =
+      '<div class="icon"><i class="fas fa-' + (d.status === 'uploaded' ? 'check' : 'times') + '"></i></div>'
+      + '<div class="name">' + d.name + '</div>'
+      + '<div class="status">' + (d.status === 'uploaded' ? 'Aanwezig' : 'Ontbreekt') + '</div>';
+    cont.appendChild(div);
+  });
+}
+
+// ─── Render conceptbrief art. 4:5 Awb ───────────────────────
+function renderLetter() {
+  const today = new Date().toLocaleDateString('nl-NL', { day:'numeric', month:'long', year:'numeric' });
+  const aanvrager = document.getElementById('aanvragerNaam').value;
+  const kvk = document.getElementById('kvk').value;
+  const docs = DOCS[currentType] || [];
+  const missing = docs.filter(d => d.status === 'missing').map(d => '   • ' + d.name).join('\n');
+  const typeLabel = TYPE_LABELS[currentType] || 'vergunning';
+
+  const tekst =
+    'Gemeente Voorbeeld — Team Vergunningen\n' +
+    'Postbus 1000, 1000 AA Voorbeeldstad\n' +
+    'T 14 020  ·  E vergunningen@voorbeeld.nl\n\n' +
+    'Aan:  ' + aanvrager + '\n' +
+    '       Kvk-nummer: ' + kvk + '\n\n' +
+    'Datum:        ' + today + '\n' +
+    'Kenmerk:      VRG-' + new Date().getFullYear() + '-04-1834\n' +
+    'Betreft:      Aanvulling op aanvraag — ' + typeLabel + '\n\n' +
+    'Geachte heer/mevrouw,\n\n' +
+    'Op 25 april ontvingen wij uw aanvraag voor een ' + typeLabel.toLowerCase()
+    + '. Voor een volledige inhoudelijke beoordeling missen wij een aantal stukken.\n\n' +
+    'Op grond van artikel 4:5 van de Algemene wet bestuursrecht stellen wij u in de\n' +
+    'gelegenheid uw aanvraag binnen vier weken na verzending van deze brief aan te vullen\n' +
+    'met:\n\n' + missing + '\n\n' +
+    'Naast de ontbrekende stukken hebben wij in de aangeleverde documenten meerdere\n' +
+    'BIBOB-indicatoren aangetroffen die nader onderzoek rechtvaardigen (artikel 3 Wet\n' +
+    'bevordering integriteitsbeoordelingen door het openbaar bestuur). Wij zullen de\n' +
+    'aanvraag daarom — naast de hierboven gevraagde aanvulling — voorleggen aan het\n' +
+    'Landelijk Bureau Bibob voor een verdiepend integriteitsonderzoek.\n\n' +
+    'Indien u uw aanvraag niet of niet tijdig aanvult, kunnen wij besluiten uw aanvraag\n' +
+    'buiten behandeling te stellen (artikel 4:5 lid 1 Awb).\n\n' +
+    'Heeft u vragen, neem dan gerust contact op via bovenstaand telefoonnummer.\n\n' +
+    'Hoogachtend,\n\n' +
+    'A. Janssen\n' +
+    'Senior beleidsmedewerker Vergunningen\n' +
+    'Gemeente Voorbeeld';
+
+  document.getElementById('letterBox').textContent = tekst;
+}
+
+// ─── Download brief als PDF ─────────────────────────────────
+function downloadPdf() {
+  // Eenvoudige PDF-generator via een download van platte tekst.
+  // (Voor echte demo wordt jsPDF gebruikt; hier kiezen we voor txt om
+  // de demo-bundle klein en CSP-vriendelijk te houden.)
+  const txt = document.getElementById('letterBox').textContent;
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'art-4-5-awb-aanvulling-' + Date.now() + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 100);
+}
+
+// ─── Reset ──────────────────────────────────────────────────
+function resetDemo() {
+  document.getElementById('vergunType').value = '';
+  goStep(1);
+}
+
+// ─── Init ───────────────────────────────────────────────────
+// Standaardkeuze voor visitor-comfort (kunnen wijzigen)
+document.getElementById('vergunType').value = 'exploitatie-horeca';
+</script>
+</body>
+</html>
