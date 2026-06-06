@@ -95,27 +95,21 @@
             background: var(--bg-white);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
-            padding: 0 40px;
+            padding: 0 20px;
         }
         .nav-container {
-            max-width: 100%;
-            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 30px;
             height: 100px;
         }
-        .logo { height: 80px; flex-shrink: 0; }
+        .logo { height: 80px; }
         .nav-links {
             display: flex;
-            flex: 1;
-            justify-content: space-evenly;
-            align-items: center;
-            gap: 20px;
+            gap: 40px;
             list-style: none;
-            margin: 0;
         }
         .nav-links a {
             text-decoration: none;
@@ -146,8 +140,6 @@
         .nav-contact {
             font-size: 0.9rem;
             color: var(--text-muted);
-            flex-shrink: 0;
-            white-space: nowrap;
         }
         .nav-contact a { color: var(--primary); text-decoration: none; }
 
@@ -678,12 +670,6 @@
         .account-notice i { color: var(--warning); font-size: 1.1rem; margin-top: 2px; }
         .account-notice p { font-size: 0.9rem; color: var(--text-dark); margin: 0; }
 
-        @media (max-width: 1200px) {
-            .navbar { padding: 0 20px; }
-            .nav-container { gap: 15px; }
-            .nav-links { gap: 10px; }
-            .nav-links a { font-size: 0.9rem; }
-        }
         @media (max-width: 992px) {
             .pillars { grid-template-columns: repeat(2, 1fr); }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
@@ -942,7 +928,7 @@
                     <h3>BIBOB Analyst Pro</h3>
                     <p data-nl="Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund." data-en="All-in-one solution for all BIBOB investigations. From intake to advice, fully supported." data-pap="Solushon tur-den-un pa tur investigashon BIBOB. For di entrada te na konseho, kompletamente apoyá.">Alles-in-één oplossing voor alle BIBOB-onderzoeken. Van intake tot advies, volledig ondersteund.</p>
                     <ul class="product-features">
-                        <li><i class="fas fa-check"></i> <span data-nl="13 red-flag-regels uit 838-zaken-corpus" data-en="13 red-flag rules from 838-case corpus" data-pap="13 regla red-flag for di korpus di 838 kaso">13 red-flag-regels uit 838-zaken-corpus</span></li>
+                        <li><i class="fas fa-check"></i> <span data-nl="109 unieke indicatoren in 13 categorieën" data-en="109 unique indicators across 13 categories" data-pap="109 indikadó úniko den 13 kategoria">109 unieke indicatoren in 13 categorieën</span></li>
                         <li><i class="fas fa-check"></i> RIEC-LIEC, FIU Nederland, FATF, DNB-WWFT</li>
                         <li><i class="fas fa-check"></i> <span data-nl="AMLC, IKZ en Zorgfraude Signalen" data-en="AMLC, IKZ and Healthcare Fraud Signals" data-pap="AMLC, IKZ i Señalnan di Frode di Kuido">AMLC, IKZ en Zorgfraude Signalen</span></li>
                         <li><i class="fas fa-check"></i> <span data-nl="PDF parsing en netwerkvisualisatie" data-en="PDF parsing and network visualization" data-pap="Análisis di PDF i visualisashon di ret">PDF parsing en netwerkvisualisatie</span></li>
