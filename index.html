@@ -95,21 +95,23 @@
             background: var(--bg-white);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
-            padding: 0 20px;
+            padding: 0 40px;
         }
         .nav-container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             height: 100px;
+            gap: 24px;
         }
         .logo { height: 80px; }
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 32px;
             list-style: none;
+            flex-wrap: nowrap;
         }
         .nav-links a {
             text-decoration: none;
@@ -119,6 +121,7 @@
             transition: color 0.2s;
             padding: 8px 0;
             border-bottom: 2px solid transparent;
+            white-space: nowrap;
         }
         .nav-links a:hover, .nav-links a.active {
             color: var(--primary);
@@ -140,6 +143,7 @@
         .nav-contact {
             font-size: 0.9rem;
             color: var(--text-muted);
+            white-space: nowrap;
         }
         .nav-contact a { color: var(--primary); text-decoration: none; }
 
