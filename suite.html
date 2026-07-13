@@ -863,6 +863,131 @@
         </div>
     </section>
 
+    <!-- RETURN ON INVESTMENT -->
+    <section class="roi-section" id="roi">
+        <style>
+            .roi-section { padding: 100px 20px; background: var(--bg-light); }
+            .roi-container { max-width: 1100px; margin: 0 auto; }
+            .roi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 45px; }
+            .roi-stat { background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 30px 24px; text-align: center; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+            .roi-stat:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-color: var(--primary); }
+            .roi-stat .roi-number { font-size: 2.1rem; font-weight: 800; color: var(--primary); line-height: 1.1; margin-bottom: 10px; }
+            .roi-stat .roi-number.green { color: var(--success); }
+            .roi-stat h3 { font-size: 1rem; color: var(--text-dark); margin-bottom: 8px; }
+            .roi-stat p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.55; }
+            .roi-calc { background: var(--bg-white); border: 1px solid var(--border); border-radius: 16px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+            .roi-calc h3 { font-size: 1.35rem; color: var(--text-dark); margin-bottom: 6px; }
+            .roi-calc .roi-calc-intro { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 22px; }
+            .roi-field { margin-bottom: 18px; }
+            .roi-field label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+            .roi-field input { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; color: var(--text-dark); box-sizing: border-box; }
+            .roi-field input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+            .roi-output { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); color: white; border-radius: 14px; padding: 32px; }
+            .roi-output .roi-out-label { font-size: 0.9rem; opacity: 0.9; }
+            .roi-output .roi-out-big { font-size: 2.6rem; font-weight: 800; line-height: 1.05; margin: 4px 0 14px; }
+            .roi-output .roi-out-line { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.22); font-size: 0.95rem; }
+            .roi-output .roi-out-line strong { font-size: 1.25rem; }
+            .roi-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 18px; text-align: center; }
+            @media (max-width: 960px) { .roi-grid { grid-template-columns: repeat(2, 1fr); } .roi-calc { grid-template-columns: 1fr; gap: 28px; } }
+            @media (max-width: 560px) { .roi-grid { grid-template-columns: 1fr; } }
+        </style>
+        <div class="roi-container">
+            <div class="section-header">
+                <h2 data-nl="Wat levert het op?" data-en="What&apos;s the return?" data-pap="Kiko e ta rende?">Wat levert het op?</h2>
+                <p data-nl="De Analysis Suite is geen kostenpost maar een investering die zichzelf snel terugverdient." data-en="The Analysis Suite is not a cost but an investment that quickly pays for itself." data-pap="E Analysis Suite no ta un gastu sino un inbershon ku ta paga su mes lih&eacute;.">De Analysis Suite is geen kostenpost maar een investering die zichzelf snel terugverdient.</p>
+            </div>
+
+            <div class="roi-grid">
+                <div class="roi-stat">
+                    <div class="roi-number green">&euro;10.500</div>
+                    <h3 data-nl="Direct lagere licentiekosten" data-en="Immediately lower license costs" data-pap="Kostu di lisensia mas abou mesora">Direct lagere licentiekosten</h3>
+                    <p data-nl="Per jaar goedkoper dan losse licenties: &euro;10.000 in plaats van &euro;20.500." data-en="Cheaper per year than individual licenses: &euro;10,000 instead of &euro;20,500." data-pap="Mas barata pa a&ntilde;a ku lisensianan solt&aacute;: &euro;10.000 en bes di &euro;20.500.">Per jaar goedkoper dan losse licenties: &euro;10.000 in plaats van &euro;20.500.</p>
+                </div>
+                <div class="roi-stat">
+                    <div class="roi-number">&euro;0</div>
+                    <h3 data-nl="Per extra gebruiker" data-en="Per additional user" data-pap="Pa kada usuario adishonal">Per extra gebruiker</h3>
+                    <p data-nl="Onbeperkt gebruikers binnen &eacute;&eacute;n licentie &mdash; het team groeit gratis mee." data-en="Unlimited users within one license &mdash; the team grows for free." data-pap="Usuarionan sin l&iacute;mite den un lisensia &mdash; e ekipo ta krese gr&aacute;tis.">Onbeperkt gebruikers binnen &eacute;&eacute;n licentie &mdash; het team groeit gratis mee.</p>
+                </div>
+                <div class="roi-stat">
+                    <div class="roi-number">~2 dossiers</div>
+                    <h3 data-nl="Per maand is al genoeg" data-en="Per month is enough" data-pap="Pa luna ta sufisiente kaba">Per maand is al genoeg</h3>
+                    <p data-nl="Bij ~6 uur tijdwinst per onderzoek verdient de licentie zich al terug bij zo&apos;n twee dossiers per maand (&agrave; &euro;75/uur)." data-en="At ~6 hours saved per case, the license already pays for itself at about two cases per month (at &euro;75/hour)." data-pap="Ku ~6 ora spar pa investigashon, e lisensia ta paga su mes kaba ku mas o m&eacute;nos dos dossier pa luna (na &euro;75/ora).">Bij ~6 uur tijdwinst per onderzoek verdient de licentie zich al terug bij zo&apos;n twee dossiers per maand (&agrave; &euro;75/uur).</p>
+                </div>
+                <div class="roi-stat">
+                    <div class="roi-number">&euro;0</div>
+                    <h3 data-nl="Verborgen kosten" data-en="Hidden costs" data-pap="Kostu skond&iacute;">Verborgen kosten</h3>
+                    <p data-nl="Geen servers, hosting, licentieservers of onderhoudscontract. E&eacute;n voorspelbaar bedrag." data-en="No servers, hosting, license servers or maintenance contract. One predictable amount." data-pap="Sin server, hosting, server di lisensia ni kontrato di mantenshon. Un suma predisibel.">Geen servers, hosting, licentieservers of onderhoudscontract. E&eacute;n voorspelbaar bedrag.</p>
+                </div>
+            </div>
+
+            <div class="roi-calc">
+                <div>
+                    <h3 data-nl="Reken uw eigen rendement uit" data-en="Calculate your own return" data-pap="Kalkul&aacute; bo mes rendimentu">Reken uw eigen rendement uit</h3>
+                    <p class="roi-calc-intro" data-nl="Vul uw eigen aannames in &mdash; de uitkomst past zich direct aan." data-en="Enter your own assumptions &mdash; the result updates instantly." data-pap="Yena bo mes suposishonnan &mdash; e resultado ta ajust&aacute; mesora.">Vul uw eigen aannames in &mdash; de uitkomst past zich direct aan.</p>
+                    <div class="roi-field">
+                        <label for="roiCases" data-nl="Onderzoeken (dossiers) per maand" data-en="Investigations (cases) per month" data-pap="Investigashon (dossier) pa luna">Onderzoeken (dossiers) per maand</label>
+                        <input type="number" id="roiCases" min="0" value="8">
+                    </div>
+                    <div class="roi-field">
+                        <label for="roiHours" data-nl="Uren bespaard per onderzoek" data-en="Hours saved per investigation" data-pap="Ora spar pa investigashon">Uren bespaard per onderzoek</label>
+                        <input type="number" id="roiHours" min="0" step="0.5" value="6">
+                    </div>
+                    <div class="roi-field">
+                        <label for="roiRate" data-nl="Gemiddeld uurtarief (&euro;)" data-en="Average hourly rate (&euro;)" data-pap="Tarifa promedio pa ora (&euro;)">Gemiddeld uurtarief (&euro;)</label>
+                        <input type="number" id="roiRate" min="0" value="75">
+                    </div>
+                </div>
+                <div class="roi-output">
+                    <div class="roi-out-label" data-nl="Geschatte besparing per jaar" data-en="Estimated savings per year" data-pap="Spar estim&aacute; pa a&ntilde;a">Geschatte besparing per jaar</div>
+                    <div class="roi-out-big" id="roiSavings">&euro;43.200</div>
+                    <div class="roi-out-line">
+                        <span data-nl="Terugverdiend na" data-en="Paid back after" data-pap="Pag&aacute; b&egrave;k despues di">Terugverdiend na</span>
+                        <strong id="roiPayback">3 maanden</strong>
+                    </div>
+                    <div class="roi-out-line">
+                        <span data-nl="Rendement op de investering" data-en="Return on investment" data-pap="Rendimentu riba inbershon">Rendement op de investering</span>
+                        <strong id="roiRatio">4,3&times;</strong>
+                    </div>
+                </div>
+            </div>
+            <p class="roi-note" data-nl="Indicatieve berekening op basis van een Suite-licentie van &euro;10.000/jaar. De werkelijke tijdwinst verschilt per onderzoek en per organisatie." data-en="Indicative calculation based on a Suite license of &euro;10,000/year. Actual time savings vary per investigation and organization." data-pap="K&aacute;lkulo indikativo bas&aacute; riba un lisensia di Suite di &euro;10.000/a&ntilde;a. E spar di tempu real ta varia pa investigashon i organisashon.">Indicatieve berekening op basis van een Suite-licentie van &euro;10.000/jaar. De werkelijke tijdwinst verschilt per onderzoek en per organisatie.</p>
+        </div>
+        <script>
+            (function () {
+                var COST = 10000;   // Suite-licentie per jaar
+                var c = document.getElementById('roiCases');
+                var h = document.getElementById('roiHours');
+                var r = document.getElementById('roiRate');
+                var outSav = document.getElementById('roiSavings');
+                var outPay = document.getElementById('roiPayback');
+                var outRat = document.getElementById('roiRatio');
+                if (!c || !h || !r || !outSav) { return; }
+                function euro(n) { return '\u20ac' + Math.round(n).toLocaleString('nl-NL'); }
+                function calc() {
+                    var cases = Math.max(0, parseFloat(c.value) || 0);
+                    var hours = Math.max(0, parseFloat(h.value) || 0);
+                    var rate = Math.max(0, parseFloat(r.value) || 0);
+                    var monthly = cases * hours * rate;
+                    var yearly = monthly * 12;
+                    outSav.textContent = euro(yearly);
+                    if (monthly > 0) {
+                        var months = Math.ceil(COST / monthly);
+                        outPay.textContent = months + (months === 1 ? ' maand' : ' maanden');
+                    } else {
+                        outPay.textContent = '\u2014';
+                    }
+                    outRat.textContent = yearly > 0
+                        ? (Math.round((yearly / COST) * 10) / 10).toLocaleString('nl-NL') + '\u00d7'
+                        : '\u2014';
+                }
+                c.addEventListener('input', calc);
+                h.addEventListener('input', calc);
+                r.addEventListener('input', calc);
+                calc();
+            })();
+        </script>
+    </section>
+
     <!-- TARGET AUDIENCE -->
     <section class="audience-section">
         <div class="audience-container">
