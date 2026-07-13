@@ -1164,7 +1164,6 @@
                     </div>
                     <form class="contact-form" id="contactForm" action="https://formspree.io/f/mkogaojo" method="POST">
                         <input type="hidden" name="_subject" value="Demo aanvraag via website">
-                        <input type="hidden" name="_next" value="https://www.knowledgebydata.info/bedankt.html">
                         <div class="form-group">
                             <label for="naam" data-nl="Naam *" data-en="Name *" data-pap="Nòmber *">Naam *</label>
                             <input type="text" id="naam" name="naam" required>
@@ -1213,6 +1212,11 @@
                         <i class="fas fa-check-circle"></i>
                         <h4 data-nl="Bedankt voor uw aanvraag!" data-en="Thank you for your request!" data-pap="Danki pa bo petishon!">Bedankt voor uw aanvraag!</h4>
                         <p data-nl="Wij nemen zo spoedig mogelijk contact met u op." data-en="We will contact you as soon as possible." data-pap="Nos lo tuma kontakto ku bo mas lihé posibel.">Wij nemen zo spoedig mogelijk contact met u op.</p>
+                    </div>
+                    <div id="formError" style="display:none; margin-top:16px; padding:16px 18px; border-radius:8px; background:#fef2f2; border:1px solid #fecaca; color:#991b1b; line-height:1.6;">
+                        <p style="margin:0 0 6px; font-weight:600;"><i class="fas fa-exclamation-triangle"></i> <span data-nl="Uw aanvraag kon niet worden verzonden." data-en="Your request could not be sent." data-pap="Bo petishon no por a wòrdu mandá.">Uw aanvraag kon niet worden verzonden.</span></p>
+                        <p id="formErrorDetail" style="margin:0 0 6px; font-size:0.9rem;"></p>
+                        <p style="margin:0; font-size:0.9rem;"><span data-nl="Stuur uw aanvraag gerust rechtstreeks naar" data-en="Please send your request directly to" data-pap="Manda bo petishon direktamente na">Stuur uw aanvraag gerust rechtstreeks naar</span> <a href="mailto:info@knowledgebydata.nl?subject=Demo%20aanvraag%20via%20website" style="color:#991b1b; font-weight:600; text-decoration:underline;">info@knowledgebydata.nl</a>.</p>
                     </div>
                 </div>
             </div>
@@ -1323,10 +1327,20 @@
         });
 
         function generateWednesdays() {
+            // Genereert doorlopend de eerstvolgende woensdagen vanaf vandaag,
+            // zodat de lijst automatisch meebeweegt met de tijd.
+            var AANTAL_WEKEN = 12;      // hoeveel woensdagen tonen
+            var VOORLOOP_DAGEN = 3;     // minimaal aantal dagen vooruit (geen demo overmorgen)
             var wednesdays = [];
-            var current = new Date(2026, 0, 28);
-            var endDate = new Date(2026, 5, 30);
-            while (current <= endDate) {
+            var start = new Date();
+            start.setHours(0, 0, 0, 0);
+            start.setDate(start.getDate() + VOORLOOP_DAGEN);
+            // schuif door naar de eerstvolgende woensdag (getDay() === 3)
+            while (start.getDay() !== 3) {
+                start.setDate(start.getDate() + 1);
+            }
+            var current = new Date(start);
+            for (var i = 0; i < AANTAL_WEKEN; i++) {
                 wednesdays.push(new Date(current));
                 current.setDate(current.getDate() + 7);
             }
@@ -1396,6 +1410,61 @@
         }
 
         initDatePicker();
+
+        // --- Betrouwbare formulier-verzending via Formspree (AJAX) ---
+        (function () {
+            var form = document.getElementById('contactForm');
+            if (!form) { return; }
+            var errorBox = document.getElementById('formError');
+            var errorDetail = document.getElementById('formErrorDetail');
+            var submitBtn = form.querySelector('button[type="submit"]');
+            var submitHtml = submitBtn ? submitBtn.innerHTML : '';
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (errorBox) { errorBox.style.display = 'none'; }
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Bezig met versturen...';
+                }
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                }).then(function (response) {
+                    if (response.ok) {
+                        // Aanvraag geaccepteerd door Formspree -> eigen bedankpagina (relatief, dus host-correct)
+                        window.location.href = 'bedankt.html';
+                        return;
+                    }
+                    return response.json().then(function (data) {
+                        var msg = '';
+                        if (data && data.errors && data.errors.length) {
+                            msg = data.errors.map(function (er) { return er.message; }).join(' ');
+                        } else if (data && data.error) {
+                            msg = data.error;
+                        }
+                        showError(msg);
+                    }).catch(function () { showError(''); });
+                }).catch(function () {
+                    showError('');
+                });
+            });
+
+            function showError(detail) {
+                if (errorDetail) {
+                    errorDetail.textContent = detail
+                        ? ('Melding van Formspree: ' + detail)
+                        : 'Er ging iets mis bij het verzenden. Controleer uw internetverbinding of probeer het later opnieuw.';
+                }
+                if (errorBox) { errorBox.style.display = 'block'; }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = submitHtml;
+                }
+            }
+        })();
     </script>
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://knowledgebydata.goatcounter.com/count"
