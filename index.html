@@ -346,6 +346,10 @@
         }
         .security-badge i { font-size: 1.5rem; color: var(--primary); }
         .security-badge span { font-weight: 600; color: var(--text-dark); }
+        /* KBD-CVD-2026-09-09: verwijzing naar het kwetsbaarhedenbeleid onder de badges */
+        .security-cvd { text-align: center; margin-top: 28px; color: var(--text-muted); font-size: 0.95rem; }
+        .security-cvd a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .security-cvd a:hover { text-decoration: underline; }
 
         .products-grid {
             display: grid;
@@ -606,6 +610,9 @@
             text-align: center;
             margin-top: 10px;
         }
+        /* KBD-CVD-2026-09-09: koppelingen onder de copyrightregel */
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: underline; }
+        .footer-links a:hover { color: white; }
 
         .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
         .faq-item { background: var(--bg-white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
@@ -955,6 +962,8 @@
                 <div class="security-badge"><i class="fas fa-lock"></i><span data-nl="Geen aanvalsoppervlak" data-en="No attack surface" data-pap="Sin superfisie di atake">Geen aanvalsoppervlak</span></div>
                 <div class="security-badge"><i class="fas fa-hdd"></i><span data-nl="100% lokaal" data-en="100% local" data-pap="100% lokal">100% lokaal</span></div>
             </div>
+            <!-- KBD-CVD-2026-09-09 -->
+            <p class="security-cvd" data-nl="Kwetsbaarheid ontdekt in onze software of diensten? Lees ons <a href='kwetsbaarhedenbeleid.html'>kwetsbaarhedenbeleid</a> of mail <a href='mailto:security@knowledgebydata.nl'>security@knowledgebydata.nl</a>." data-en="Found a vulnerability in our software or services? Read our <a href='kwetsbaarhedenbeleid.html'>vulnerability disclosure policy</a> or e-mail <a href='mailto:security@knowledgebydata.nl'>security@knowledgebydata.nl</a>." data-pap="Bo a haña un vulnerabilidat den nos software òf servisionan? Lesa nos <a href='kwetsbaarhedenbeleid.html'>polítika di vulnerabilidat</a> òf manda un e-mail na <a href='mailto:security@knowledgebydata.nl'>security@knowledgebydata.nl</a>.">Kwetsbaarheid ontdekt in onze software of diensten? Lees ons <a href="kwetsbaarhedenbeleid.html">kwetsbaarhedenbeleid</a> of mail <a href="mailto:security@knowledgebydata.nl">security@knowledgebydata.nl</a>.</p>
         </div>
     </section>
 
@@ -1381,6 +1390,8 @@
                 </div>
             </div>
             <p data-nl="© 2025 Knowledge by Data B.V. Alle rechten voorbehouden." data-en="© 2025 Knowledge by Data B.V. All rights reserved." data-pap="© 2025 Knowledge by Data B.V. Tur derecho reservá.">© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
+            <!-- KBD-CVD-2026-09-09 -->
+            <p class="footer-links"><a href="kwetsbaarhedenbeleid.html" data-nl="Kwetsbaarhedenbeleid (Coordinated Vulnerability Disclosure)" data-en="Vulnerability disclosure policy (CVD)" data-pap="Polítika di vulnerabilidat (CVD)">Kwetsbaarhedenbeleid (Coordinated Vulnerability Disclosure)</a> · <a href="mailto:security@knowledgebydata.nl">security@knowledgebydata.nl</a></p>
         </div>
     </footer>
 

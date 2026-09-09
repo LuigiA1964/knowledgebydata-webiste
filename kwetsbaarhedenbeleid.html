@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwetsbaarhedenbeleid - Knowledge by Data</title>
+    <meta name="description" content="Coordinated Vulnerability Disclosure van Knowledge by Data B.V.: hoe u een kwetsbaarheid meldt, wat u van ons mag verwachten en hoe wij onze producten ondersteunen.">
+    <link rel="canonical" href="https://www.knowledgebydata.nl/kwetsbaarhedenbeleid.html">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #137dbe;
+            --primary-dark: #0e5a8a;
+            --primary-light: #e8f4fc;
+            --text-dark: #2d3748;
+            --text-muted: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0; right: 0;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 40px;
+        }
+        .nav-container {
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+            gap: 24px;
+        }
+        .logo { height: 80px; }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            flex-wrap: nowrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        .nav-links a.nav-suite {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e5a87 100%);
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border-bottom: none !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-links a.nav-suite:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 125, 190, 0.4);
+        }
+        .nav-contact {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .nav-contact a { color: var(--primary); text-decoration: none; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-secondary { background: var(--bg-white); color: var(--primary); border: 2px solid var(--primary); }
+        .btn-secondary:hover { background: var(--primary-light); }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .footer {
+            background: var(--text-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 50px 20px 30px;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .footer-logo { height: 60px; filter: brightness(0) invert(1); }
+        .footer-contact {
+            width: 100%;
+            max-width: 950px;
+            text-align: center;
+        }
+        .footer-contact h4 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        .footer-email-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .footer-email-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            transition: all 0.3s;
+        }
+        .footer-email-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .footer-email-item i {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .footer-email-item div {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+            flex: 1;
+            min-width: 0;
+        }
+        .footer-email-item strong {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .footer-email-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .footer-email-item a:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: underline; }
+        .footer-links a:hover { color: white; }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-contact { display: none; }
+            .logo { height: 60px; }
+        }
+
+        .beleid-kop {
+            padding: 150px 20px 40px;
+            background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-white) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+        .beleid-kop__inhoud { max-width: 860px; margin: 0 auto; }
+        .beleid-kop__label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .beleid-kop__titel {
+            font-size: 2.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+        .beleid-kop__titel span { color: var(--primary); }
+        .beleid-kop__ondertitel {
+            margin-top: 14px;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+        }
+        .beleid-kop__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .beleid-kop__meta i { color: var(--primary); margin-right: 6px; }
+
+        .beleid { padding: 40px 20px 80px; }
+        .beleid__inhoud { max-width: 860px; margin: 0 auto; }
+        .beleid__melden {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 36px;
+            padding: 22px 26px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            background: var(--bg-light);
+        }
+        .beleid__melden i {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.2rem;
+        }
+        .beleid__melden strong { display: block; margin-bottom: 4px; color: var(--text-dark); }
+        .beleid__melden p { color: var(--text-muted); font-size: 0.95rem; }
+        .beleid__melden a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .beleid__melden a:hover { text-decoration: underline; }
+
+        .beleid__inhoudsopgave {
+            margin-bottom: 36px;
+            padding: 20px 26px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-white);
+        }
+        .beleid__inhoudsopgave h2 {
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .beleid__inhoudsopgave ol {
+            columns: 2;
+            column-gap: 32px;
+            list-style: none;
+        }
+        .beleid__inhoudsopgave li { break-inside: avoid; padding: 3px 0; font-size: 0.95rem; }
+        .beleid__inhoudsopgave a { color: var(--text-dark); text-decoration: none; }
+        .beleid__inhoudsopgave a:hover { color: var(--primary); }
+
+        .beleid__kop {
+            margin: 36px 0 12px;
+            padding-top: 8px;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            scroll-margin-top: 120px;
+        }
+        .beleid__kop:first-of-type { margin-top: 0; }
+        .beleid__alinea { margin-bottom: 14px; color: var(--text-dark); }
+        .beleid__lijst { margin: 0 0 14px 22px; }
+        .beleid__lijst li { margin-bottom: 8px; }
+
+        .beleid__acties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        .beleid__acties small {
+            flex-basis: 100%;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .beleid__acties small a { color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .beleid-kop { padding-top: 130px; }
+            .beleid-kop__titel { font-size: 1.9rem; }
+            .beleid__inhoudsopgave ol { columns: 1; }
+            .beleid__melden { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.svg" alt="Knowledge by Data" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#beveiliging">Beveiliging</a></li>
+                <li><a href="index.html#producten">Producten</a></li>
+                <li><a href="suite.html" class="nav-suite">Analysis Suite</a></li>
+                <li><a href="index.html#demo">Demo</a></li>
+                <li><a href="videodemo.html">Video Demo</a></li>
+                <li><a href="deepdive.html">Deepdive</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-contact">
+                <span><i class="fas fa-phone"></i> <a href="tel:0684820708">06 84 82 07 08</a></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="beleid-kop">
+        <div class="beleid-kop__inhoud">
+            <span class="beleid-kop__label"><i class="fas fa-shield-alt"></i> Coordinated Vulnerability Disclosure</span>
+            <h1 class="beleid-kop__titel">Kwetsbaarheden<span>beleid</span></h1>
+            <p class="beleid-kop__ondertitel">Hoe u een kwetsbaarheid meldt, wat u van ons mag verwachten en hoe wij onze producten ondersteunen.</p>
+            <div class="beleid-kop__meta">
+                <span><i class="fas fa-file-alt"></i>Versie 1.0</span>
+                <span><i class="far fa-calendar"></i>9 september 2026</span>
+                <span><i class="fas fa-globe-europe"></i>Cyber Resilience Act (EU) 2024/2847</span>
+                <span><i class="fas fa-unlock"></i>Openbaar</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="beleid">
+        <div class="beleid__inhoud">
+            <aside class="beleid__melden" aria-label="Een kwetsbaarheid melden">
+                <i class="fas fa-bug" aria-hidden="true"></i>
+                <div>
+                    <strong>Een kwetsbaarheid melden?</strong>
+                    <p>Mail vertrouwelijk naar <a href="mailto:security@knowledgebydata.nl">security@knowledgebydata.nl</a>. Machineleesbaar: <a href=".well-known/security.txt">/.well-known/security.txt</a> (RFC 9116). Wij bevestigen binnen 1 werkdag.</p>
+                </div>
+            </aside>
+
+            <nav class="beleid__inhoudsopgave" aria-label="Inhoudsopgave">
+                <h2>Inhoud</h2>
+                <ol>
+<li><a href="#artikel-1">1. Waarom dit beleid</a></li>
+<li><a href="#artikel-2">2. Reikwijdte</a></li>
+<li><a href="#artikel-3">3. Een kwetsbaarheid melden</a></li>
+<li><a href="#artikel-4">4. Wat wij doen na uw melding</a></li>
+<li><a href="#artikel-5">5. Wat wij van u vragen</a></li>
+<li><a href="#artikel-6">6. Geen juridische stappen bij verantwoord handelen</a></li>
+<li><a href="#artikel-7">7. Ondersteuningsperiode en beveiligingsupdates</a></li>
+<li><a href="#artikel-8">8. Hoe updates u bereiken</a></li>
+<li><a href="#artikel-9">9. Softwarestuklijst (SBOM)</a></li>
+<li><a href="#artikel-10">10. Openbaarmaking en naamsvermelding</a></li>
+<li><a href="#artikel-11">11. Contact</a></li>
+                </ol>
+            </nav>
+
+            <article>
+<h2 id="artikel-1" class="beleid__kop">1. Waarom dit beleid</h2>
+<p class="beleid__alinea">Knowledge by Data B.V. (“KbD”) levert analysesoftware aan gemeenten en andere overheidsorganisaties. Die software verwerkt gevoelige gegevens en draait bewust volledig lokaal, zonder verbinding naar buiten. Juist daarom vinden wij het belangrijk dat iedereen die een zwakte ontdekt — een afnemer, een beveiligingsonderzoeker, een toezichthouder — ons die veilig en eenvoudig kan melden, en weet wat er dan gebeurt.</p>
+<p class="beleid__alinea">Dit beleid beschrijft die afspraken. Het geeft uitvoering aan de eisen die de Europese Cyber Resilience Act aan fabrikanten van software stelt: een beleid voor gecoördineerde openbaarmaking, een contactpunt, beveiligingsupdates gedurende een vastgestelde ondersteuningsperiode en een softwarestuklijst per product.</p>
+<h2 id="artikel-2" class="beleid__kop">2. Reikwijdte</h2>
+<p class="beleid__alinea">Dit beleid geldt voor alle software die KbD in de handel brengt (de analyseapplicaties, de Readers en de KBD Analysis Suite) en voor de diensten waarmee wij die software leveren en ondersteunen: portal.knowledgebydata.nl, downloads.knowledgebydata.nl, licenties.knowledgebydata.nl, trainers.knowledgebydata.nl en de daarop afgeschermde pagina’s.</p>
+<p class="beleid__alinea">Het geldt niet voor systemen van onze afnemers waarop de software is geïnstalleerd; meldingen daarover gaan naar de betreffende organisatie. Treft u in onze software een probleem aan dat de gegevens van een afnemer raakt, meld het dan aan ons; wij informeren de afnemer.</p>
+<h2 id="artikel-3" class="beleid__kop">3. Een kwetsbaarheid melden</h2>
+<p class="beleid__alinea">Meld een kwetsbaarheid vertrouwelijk via:</p>
+<ul class="beleid__lijst"><li>E-mail: security@knowledgebydata.nl (dit adres wordt bewaakt; buiten kantooruren ten minste dagelijks).</li><li>Alternatief: het algemene adres lpantenbrink@knowledgebydata.nl, onder vermelding van “kwetsbaarheid”.</li><li>Machineleesbaar: https://www.knowledgebydata.nl/.well-known/security.txt (RFC 9116), ook op alle *.knowledgebydata.nl-diensten.</li></ul>
+<p class="beleid__alinea">Vermeld in uw melding zo mogelijk: welk product of welke dienst en welke versie; wat u hebt aangetroffen en hoe het te reproduceren is; wat de mogelijke impact is; en hoe wij u kunnen bereiken. Screenshots en een stappenlijst helpen. Stuur ons geen gegevens van derden mee die u tijdens uw onderzoek bent tegengekomen.</p>
+<p class="beleid__alinea">Wilt u versleuteld mailen, vermeld dat dan in een eerste bericht; wij sturen u een sleutel.</p>
+<h2 id="artikel-4" class="beleid__kop">4. Wat wij doen na uw melding</h2>
+<ul class="beleid__lijst"><li>Binnen 1 werkdag ontvangt u een ontvangstbevestiging.</li><li>Binnen 5 werkdagen laten wij u weten of wij de melding als kwetsbaarheid erkennen en hoe ernstig wij haar inschatten.</li><li>Wij houden u op de hoogte van de voortgang en overleggen met u over het moment van openbaarmaking.</li><li>Een erkende kwetsbaarheid verhelpen wij in een nieuwe, ondertekende versie die via onze vaste uitrolketen bij alle afnemers terechtkomt. Streeftermijn: ernstige kwetsbaarheden binnen 30 dagen, overige binnen 90 dagen na erkenning.</li><li>Blijkt een kwetsbaarheid actief te worden misbruikt, dan melden wij dat — los van uw melding — aan ENISA en het Nationaal Cyber Security Centrum, zoals de Cyber Resilience Act voorschrijft, en informeren wij onze afnemers direct.</li></ul>
+<h2 id="artikel-5" class="beleid__kop">5. Wat wij van u vragen</h2>
+<ul class="beleid__lijst"><li>Meld de kwetsbaarheid zo snel mogelijk en alleen aan ons, en deel haar niet met anderen totdat wij haar hebben verholpen en samen een moment van openbaarmaking hebben afgesproken.</li><li>Ga niet verder dan nodig is om de kwetsbaarheid aan te tonen: geen gegevens kopiëren, wijzigen of verwijderen; geen toegang tot systemen of gegevens van afnemers; geen aanvallen die de beschikbaarheid raken; geen sociale manipulatie van medewerkers of afnemers.</li><li>Maak geen gebruik van de kwetsbaarheid en installeer geen achterdeuren.</li><li>Behandel gegevens die u onbedoeld bent tegengekomen als vertrouwelijk en verwijder ze zodra u ze niet meer nodig hebt.</li></ul>
+<h2 id="artikel-6" class="beleid__kop">6. Geen juridische stappen bij verantwoord handelen</h2>
+<p class="beleid__alinea">Handelt u volgens dit beleid, dan onderneemt KbD geen juridische stappen tegen u en doet zij geen aangifte in verband met uw onderzoek. Wij beschouwen uw melding als een bijdrage aan de veiligheid van onze afnemers, niet als een aanval.</p>
+<p class="beleid__alinea">Dit beleid sluit aan bij de Leidraad Coordinated Vulnerability Disclosure van het NCSC. Het geeft geen vrijbrief voor handelen dat buiten de reikwijdte van hoofdstuk 5 valt.</p>
+<h2 id="artikel-7" class="beleid__kop">7. Ondersteuningsperiode en beveiligingsupdates</h2>
+<p class="beleid__alinea">Elke productlijn van KbD wordt ten minste vijf jaar vanaf de datum van dit beleid, en in elk geval ten minste vijf jaar vanaf het in de handel brengen van een nieuwe productlijn, ondersteund met beveiligingsupdates. Voor de huidige producten betekent dit: ondersteuning tot ten minste 2031-09-09.</p>
+<p class="beleid__alinea">Per versie geldt: een versie wordt ondersteund tot zes maanden na het verschijnen van haar opvolger. Wij raden afnemers aan altijd de meest recente versie te installeren; de portal toont per product de actuele versie.</p>
+<p class="beleid__alinea">Beveiligingsupdates worden kosteloos en zonder onnodig uitstel beschikbaar gesteld, los van functionele updates waar dat kan. Elke uitgeleverde versie is digitaal ondertekend (Windows: Authenticode met het EV-certificaat van Knowledge by Data B.V.), zodat de afnemer kan vaststellen dat een update werkelijk van KbD komt.</p>
+<p class="beleid__alinea">De ondersteuningsperiode per product staat ook in de softwarestuklijst van dat product (hoofdstuk 9).</p>
+<h2 id="artikel-8" class="beleid__kop">8. Hoe updates u bereiken</h2>
+<p class="beleid__alinea">KbD-software werkt bewust zonder verbinding naar buiten en werkt zichzelf dus niet automatisch bij. Nieuwe versies worden gepubliceerd op de portal en de downloadserver; afnemers ontvangen bij een beveiligingsupdate een bericht op het bij ons bekende contactadres. De Readers (voor het inzien van dossiers na afloop van een licentie) volgen dezelfde route.</p>
+<p class="beleid__alinea">Een update installeert u als een nieuwe versie over de bestaande heen; dossiers en instellingen blijven behouden. De installatiehandleiding per product beschrijft de stappen.</p>
+<h2 id="artikel-9" class="beleid__kop">9. Softwarestuklijst (SBOM)</h2>
+<p class="beleid__alinea">Voor elk product houdt KbD een softwarestuklijst bij in het CycloneDX-formaat: alle meegeleverde bibliotheken en programma’s met versie en controlesom, en de bouwafhankelijkheden. Afnemers ontvangen de SBOM van hun producten op verzoek via security@knowledgebydata.nl; toezichthouders krijgen inzage in het conformiteitsdossier.</p>
+<h2 id="artikel-10" class="beleid__kop">10. Openbaarmaking en naamsvermelding</h2>
+<p class="beleid__alinea">Na het verhelpen van een kwetsbaarheid publiceert KbD een korte beschrijving in de versiegeschiedenis van het product. Wilt u als melder genoemd worden, dan doen wij dat graag; wilt u dat niet, dan blijft u anoniem. Openbaarmaking gebeurt in overleg en niet voordat afnemers de gelegenheid hebben gehad de herstelde versie te installeren.</p>
+<h2 id="artikel-11" class="beleid__kop">11. Contact</h2>
+<p class="beleid__alinea">Knowledge by Data B.V. — Mient 24 B, 1811 NC Alkmaar — KvK 99430169 — www.knowledgebydata.nl</p>
+<p class="beleid__alinea">Beveiligingsmeldingen: security@knowledgebydata.nl. Overige vragen: lpantenbrink@knowledgebydata.nl.</p>
+<p class="beleid__alinea">Dit beleid wordt ten minste jaarlijks herzien. De actuele versie staat op https://www.knowledgebydata.nl/kwetsbaarhedenbeleid.html.</p>
+            </article>
+
+            <div class="beleid__acties">
+                <a href="documenten/Kwetsbaarhedenbeleid-Knowledge-by-Data.pdf" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Download dit beleid als PDF</a>
+                <a href="mailto:security@knowledgebydata.nl" class="btn btn-secondary"><i class="fas fa-envelope"></i> Kwetsbaarheid melden</a>
+                <small>Dit beleid wordt ten minste jaarlijks herzien. De actuele versie staat altijd op <a href="https://www.knowledgebydata.nl/kwetsbaarhedenbeleid.html">www.knowledgebydata.nl/kwetsbaarhedenbeleid.html</a>.</small>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <img src="logo.svg" alt="Knowledge by Data" class="footer-logo">
+            <div class="footer-contact">
+                <h4>Knowledge by Data B.V.</h4>
+                <div class="footer-email-list">
+                    <div class="footer-email-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Algemene informatie</strong>
+                            <a href="mailto:info@knowledgebydata.nl">info@knowledgebydata.nl</a>
+                        </div>
+                    </div>
+                    <div class="footer-email-item">
+                        <i class="fas fa-comment"></i>
+                        <div>
+                            <strong>Feedback</strong>
+                            <a href="mailto:feedback@knowledgebydata.nl">feedback@knowledgebydata.nl</a>
+                        </div>
+                    </div>
+                    <div class="footer-email-item">
+                        <i class="fas fa-life-ring"></i>
+                        <div>
+                            <strong>Support</strong>
+                            <a href="mailto:support@knowledgebydata.nl">support@knowledgebydata.nl</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>© 2025 Knowledge by Data B.V. Alle rechten voorbehouden.</p>
+            <p class="footer-links"><a href="kwetsbaarhedenbeleid.html">Kwetsbaarhedenbeleid (Coordinated Vulnerability Disclosure)</a> · <a href="mailto:security@knowledgebydata.nl">security@knowledgebydata.nl</a></p>
+        </div>
+    </footer>
+</body>
+</html>
