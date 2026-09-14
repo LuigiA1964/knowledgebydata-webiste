@@ -1,0 +1,11 @@
+# Knowledge by Data B.V. — security.txt (RFC 9116)
+# Meld een kwetsbaarheid in onze software of servers vertrouwelijk via onderstaand adres.
+Contact: mailto:security@knowledgebydata.nl
+Contact: https://www.knowledgebydata.nl/kwetsbaarhedenbeleid.html
+Expires: 2027-09-09T00:00:00.000Z
+Preferred-Languages: nl, en
+Policy: https://www.knowledgebydata.nl/kwetsbaarhedenbeleid.html
+Canonical: https://www.knowledgebydata.nl/.well-known/security.txt
+Canonical: https://downloads.knowledgebydata.nl/.well-known/security.txt
+Canonical: https://portal.knowledgebydata.nl/.well-known/security.txt
+Canonical: https://licenties.knowledgebydata.nl/.well-known/security.txt
