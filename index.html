@@ -19,6 +19,8 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --success-light: #ecfdf5;
+            --success-dark: #047857;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -284,6 +286,10 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
+        }
+        .credential--ai {
+            background: var(--success-light);
+            color: var(--success-dark);
         }
         
         .protected-notice {
@@ -848,6 +854,7 @@
                         <span class="credential"><i class="fas fa-chart-bar"></i> Data Professional</span>
                         <span class="credential"><i class="fas fa-search"></i> Data Analyst</span>
                         <span class="credential"><i class="fas fa-graduation-cap"></i> Chief Data Officer</span>
+                        <span class="credential credential--ai"><i class="fas fa-robot"></i> <span data-nl="AI-beleid maken" data-en="AI policy development" data-pap="Desaroyo di polítika di AI">AI-beleid maken</span></span>
                     </div>
                 </div>
             </div>
